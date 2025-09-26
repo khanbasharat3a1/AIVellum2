@@ -1,0 +1,526 @@
+{
+  "categories": [
+    {
+      "id": "money_making",
+      "name": "Money Making",
+      "icon": "💰",
+      "description": "AI prompts to generate income and build wealth",
+      "isPrimary": true
+    },
+    {
+      "id": "business_strategy",
+      "name": "Business & Strategy",
+      "icon": "📊",
+      "description": "Strategic business planning and growth prompts"
+    },
+    {
+      "id": "freelancing",
+      "name": "Freelancing",
+      "icon": "💼",
+      "description": "Freelance success and client acquisition prompts"
+    },
+    {
+      "id": "marketing_sales",
+      "name": "Marketing & Sales",
+      "icon": "📈",
+      "description": "Marketing strategies and sales optimization"
+    },
+    {
+      "id": "writing",
+      "name": "Writing",
+      "icon": "✍️",
+      "description": "Creative and professional writing assistance"
+    },
+    {
+      "id": "content_creation",
+      "name": "Content Creation",
+      "icon": "🎨",
+      "description": "Social media and digital content creation"
+    },
+    {
+      "id": "development_tech",
+      "name": "Development & Tech",
+      "icon": "💻",
+      "description": "Programming and technical development prompts"
+    },
+    {
+      "id": "productivity",
+      "name": "Productivity & Planning",
+      "icon": "⚡",
+      "description": "Efficiency and time management optimization"
+    },
+    {
+      "id": "social_media",
+      "name": "Social Media",
+      "icon": "📱",
+      "description": "Social media growth and engagement strategies"
+    },
+    {
+      "id": "learning_education",
+      "name": "Learning & Education",
+      "icon": "🎓",
+      "description": "Educational content and learning acceleration"
+    },
+    {
+      "id": "psychology",
+      "name": "Psychology",
+      "icon": "🧠",
+      "description": "Human behavior and psychological insights"
+    },
+    {
+      "id": "fitness_health",
+      "name": "Fitness & Health",
+      "icon": "💪",
+      "description": "Health optimization and fitness planning"
+    },
+    {
+      "id": "ai_art",
+      "name": "AI Art Generation",
+      "icon": "🎭",
+      "description": "Creative AI art and visual content prompts"
+    },
+    {
+      "id": "research_analysis",
+      "name": "Research & Analysis",
+      "icon": "🔍",
+      "description": "Data analysis and research methodologies"
+    }
+  ],
+  "prompts": [
+    {
+      "id": "mm_001",
+      "categoryId": "money_making",
+      "title": "3-Day AI Micro-Product Launch",
+      "description": "Design a 3-day AI micro-product launch plan that earns $100+ using zero ad spend, no audience, and only trending AI tools.",
+      "content": "Create a comprehensive 3-day launch strategy for an AI-powered micro-product. Include: Day 1 - Product ideation using ChatGPT to identify trending problems in [NICHE]. Research 5 micro-problems people pay to solve. Day 2 - Build MVP using no-code tools like Bubble + OpenAI API. Create landing page with Carrd. Day 3 - Launch on Product Hunt, Reddit, and Twitter. Include pricing strategy ($9-29), validation methods, and scaling tactics for first $100.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "3 days",
+      "tags": ["launch", "micro-product", "ai-tools", "zero-budget"]
+    },
+    {
+      "id": "mm_002",
+      "categoryId": "money_making",
+      "title": "Instagram Growth to 10K in 30 Days",
+      "description": "Content plan to grow from 0 to 10k followers in 30 days using only ChatGPT + Canva.",
+      "content": "Generate a complete 30-day Instagram growth strategy: Week 1-2: Create 60 posts using ChatGPT prompts for [NICHE] + Canva templates. Focus on problem-solving content, behind-the-scenes, and value-packed carousels. Week 3-4: Implement engagement pods, story strategies, and Reels using trending audio. Include hashtag research method, optimal posting times, and DM automation scripts. Provide content calendar template and growth tracking metrics.",
+      "isPremium": true,
+      "difficulty": "Beginner",
+      "estimatedTime": "30 days",
+      "tags": ["instagram", "social-growth", "content-strategy", "chatgpt"]
+    },
+    {
+      "id": "mm_003",
+      "categoryId": "money_making",
+      "title": "Productized Services with 24h Delivery",
+      "description": "Generate 5 productized services using ChatGPT and free tools, with under 24-hour delivery windows.",
+      "content": "Create 5 high-demand productized services: 1) AI-powered business name + logo package ($47) 2) Social media content calendar (30 posts, $67) 3) Email sequence for course creators (7 emails, $97) 4) Landing page copy + headlines ($127) 5) Competitor analysis report ($87). Include delivery templates, pricing psychology, client onboarding process, and scaling to $5K/month. Provide Notion workspace for order management.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 week setup",
+      "tags": ["productized-services", "automation", "high-ticket", "scalable"]
+    },
+    {
+      "id": "mm_004",
+      "categoryId": "money_making",
+      "title": "Viral Cold DM Conversion Script",
+      "description": "Write a viral cold DM that converts strangers into $250+ clients using urgency psychology.",
+      "content": "Craft the perfect cold DM sequence: Message 1: 'Hey [NAME], noticed you're crushing it with [SPECIFIC OBSERVATION]. Quick question - are you looking to [DESIRED OUTCOME] without [PAIN POINT]?' Message 2: Share mini case study. Message 3: Soft pitch with urgency. Include psychology triggers, personalization methods, follow-up sequences, and conversion tracking. Optimize for LinkedIn, Instagram, and Twitter DMs.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "2 hours",
+      "tags": ["cold-dm", "conversion", "psychology", "client-acquisition"]
+    },
+    {
+      "id": "mm_005",
+      "categoryId": "money_making",
+      "title": "AI Course Landing Page Copy",
+      "description": "Create landing page copy for a $27 AI course targeting freelancers with zero prior skills.",
+      "content": "Write high-converting landing page copy: Headline: 'From Zero to AI Freelancer in 7 Days (Even If You've Never Used ChatGPT)' Include pain points of struggling freelancers, transformation story, course curriculum, social proof template, FAQ section addressing objections, and urgency-driven CTA. Add bonus structure and guarantee copy. Optimize for mobile and include A/B test variations.",
+      "isPremium": true,
+      "difficulty": "Intermediate",
+      "estimatedTime": "4 hours",
+      "tags": ["landing-page", "copywriting", "course-sales", "freelancers"]
+    },
+    {
+      "id": "mm_009",
+      "categoryId": "money_making",
+      "title": "Crypto Trading Bot Strategy",
+      "description": "Build automated crypto trading strategies using AI market analysis and risk management.",
+      "content": "Automated crypto trading system: Market analysis algorithms, risk management protocols, portfolio diversification, backtesting strategies, and performance monitoring. Include setup for major exchanges and safety measures.",
+      "isPremium": false,
+      "difficulty": "Advanced",
+      "estimatedTime": "2 weeks",
+      "tags": ["crypto", "trading", "automation", "ai-analysis"]
+    },
+    {
+      "id": "mm_010",
+      "categoryId": "money_making",
+      "title": "Print-on-Demand Empire",
+      "description": "Create a passive income stream with AI-designed print-on-demand products.",
+      "content": "POD business blueprint: Niche research using AI tools, design creation with Midjourney/DALL-E, product listing optimization, marketing automation, and scaling across multiple platforms (Etsy, Amazon, Shopify).",
+      "isPremium": true,
+      "difficulty": "Beginner",
+      "estimatedTime": "1 week",
+      "tags": ["print-on-demand", "passive-income", "ai-design", "ecommerce"]
+    },
+    {
+      "id": "mm_011",
+      "categoryId": "money_making",
+      "title": "AI Consulting Business",
+      "description": "Start a profitable AI consulting business helping businesses implement AI solutions.",
+      "content": "AI consulting framework: Service packaging, client acquisition strategies, project delivery methodologies, pricing models, and scaling to team-based operations. Include proposal templates and case studies.",
+      "isPremium": false,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 month",
+      "tags": ["consulting", "ai-services", "business", "scaling"]
+    },
+    {
+      "id": "bs_001",
+      "categoryId": "business_strategy",
+      "title": "Competitive Analysis Framework",
+      "description": "Analyze competitors and identify market gaps using AI-powered research methods.",
+      "content": "Create comprehensive competitor analysis: 1) Identify top 10 competitors using ChatGPT + Google search 2) Analyze pricing, features, and positioning 3) Find content gaps and opportunities 4) Create SWOT analysis 5) Develop differentiation strategy. Include research templates, data collection methods, and actionable insights for market positioning.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "1 week",
+      "tags": ["competitor-analysis", "market-research", "strategy", "positioning"]
+    },
+    {
+      "id": "bs_002",
+      "categoryId": "business_strategy",
+      "title": "90-Day Business Launch Plan",
+      "description": "Complete business launch strategy from idea validation to first revenue.",
+      "content": "Month 1: Idea validation using surveys, MVP development, target audience research. Month 2: Brand building, website creation, content marketing setup. Month 3: Launch campaign, customer acquisition, revenue optimization. Include milestone tracking, budget allocation, risk mitigation strategies, and pivot indicators.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "90 days",
+      "tags": ["business-launch", "validation", "strategy", "revenue"]
+    },
+    {
+      "id": "fl_001",
+      "categoryId": "freelancing",
+      "title": "Upwork Profile Optimization",
+      "description": "Create a persuasive Upwork profile for prompt engineers with no past clients.",
+      "content": "Optimize Upwork profile for prompt engineering: Professional headline, skills showcase, portfolio samples using personal projects, pricing strategy for beginners, proposal templates, and client communication scripts. Include niche positioning, keyword optimization, and first client acquisition tactics.",
+      "isPremium": false,
+      "difficulty": "Beginner",
+      "estimatedTime": "3 hours",
+      "tags": ["upwork", "freelancing", "profile-optimization", "prompt-engineering"]
+    },
+    {
+      "id": "ms_001",
+      "categoryId": "marketing_sales",
+      "title": "Email Launch Sequence",
+      "description": "5-email nurture sequence for new subscribers who downloaded AI money hacks PDF.",
+      "content": "Email 1: Welcome + deliver lead magnet. Email 2: Personal story + credibility. Email 3: Case study + social proof. Email 4: Objection handling + FAQ. Email 5: Soft pitch + urgency. Include subject line variations, personalization tokens, and conversion tracking setup.",
+      "isPremium": true,
+      "difficulty": "Intermediate",
+      "estimatedTime": "1 day",
+      "tags": ["email-marketing", "nurture-sequence", "conversion", "automation"]
+    },
+    {
+      "id": "w_001",
+      "categoryId": "writing",
+      "title": "Blog Post SEO Structure",
+      "description": "SEO blog post structure that ranks for 'make money with ChatGPT' with internal prompts.",
+      "content": "Create SEO-optimized blog structure: Title variations, meta description, H1-H6 hierarchy, keyword density optimization, internal linking strategy, featured snippets targeting, and call-to-action placement. Include content outline, word count targets, and ranking factors checklist.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "2 hours",
+      "tags": ["seo", "blog-writing", "content-marketing", "ranking"]
+    },
+    {
+      "id": "cc_001",
+      "categoryId": "content_creation",
+      "title": "30 Viral Instagram Captions",
+      "description": "ChatGPT prompt that creates 30 viral Instagram captions in the AI niche instantly.",
+      "content": "Generate viral Instagram captions using this framework: Hook + Value + Story + CTA. Include trending hashtags, engagement questions, and call-to-action variations. Optimize for different post types: educational, behind-the-scenes, motivational, and promotional content.",
+      "isPremium": true,
+      "difficulty": "Beginner",
+      "estimatedTime": "30 minutes",
+      "tags": ["instagram", "captions", "viral-content", "social-media"]
+    },
+    {
+      "id": "cc_004",
+      "categoryId": "content_creation",
+      "title": "Podcast Content Strategy",
+      "description": "Create engaging podcast content that builds audience and drives monetization.",
+      "content": "Podcast mastery system: Topic research, episode structuring, guest outreach, audience engagement, monetization strategies, and growth hacking techniques. Include content calendar and promotion templates.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "1 week",
+      "tags": ["podcast", "content-strategy", "monetization", "audience-building"]
+    },
+    {
+      "id": "dt_001",
+      "categoryId": "development_tech",
+      "title": "No-Code App Development Plan",
+      "description": "Build and monetize a no-code app using Bubble and AI integrations.",
+      "content": "Complete no-code development roadmap: App ideation, Bubble setup, database design, AI API integration (OpenAI, Claude), user authentication, payment processing, and deployment. Include monetization strategies, user acquisition, and scaling techniques.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "2 weeks",
+      "tags": ["no-code", "app-development", "bubble", "ai-integration"]
+    },
+    {
+      "id": "pp_001",
+      "categoryId": "productivity",
+      "title": "Notion Study Automation",
+      "description": "Notion template that automates study schedule and revision using spaced repetition + dopamine hacks.",
+      "content": "Create automated Notion study system: Spaced repetition calculator, progress tracking, dopamine reward system, goal setting templates, and performance analytics. Include habit tracking, motivation boosters, and study session optimization.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "1 day",
+      "tags": ["notion", "study-system", "automation", "productivity"]
+    },
+    {
+      "id": "sm_001",
+      "categoryId": "social_media",
+      "title": "TikTok Viral Script Formula",
+      "description": "TikTok script using hook: 'You've been using AI wrong your whole life.'",
+      "content": "Viral TikTok script structure: Hook (0-3s), Problem agitation (3-8s), Solution reveal (8-12s), Proof/example (12-20s), CTA (20-30s). Include trending audio suggestions, visual cues, and engagement optimization tactics.",
+      "isPremium": true,
+      "difficulty": "Beginner",
+      "estimatedTime": "1 hour",
+      "tags": ["tiktok", "viral-content", "script-writing", "hooks"]
+    },
+    {
+      "id": "le_001",
+      "categoryId": "learning_education",
+      "title": "PDF to Flashcards Automation",
+      "description": "ChatGPT prompt that builds digital flashcards from any long PDF textbook automatically.",
+      "content": "Automated flashcard generation system: PDF text extraction, key concept identification, question-answer pair creation, spaced repetition scheduling, and progress tracking. Include Anki integration and mobile optimization.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "2 hours",
+      "tags": ["flashcards", "study-automation", "pdf-processing", "learning"]
+    },
+    {
+      "id": "p_001",
+      "categoryId": "psychology",
+      "title": "Persuasion Psychology Framework",
+      "description": "Apply Cialdini's principles to digital marketing and sales conversations.",
+      "content": "Master persuasion psychology: Reciprocity triggers, commitment consistency, social proof implementation, authority building, liking factors, and scarcity creation. Include practical examples, ethical guidelines, and conversion optimization techniques.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 week",
+      "tags": ["psychology", "persuasion", "marketing", "conversion"]
+    },
+    {
+      "id": "fh_001",
+      "categoryId": "fitness_health",
+      "title": "AI Fitness Plan Generator",
+      "description": "Create personalized workout and nutrition plans using AI prompts.",
+      "content": "Generate custom fitness plans: Goal assessment, workout routine creation, nutrition planning, progress tracking, and motivation systems. Include injury prevention, exercise modifications, and habit formation strategies.",
+      "isPremium": false,
+      "difficulty": "Beginner",
+      "estimatedTime": "1 hour",
+      "tags": ["fitness", "nutrition", "personalization", "health"]
+    },
+    {
+      "id": "aa_001",
+      "categoryId": "ai_art",
+      "title": "Midjourney Prompt Mastery",
+      "description": "Advanced Midjourney prompts for commercial-quality AI art generation.",
+      "content": "Master Midjourney prompting: Style parameters, aspect ratios, quality settings, artistic styles, commercial licensing, and prompt optimization. Include style guides, parameter combinations, and monetization strategies for AI art.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "3 days",
+      "tags": ["midjourney", "ai-art", "prompting", "commercial"]
+    },
+    {
+      "id": "ra_001",
+      "categoryId": "research_analysis",
+      "title": "Market Research Automation",
+      "description": "Automate market research using AI tools and data analysis techniques.",
+      "content": "Comprehensive market research system: Data collection automation, trend analysis, competitor monitoring, customer sentiment analysis, and report generation. Include tools integration, data visualization, and actionable insights extraction.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 week",
+      "tags": ["market-research", "automation", "data-analysis", "insights"]
+    },
+    {
+      "id": "mm_006",
+      "categoryId": "money_making",
+      "title": "YouTube Automation Empire",
+      "description": "Build a faceless YouTube channel that generates $5K+ monthly using AI content creation.",
+      "content": "Complete YouTube automation blueprint: Niche selection using trend analysis, AI script generation with ChatGPT, voice synthesis with ElevenLabs, thumbnail creation with Midjourney, SEO optimization, monetization strategies, and scaling to multiple channels. Include content calendar, analytics tracking, and outsourcing workflows.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "2 weeks",
+      "tags": ["youtube", "automation", "ai-content", "passive-income"]
+    },
+    {
+      "id": "mm_007",
+      "categoryId": "money_making",
+      "title": "AI SaaS Idea Generator",
+      "description": "Generate profitable SaaS ideas using AI market analysis and validation frameworks.",
+      "content": "Systematic SaaS ideation process: Market gap analysis using AI tools, competitor research automation, customer pain point identification, MVP planning, pricing strategy, go-to-market approach, and validation methods. Include 50+ validated SaaS ideas across different niches.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "3 days",
+      "tags": ["saas", "startup", "validation", "market-analysis"]
+    },
+    {
+      "id": "cc_002",
+      "categoryId": "content_creation",
+      "title": "Viral TikTok Content Factory",
+      "description": "Create viral TikTok content consistently using AI-powered trend analysis and scripting.",
+      "content": "TikTok virality system: Trend identification using AI tools, hook formulas that guarantee engagement, script templates for different niches, optimal posting times, hashtag strategies, and content repurposing across platforms. Include 100+ viral hook examples.",
+      "isPremium": true,
+      "difficulty": "Beginner",
+      "estimatedTime": "1 week",
+      "tags": ["tiktok", "viral-content", "trends", "engagement"]
+    },
+    {
+      "id": "fl_002",
+      "categoryId": "freelancing",
+      "title": "$100/Hour Freelancer Blueprint",
+      "description": "Scale from $10/hour to $100/hour freelancer using premium positioning and AI efficiency.",
+      "content": "Premium freelancer transformation: High-value service packaging, premium client acquisition, proposal templates that convert, pricing psychology, AI workflow automation, client retention strategies, and scaling to agency model. Include case studies and templates.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 month",
+      "tags": ["freelancing", "premium-pricing", "scaling", "positioning"]
+    },
+    {
+      "id": "bs_003",
+      "categoryId": "business_strategy",
+      "title": "AI Business Model Canvas",
+      "description": "Create comprehensive business models using AI analysis and strategic frameworks.",
+      "content": "AI-powered business modeling: Market opportunity analysis, revenue stream optimization, cost structure analysis, competitive positioning, risk assessment, and growth projections. Include templates for different business types and validation methods.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "1 week",
+      "tags": ["business-model", "strategy", "analysis", "planning"]
+    },
+    {
+      "id": "mm_008",
+      "categoryId": "money_making",
+      "title": "Dropshipping Empire Builder",
+      "description": "Build a profitable dropshipping business using AI for product research and marketing.",
+      "content": "Complete dropshipping system: AI-powered product research, supplier validation, store setup with Shopify, Facebook Ads optimization, customer service automation, and scaling strategies. Include winning product database and marketing templates.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "2 weeks",
+      "tags": ["dropshipping", "ecommerce", "facebook-ads", "automation"]
+    },
+    {
+      "id": "cc_003",
+      "categoryId": "content_creation",
+      "title": "AI Video Script Generator",
+      "description": "Create engaging video scripts for YouTube, TikTok, and Instagram using AI frameworks.",
+      "content": "Video scripting mastery: Hook formulas, storytelling structures, engagement techniques, call-to-action optimization, and platform-specific adaptations. Include 50+ proven script templates and viral video analysis.",
+      "isPremium": false,
+      "difficulty": "Beginner",
+      "estimatedTime": "2 days",
+      "tags": ["video-scripts", "youtube", "storytelling", "engagement"]
+    },
+    {
+      "id": "w_002",
+      "categoryId": "writing",
+      "title": "AI Copywriting Mastery",
+      "description": "Master persuasive copywriting using AI tools and psychological triggers.",
+      "content": "Advanced copywriting system: Psychology-based frameworks, AI-assisted research, headline formulas, email sequences, sales page optimization, and conversion tracking. Include swipe files and case studies.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 week",
+      "tags": ["copywriting", "psychology", "conversion", "sales"]
+    },
+    {
+      "id": "sm_002",
+      "categoryId": "social_media",
+      "title": "LinkedIn Authority Builder",
+      "description": "Build thought leadership on LinkedIn using AI content strategies.",
+      "content": "LinkedIn growth system: Content pillars, engagement strategies, network building, thought leadership positioning, and lead generation. Include content calendar and automation tools.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "3 days",
+      "tags": ["linkedin", "thought-leadership", "networking", "b2b"]
+    },
+    {
+      "id": "dt_002",
+      "categoryId": "development_tech",
+      "title": "AI Code Review Assistant",
+      "description": "Create an AI-powered code review system that improves code quality and catches bugs.",
+      "content": "Build automated code review system: Static analysis integration, AI-powered bug detection, code quality metrics, security vulnerability scanning, and automated suggestions. Include setup for popular IDEs and CI/CD integration.",
+      "isPremium": true,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 week",
+      "tags": ["code-review", "automation", "quality", "security"]
+    },
+    {
+      "id": "pp_002",
+      "categoryId": "productivity",
+      "title": "AI Task Automation Hub",
+      "description": "Automate repetitive tasks using AI and no-code tools for maximum productivity.",
+      "content": "Complete automation setup: Task identification, workflow mapping, tool selection (Zapier, Make, n8n), AI integration, monitoring and optimization. Include 20+ automation templates for common tasks.",
+      "isPremium": false,
+      "difficulty": "Intermediate",
+      "estimatedTime": "4 days",
+      "tags": ["automation", "productivity", "workflows", "no-code"]
+    },
+    {
+      "id": "le_002",
+      "categoryId": "learning_education",
+      "title": "AI Learning Path Generator",
+      "description": "Create personalized learning paths for any skill using AI curriculum design.",
+      "content": "Personalized education system: Skill assessment, learning style analysis, curriculum generation, progress tracking, and adaptive content delivery. Include templates for technical and creative skills.",
+      "isPremium": true,
+      "difficulty": "Intermediate",
+      "estimatedTime": "5 days",
+      "tags": ["education", "personalization", "curriculum", "assessment"]
+    },
+    {
+      "id": "p_002",
+      "categoryId": "psychology",
+      "title": "Behavioral Design Framework",
+      "description": "Apply behavioral psychology to design products and experiences that drive action.",
+      "content": "Behavioral design mastery: Cognitive bias application, habit formation techniques, motivation triggers, decision architecture, and user journey optimization. Include case studies and implementation guides.",
+      "isPremium": false,
+      "difficulty": "Advanced",
+      "estimatedTime": "1 week",
+      "tags": ["behavioral-design", "ux", "psychology", "conversion"]
+    },
+    {
+      "id": "fh_002",
+      "categoryId": "fitness_health",
+      "title": "AI Nutrition Optimizer",
+      "description": "Create personalized nutrition plans using AI analysis of health data and goals.",
+      "content": "Smart nutrition system: Health assessment, dietary preference analysis, meal planning automation, macro tracking, and progress optimization. Include integration with fitness apps and wearables.",
+      "isPremium": true,
+      "difficulty": "Intermediate",
+      "estimatedTime": "3 days",
+      "tags": ["nutrition", "health", "personalization", "tracking"]
+    },
+    {
+      "id": "aa_002",
+      "categoryId": "ai_art",
+      "title": "AI Art Business Blueprint",
+      "description": "Monetize AI-generated art through multiple revenue streams and platforms.",
+      "content": "AI art monetization: Platform selection (Etsy, Society6, NFT marketplaces), pricing strategies, marketing techniques, client acquisition, and scaling operations. Include legal considerations and portfolio building.",
+      "isPremium": false,
+      "difficulty": "Beginner",
+      "estimatedTime": "2 days",
+      "tags": ["ai-art", "monetization", "business", "marketing"]
+    }
+  ],
+  "pricing": {
+    "india": {
+      "individual_prompt": 1,
+      "lifetime_access": 999,
+      "currency": "₹"
+    },
+    "international": {
+      "individual_prompt": 0.05,
+      "lifetime_access": 12.99,
+      "currency": "$"
+    }
+  },
+  "app_config": {
+    "free_prompts_per_category": 2,
+    "total_free_prompts": 5,
+    "reward_ad_unlock_limit": 3
+  }
+}

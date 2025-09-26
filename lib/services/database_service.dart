@@ -1,0 +1,173 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class DatabaseService {
+  static const String _unlockedPromptsKey = 'unlocked_prompts';
+  static const String _favoritePromptsKey = 'favorite_prompts';
+  static const String _userStatsKey = 'user_stats';
+  static const String _adWatchCountKey = 'ad_watch_count';
+  static const String _lastAdWatchKey = 'last_ad_watch';
+
+  // Unlocked prompts management
+  static Future<Set<String>> getUnlockedPrompts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final unlockedJson = prefs.getString(_unlockedPromptsKey);
+    if (unlockedJson != null) {
+      final List<dynamic> unlockedList = json.decode(unlockedJson);
+      return unlockedList.cast<String>().toSet();
+    }
+    return <String>{};
+  }
+
+  static Future<void> unlockPrompt(String promptId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final unlocked = await getUnlockedPrompts();
+    unlocked.add(promptId);
+    await prefs.setString(_unlockedPromptsKey, json.encode(unlocked.toList()));
+    
+    // Update stats
+    await _updateStats('prompts_unlocked', unlocked.length);
+  }
+
+  static Future<void> unlockAllPrompts(List<String> allPromptIds) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_unlockedPromptsKey, json.encode(allPromptIds));
+    
+    // Update stats
+    await _updateStats('prompts_unlocked', allPromptIds.length);
+  }
+
+  static Future<bool> isPromptUnlocked(String promptId) async {
+    final unlocked = await getUnlockedPrompts();
+    return unlocked.contains(promptId);
+  }
+
+  // Favorite prompts management
+  static Future<Set<String>> getFavoritePrompts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final favoritesJson = prefs.getString(_favoritePromptsKey);
+    if (favoritesJson != null) {
+      final List<dynamic> favoritesList = json.decode(favoritesJson);
+      return favoritesList.cast<String>().toSet();
+    }
+    return <String>{};
+  }
+
+  static Future<void> toggleFavorite(String promptId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final favorites = await getFavoritePrompts();
+    
+    if (favorites.contains(promptId)) {
+      favorites.remove(promptId);
+    } else {
+      favorites.add(promptId);
+    }
+    
+    await prefs.setString(_favoritePromptsKey, json.encode(favorites.toList()));
+    
+    // Update stats
+    await _updateStats('favorites_count', favorites.length);
+  }
+
+  static Future<bool> isPromptFavorite(String promptId) async {
+    final favorites = await getFavoritePrompts();
+    return favorites.contains(promptId);
+  }
+
+  // Ad tracking
+  static Future<int> getAdWatchCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_adWatchCountKey) ?? 0;
+  }
+
+  static Future<void> incrementAdWatchCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentCount = await getAdWatchCount();
+    await prefs.setInt(_adWatchCountKey, currentCount + 1);
+    await prefs.setInt(_lastAdWatchKey, DateTime.now().millisecondsSinceEpoch);
+    
+    // Update stats
+    await _updateStats('ads_watched', currentCount + 1);
+  }
+
+  static Future<DateTime?> getLastAdWatchTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    final timestamp = prefs.getInt(_lastAdWatchKey);
+    if (timestamp != null) {
+      return DateTime.fromMillisecondsSinceEpoch(timestamp);
+    }
+    return null;
+  }
+
+  // User statistics
+  static Future<Map<String, dynamic>> getUserStats() async {
+    final prefs = await SharedPreferences.getInstance();
+    final statsJson = prefs.getString(_userStatsKey);
+    if (statsJson != null) {
+      return json.decode(statsJson);
+    }
+    return {
+      'prompts_unlocked': 0,
+      'favorites_count': 0,
+      'ads_watched': 0,
+      'total_sessions': 0,
+      'first_launch': DateTime.now().millisecondsSinceEpoch,
+      'last_active': DateTime.now().millisecondsSinceEpoch,
+    };
+  }
+
+  static Future<void> _updateStats(String key, dynamic value) async {
+    final prefs = await SharedPreferences.getInstance();
+    final stats = await getUserStats();
+    stats[key] = value;
+    stats['last_active'] = DateTime.now().millisecondsSinceEpoch;
+    await prefs.setString(_userStatsKey, json.encode(stats));
+  }
+
+  static Future<void> incrementSessionCount() async {
+    final stats = await getUserStats();
+    final currentSessions = stats['total_sessions'] ?? 0;
+    await _updateStats('total_sessions', currentSessions + 1);
+  }
+
+  // Clear all data (for testing or reset)
+  static Future<void> clearAllData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_unlockedPromptsKey);
+    await prefs.remove(_favoritePromptsKey);
+    await prefs.remove(_userStatsKey);
+    await prefs.remove(_adWatchCountKey);
+    await prefs.remove(_lastAdWatchKey);
+  }
+
+  // Backup and restore
+  static Future<Map<String, dynamic>> exportUserData() async {
+    return {
+      'unlocked_prompts': (await getUnlockedPrompts()).toList(),
+      'favorite_prompts': (await getFavoritePrompts()).toList(),
+      'user_stats': await getUserStats(),
+      'ad_watch_count': await getAdWatchCount(),
+      'export_timestamp': DateTime.now().millisecondsSinceEpoch,
+    };
+  }
+
+  static Future<void> importUserData(Map<String, dynamic> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    if (data['unlocked_prompts'] != null) {
+      await prefs.setString(_unlockedPromptsKey, json.encode(data['unlocked_prompts']));
+    }
+    
+    if (data['favorite_prompts'] != null) {
+      await prefs.setString(_favoritePromptsKey, json.encode(data['favorite_prompts']));
+    }
+    
+    if (data['user_stats'] != null) {
+      await prefs.setString(_userStatsKey, json.encode(data['user_stats']));
+    }
+    
+    if (data['ad_watch_count'] != null) {
+      await prefs.setInt(_adWatchCountKey, data['ad_watch_count']);
+    }
+  }
+}
