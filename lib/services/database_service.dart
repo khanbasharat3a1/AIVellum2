@@ -88,6 +88,15 @@ class DatabaseService {
     
     // Update stats
     await _updateStats('ads_watched', currentCount + 1);
+    
+    // Update daily count
+    final stats = await getUserStats();
+    final dailyCount = stats['ads_watched_today'] ?? 0;
+    await _updateStats('ads_watched_today', dailyCount + 1);
+  }
+
+  static Future<void> resetDailyAdCount() async {
+    await _updateStats('ads_watched_today', 0);
   }
 
   static Future<DateTime?> getLastAdWatchTime() async {
@@ -110,6 +119,7 @@ class DatabaseService {
       'prompts_unlocked': 0,
       'favorites_count': 0,
       'ads_watched': 0,
+      'ads_watched_today': 0,
       'total_sessions': 0,
       'first_launch': DateTime.now().millisecondsSinceEpoch,
       'last_active': DateTime.now().millisecondsSinceEpoch,

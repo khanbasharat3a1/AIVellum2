@@ -245,6 +245,13 @@ class HomeScreen extends StatelessWidget {
 
                 const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
 
+                // Banner Ad
+                const SliverToBoxAdapter(
+                  child: BannerAdWidget(),
+                ),
+
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+
                 // Categories Section
                 SliverToBoxAdapter(
                   child: Padding(
@@ -443,11 +450,6 @@ class HomeScreen extends StatelessWidget {
                 ),
 
                 const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
-
-                // Banner Ad
-                const SliverToBoxAdapter(
-                  child: BannerAdWidget(),
-                ),
 
                 // Quick Actions
                 SliverToBoxAdapter(
