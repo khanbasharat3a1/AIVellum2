@@ -181,7 +181,7 @@ class SettingsScreen extends StatelessWidget {
                               context,
                               icon: Icons.code,
                               title: 'Developer',
-                              subtitle: 'Built with ❤️ for AI enthusiasts',
+                              subtitle: 'Built with ❤️ by AIVELLUM team for AI enthusiasts',
                               showArrow: false,
                             ),
                           ],
@@ -297,27 +297,27 @@ class SettingsScreen extends StatelessWidget {
 
   void _sendFeedback() {
     launchUrl(
-      Uri.parse('mailto:support@aivellum.com?subject=Feedback for ${AppConstants.appName}'),
+      Uri.parse('mailto:khanbasharat3a1@gmail.com?subject=Feedback for ${AppConstants.appName}'),
     );
   }
 
   void _openHelp() {
     launchUrl(
-      Uri.parse('https://aivellum.com/help'),
+      Uri.parse('https://www.khanbasharat.com/p/about-us-aivellum.html'),
       mode: LaunchMode.externalApplication,
     );
   }
 
   void _openPrivacyPolicy() {
     launchUrl(
-      Uri.parse('https://aivellum.com/privacy'),
+      Uri.parse('https://www.khanbasharat.com/p/privacy-policy-aivellum.html'),
       mode: LaunchMode.externalApplication,
     );
   }
 
   void _openTerms() {
     launchUrl(
-      Uri.parse('https://aivellum.com/terms'),
+      Uri.parse('https://www.khanbasharat.com/p/terms-and-conditions-aivellum.html'),
       mode: LaunchMode.externalApplication,
     );
   }
