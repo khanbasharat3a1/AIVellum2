@@ -15,9 +15,14 @@ class BillingService {
   static bool _hasLifetimeAccess = false;
   static late StreamSubscription<List<PurchaseDetails>> _subscription;
   static String? _pendingPromptId;
+  static Function(String promptId, bool isLifetime)? _onPurchaseComplete;
 
   static bool get isAvailable => _isAvailable;
   static bool get hasLifetimeAccess => _hasLifetimeAccess;
+  
+  static void setPurchaseCompleteCallback(Function(String promptId, bool isLifetime)? callback) {
+    _onPurchaseComplete = callback;
+  }
 
   static Future<void> initialize() async {
     _isAvailable = await _iap.isAvailable();
@@ -53,18 +58,26 @@ class BillingService {
   static void listenPurchases() {
     _subscription = _iap.purchaseStream.listen((purchases) {
       for (final purchase in purchases) {
+        print('Purchase status: ${purchase.status} for ${purchase.productID}');
+        
         if (purchase.status == PurchaseStatus.purchased) {
-          print('Purchased: ${purchase.productID}');
-          if (purchase.productID == BillingConstants.unlockAllPromptsId) {
-            _unlockAllPrompts();
-          } else if (purchase.productID == BillingConstants.unlockSinglePromptId && _pendingPromptId != null) {
-            _unlockSinglePrompt(_pendingPromptId!);
-            _pendingPromptId = null;
-          }
+          print('Processing purchase: ${purchase.productID}');
           
+          // Complete purchase first
           if (purchase.pendingCompletePurchase) {
             _iap.completePurchase(purchase);
           }
+          
+          // Then unlock content
+          if (purchase.productID == BillingConstants.unlockAllPromptsId) {
+            _unlockAllPrompts();
+          } else if (purchase.productID == BillingConstants.unlockSinglePromptId) {
+            // For single prompt, unlock the most recent premium prompt if no pending ID
+            final promptId = _pendingPromptId ?? 'fallback';
+            _unlockSinglePrompt(promptId);
+            _pendingPromptId = null;
+          }
+          
         } else if (purchase.status == PurchaseStatus.error) {
           print('Purchase error: ${purchase.error}');
           _pendingPromptId = null;
@@ -127,16 +140,30 @@ class BillingService {
 
 
   static Future<void> _unlockAllPrompts() async {
-    // Mark all prompts as unlocked in database
-    await DatabaseService.unlockAllPromptsLifetime();
-    _hasLifetimeAccess = true;
-    print('All prompts unlocked in database');
+    try {
+      // Mark all prompts as unlocked in database
+      await DatabaseService.unlockAllPromptsLifetime();
+      _hasLifetimeAccess = true;
+      print('All prompts unlocked in database');
+      
+      // Notify listeners that purchase was successful
+      _onPurchaseComplete?.call('all', true);
+    } catch (e) {
+      print('Error unlocking all prompts: $e');
+    }
   }
 
   static Future<void> _unlockSinglePrompt(String promptId) async {
-    // Mark single prompt as unlocked in database
-    await DatabaseService.unlockPrompt(promptId);
-    print('Prompt $promptId unlocked in database');
+    try {
+      // Mark single prompt as unlocked in database
+      await DatabaseService.unlockPrompt(promptId);
+      print('Prompt $promptId unlocked in database');
+      
+      // Notify listeners that purchase was successful
+      _onPurchaseComplete?.call(promptId, false);
+    } catch (e) {
+      print('Error unlocking single prompt: $e');
+    }
   }
 
 

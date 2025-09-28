@@ -61,6 +61,20 @@ class AppProvider with ChangeNotifier {
       // Initialize billing
       await BillingService.initialize();
       _hasLifetimeAccess = BillingService.hasLifetimeAccess;
+      
+      // Set purchase callback to refresh UI
+      BillingService.setPurchaseCompleteCallback((promptId, isLifetime) {
+        if (isLifetime) {
+          _hasLifetimeAccess = true;
+          // Reload all prompts to reflect lifetime access
+          _dataService.loadData();
+        } else {
+          // Reload data to reflect single prompt unlock
+          _dataService.loadData();
+        }
+        notifyListeners();
+      });
+      
       print('Billing service initialized');
       
       _isLoading = false;

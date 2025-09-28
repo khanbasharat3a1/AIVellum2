@@ -338,14 +338,19 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
                 children: [
                   Icon(Icons.check_circle_rounded, color: Colors.white),
                   SizedBox(width: 8),
-                  Text('Purchase initiated! Prompt will unlock once payment is confirmed.'),
+                  Text('Purchase successful! Prompt unlocked.'),
                 ],
               ),
               backgroundColor: Colors.green,
-              duration: Duration(seconds: 3),
+              duration: Duration(seconds: 2),
             ),
           );
-          // Don't pop immediately, let the purchase complete
+          
+          // Wait a moment for the purchase to process, then close
+          await Future.delayed(const Duration(seconds: 1));
+          if (mounted) {
+            Navigator.pop(context, true);
+          }
         }
       } else {
         if (mounted) {
