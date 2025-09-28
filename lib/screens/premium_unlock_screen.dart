@@ -327,13 +327,56 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
     });
 
     try {
-      // Show coming soon message
+      final provider = Provider.of<AppProvider>(context, listen: false);
+      final success = await provider.unlockPromptWithPayment(widget.prompt.id);
+
+      if (success) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.check_circle_rounded, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text('Purchase initiated! Prompt will unlock once payment is confirmed.'),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+            ),
+          );
+          // Don't pop immediately, let the purchase complete
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.error_outline_rounded, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text('Payment not available. Please try watching an ad instead.'),
+                ],
+              ),
+              backgroundColor: Colors.orange,
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      }
+    } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Payment feature coming soon! Please unlock by watching an ad.'),
-            backgroundColor: Colors.blue,
-            duration: Duration(seconds: 3),
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error_outline_rounded, color: Colors.white),
+                const SizedBox(width: 8),
+                Expanded(child: Text('Error: ${e.toString()}')),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
           ),
         );
       }

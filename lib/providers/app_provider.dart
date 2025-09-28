@@ -5,6 +5,7 @@ import '../models/user_location.dart';
 import '../services/data_service.dart';
 import '../services/location_service.dart';
 import '../services/ads_service.dart';
+import '../services/billing_service.dart';
 
 class AppProvider with ChangeNotifier {
   final DataService _dataService = DataService();
@@ -56,6 +57,11 @@ class AppProvider with ChangeNotifier {
       // Initialize ads
       AdsService.initialize();
       print('Ads service initialized');
+      
+      // Initialize billing
+      await BillingService.initialize();
+      _hasLifetimeAccess = BillingService.hasLifetimeAccess;
+      print('Billing service initialized');
       
       _isLoading = false;
       notifyListeners();
@@ -171,14 +177,38 @@ class AppProvider with ChangeNotifier {
   }
 
   Future<bool> unlockPromptWithPayment(String promptId) async {
-    // TODO: Implement actual payment
-    // For now, show coming soon message
+    if (!BillingService.isAvailable) {
+      return false;
+    }
+    
+    try {
+      final success = await BillingService.purchaseSinglePrompt(promptId);
+      if (success) {
+        // The actual unlock will happen in the purchase stream listener
+        return true;
+      }
+    } catch (e) {
+      print('Payment error: $e');
+    }
     return false;
   }
 
   Future<bool> unlockAllPromptsWithPayment() async {
-    // TODO: Implement actual payment
-    // For now, show coming soon message
+    if (!BillingService.isAvailable) {
+      return false;
+    }
+    
+    try {
+      final success = await BillingService.purchaseUnlockAll();
+      if (success) {
+        // The actual unlock will happen in the purchase stream listener
+        _hasLifetimeAccess = true;
+        notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      print('Payment error: $e');
+    }
     return false;
   }
 
@@ -214,17 +244,30 @@ class AppProvider with ChangeNotifier {
 
   // Get formatted price for individual prompt
   String getIndividualPromptPrice() {
+    if (BillingService.isAvailable) {
+      return BillingService.getSinglePromptPrice();
+    }
     final pricingData = pricing;
-    final currency = pricingData['currency'] ?? '\$';
-    final price = pricingData['individual_prompt'] ?? 0.05;
+    final currency = pricingData['currency'] ?? '₹';
+    final price = pricingData['individual_prompt'] ?? 4;
     return '$currency$price';
   }
 
   // Get formatted price for lifetime access
   String getLifetimeAccessPrice() {
+    if (BillingService.isAvailable) {
+      return BillingService.getFormattedPrice();
+    }
     final pricingData = pricing;
-    final currency = pricingData['currency'] ?? '\$';
-    final price = pricingData['lifetime_access'] ?? 12.99;
+    final currency = pricingData['currency'] ?? '₹';
+    final price = pricingData['lifetime_access'] ?? 999;
     return '$currency$price';
+  }
+
+  // Restore purchases
+  Future<void> restorePurchases() async {
+    await BillingService.restorePurchases();
+    _hasLifetimeAccess = BillingService.hasLifetimeAccess;
+    notifyListeners();
   }
 }

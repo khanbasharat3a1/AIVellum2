@@ -67,10 +67,13 @@ class DataService {
       prompt.isFavorite = favorites.contains(prompt.id);
     }
 
+    // Check for lifetime access
+    final hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
+    
     // Load unlocked prompts from database service
     final unlocked = await DatabaseService.getUnlockedPrompts();
     for (var prompt in _prompts) {
-      prompt.isUnlocked = unlocked.contains(prompt.id) || !prompt.isPremium;
+      prompt.isUnlocked = hasLifetimeAccess || unlocked.contains(prompt.id) || !prompt.isPremium;
     }
 
     // Increment session count
@@ -113,12 +116,11 @@ class DataService {
   }
 
   Future<void> unlockAllPrompts() async {
+    await DatabaseService.unlockAllPromptsLifetime();
+    
     for (var prompt in _prompts) {
       prompt.isUnlocked = true;
     }
-    
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('lifetime_access', true);
   }
 
   int getFreePromptsCount() {
@@ -131,5 +133,9 @@ class DataService {
 
   int getUnlockedPromptsCount() {
     return _prompts.where((prompt) => prompt.isUnlocked).length;
+  }
+
+  Future<bool> hasLifetimeAccess() async {
+    return await DatabaseService.hasLifetimeAccess();
   }
 }

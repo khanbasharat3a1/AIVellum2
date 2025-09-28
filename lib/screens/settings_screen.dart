@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
+import 'billing_test_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -165,6 +166,29 @@ class SettingsScreen extends StatelessWidget {
 
                         const SizedBox(height: AppConstants.paddingL),
 
+                        // Developer Section (only show in debug mode)
+                        if (AppConstants.isDebugMode) ...[
+                          _buildSectionTitle(context, 'Developer'),
+                          _buildSettingsCard(
+                            context,
+                            [
+                              _buildSettingsTile(
+                                context,
+                                icon: Icons.payment,
+                                title: 'Billing Test',
+                                subtitle: 'Test Google Play billing functionality',
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const BillingTestScreen(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: AppConstants.paddingL),
+                        ],
+
                         // About Section
                         _buildSectionTitle(context, 'About'),
                         _buildSettingsCard(
@@ -174,7 +198,7 @@ class SettingsScreen extends StatelessWidget {
                               context,
                               icon: Icons.info_outline,
                               title: 'App Version',
-                              subtitle: 'Version 1.0.0',
+                              subtitle: 'Version 1.1.0',
                               showArrow: false,
                             ),
                             _buildSettingsTile(

@@ -230,6 +230,20 @@ class PremiumScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          
+                          const SizedBox(height: AppConstants.paddingM),
+                          
+                          // Restore Purchases Button
+                          Center(
+                            child: TextButton.icon(
+                              onPressed: () => _restorePurchases(context, provider),
+                              icon: const Icon(Icons.restore_rounded),
+                              label: const Text('Restore Purchases'),
+                              style: TextButton.styleFrom(
+                                foregroundColor: AppConstants.textSecondary,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -357,35 +371,139 @@ class PremiumScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Unlock All Prompts'),
-        content: const Text('This will unlock all premium prompts for lifetime access. Continue with purchase?'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('This will unlock all premium prompts for lifetime access.'),
+            const SizedBox(height: 16),
+            Text(
+              'Price: ${provider.getLifetimeAccessPrice()}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            const Text('Continue with purchase?'),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).pop();
+              
+              // Show loading
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Row(
                     children: [
-                      Icon(Icons.info_outline_rounded, color: Colors.white),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text('Payment feature coming soon! Please unlock prompts by watching ads.'),
+                      SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                       ),
+                      SizedBox(width: 8),
+                      Text('Processing purchase...'),
                     ],
                   ),
                   backgroundColor: Colors.blue,
-                  duration: Duration(seconds: 3),
+                  duration: Duration(seconds: 2),
                 ),
               );
+              
+              final success = await provider.unlockAllPromptsWithPayment();
+              
+              if (success) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Row(
+                      children: [
+                        Icon(Icons.check_circle_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text('Purchase initiated! All prompts will unlock once payment is confirmed.'),
+                      ],
+                    ),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Row(
+                      children: [
+                        Icon(Icons.error_outline_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text('Payment not available. Please try again later or unlock individual prompts.'),
+                        ),
+                      ],
+                    ),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              }
             },
             child: const Text('Purchase'),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _restorePurchases(BuildContext context, AppProvider provider) async {
+    // Show loading
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Row(
+          children: [
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+            ),
+            SizedBox(width: 8),
+            Text('Restoring purchases...'),
+          ],
+        ),
+        backgroundColor: Colors.blue,
+        duration: Duration(seconds: 2),
+      ),
+    );
+    
+    try {
+      await provider.restorePurchases();
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.check_circle_rounded, color: Colors.white),
+              SizedBox(width: 8),
+              Text('Purchases restored successfully!'),
+            ],
+          ),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.error_outline_rounded, color: Colors.white),
+              const SizedBox(width: 8),
+              Expanded(child: Text('Failed to restore purchases: ${e.toString()}')),
+            ],
+          ),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
 }

@@ -5,6 +5,9 @@ class AppConstants {
   static const String appName = 'Aivellum';
   static const String appTagline = 'Premium AI Prompts Vault';
   static const String packageName = 'com.khanbasharat.aivellum';
+  
+  // Debug Mode (set to false for production)
+  static const bool isDebugMode = false;
 
   // AdMob IDs
   static const String adMobAppId = 'ca-app-pub-5294128665280219~2632618644';

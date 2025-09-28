@@ -7,6 +7,7 @@ class DatabaseService {
   static const String _userStatsKey = 'user_stats';
   static const String _adWatchCountKey = 'ad_watch_count';
   static const String _lastAdWatchKey = 'last_ad_watch';
+  static const String _lifetimeAccessKey = 'lifetime_access';
 
   // Unlocked prompts management
   static Future<Set<String>> getUnlockedPrompts() async {
@@ -35,6 +36,20 @@ class DatabaseService {
     
     // Update stats
     await _updateStats('prompts_unlocked', allPromptIds.length);
+  }
+
+  static Future<void> unlockAllPromptsLifetime() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_lifetimeAccessKey, true);
+    
+    // Update stats
+    await _updateStats('lifetime_access_purchased', true);
+    await _updateStats('purchase_date', DateTime.now().millisecondsSinceEpoch);
+  }
+
+  static Future<bool> hasLifetimeAccess() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_lifetimeAccessKey) ?? false;
   }
 
   static Future<bool> isPromptUnlocked(String promptId) async {
@@ -148,6 +163,7 @@ class DatabaseService {
     await prefs.remove(_userStatsKey);
     await prefs.remove(_adWatchCountKey);
     await prefs.remove(_lastAdWatchKey);
+    await prefs.remove(_lifetimeAccessKey);
   }
 
   // Backup and restore
@@ -157,6 +173,7 @@ class DatabaseService {
       'favorite_prompts': (await getFavoritePrompts()).toList(),
       'user_stats': await getUserStats(),
       'ad_watch_count': await getAdWatchCount(),
+      'lifetime_access': await hasLifetimeAccess(),
       'export_timestamp': DateTime.now().millisecondsSinceEpoch,
     };
   }
@@ -178,6 +195,10 @@ class DatabaseService {
     
     if (data['ad_watch_count'] != null) {
       await prefs.setInt(_adWatchCountKey, data['ad_watch_count']);
+    }
+    
+    if (data['lifetime_access'] != null) {
+      await prefs.setBool(_lifetimeAccessKey, data['lifetime_access']);
     }
   }
 }

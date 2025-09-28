@@ -2,8 +2,10 @@
     <!-- Internet permission for ads and data loading -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Billing permission -->
+    <uses-permission android:name="com.android.vending.BILLING" />
     <application
-        android:label="AIVELLUM - AI Prompts Vault"
+        android:label="Aivellum"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

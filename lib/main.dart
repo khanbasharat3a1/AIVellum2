@@ -7,6 +7,7 @@ import 'providers/app_provider.dart';
 import 'screens/main_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/location_setup_screen.dart';
+import 'services/billing_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +18,20 @@ void main() async {
   runApp(const AivellumApp());
 }
 
-class AivellumApp extends StatelessWidget {
+class AivellumApp extends StatefulWidget {
   const AivellumApp({super.key});
+
+  @override
+  State<AivellumApp> createState() => _AivellumAppState();
+}
+
+class _AivellumAppState extends State<AivellumApp> {
+  @override
+  void dispose() {
+    // Dispose billing service when app is closed
+    BillingService.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
