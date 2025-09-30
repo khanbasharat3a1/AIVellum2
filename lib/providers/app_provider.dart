@@ -63,19 +63,21 @@ class AppProvider with ChangeNotifier {
       _hasActiveSubscription = BillingService.hasActiveSubscription;
       
       // Set purchase callback to refresh UI
-      BillingService.setPurchaseCompleteCallback((promptId, isLifetime, isSubscription) {
+      BillingService.setPurchaseCompleteCallback((promptId, isLifetime, isSubscription) async {
         if (isLifetime) {
           _hasLifetimeAccess = true;
           // Unlock all prompts immediately
-          _dataService.unlockAllPrompts();
+          await _dataService.unlockAllPrompts();
         } else if (isSubscription) {
           _hasActiveSubscription = true;
           // Unlock all prompts for subscription
-          _dataService.unlockAllPrompts();
+          await _dataService.unlockAllPrompts();
         } else {
           // Unlock specific prompt immediately
-          _dataService.unlockPrompt(promptId);
+          await _dataService.unlockPrompt(promptId);
         }
+        // Smooth UI update with slight delay to prevent jitter
+        await Future.delayed(const Duration(milliseconds: 100));
         notifyListeners();
       });
       

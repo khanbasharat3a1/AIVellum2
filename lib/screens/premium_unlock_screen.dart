@@ -16,8 +16,42 @@ class PremiumUnlockScreen extends StatefulWidget {
   State<PremiumUnlockScreen> createState() => _PremiumUnlockScreenState();
 }
 
-class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
+class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerProviderStateMixin {
   bool _isUnlocking = false;
+  late AnimationController _fadeController;
+  late AnimationController _scaleController;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _fadeController = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+    _scaleController = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+    
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fadeController, curve: Curves.easeOut),
+    );
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _scaleController, curve: Curves.elasticOut),
+    );
+    
+    _fadeController.forward();
+    _scaleController.forward();
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    _scaleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,134 +73,140 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
               ),
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(AppConstants.paddingL),
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Prompt Preview
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(AppConstants.paddingL),
-                          decoration: BoxDecoration(
-                            gradient: AppConstants.vaultRedGradient,
-                            borderRadius: BorderRadius.circular(AppConstants.radiusL),
-                            boxShadow: [AppConstants.premiumShadow],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+          body: FadeTransition(
+            opacity: _fadeAnimation,
+            child: ScaleTransition(
+              scale: _scaleAnimation,
+              child: Padding(
+                padding: const EdgeInsets.all(AppConstants.paddingL),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Prompt Preview
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(AppConstants.paddingL),
+                              decoration: BoxDecoration(
+                                gradient: AppConstants.vaultRedGradient,
+                                borderRadius: BorderRadius.circular(AppConstants.radiusL),
+                                boxShadow: [AppConstants.premiumShadow],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(AppConstants.paddingS),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                                    ),
-                                    child: const Icon(
-                                      Icons.auto_awesome_rounded,
-                                      color: AppConstants.textOnDark,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  const SizedBox(width: AppConstants.paddingS),
-                                  Expanded(
-                                    child: Text(
-                                      widget.prompt.title,
-                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        color: AppConstants.textOnDark,
-                                        fontWeight: FontWeight.bold,
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(AppConstants.paddingS),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                                        ),
+                                        child: const Icon(
+                                          Icons.auto_awesome_rounded,
+                                          color: AppConstants.textOnDark,
+                                          size: 20,
+                                        ),
                                       ),
+                                      const SizedBox(width: AppConstants.paddingS),
+                                      Expanded(
+                                        child: Text(
+                                          widget.prompt.title,
+                                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                            color: AppConstants.textOnDark,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: AppConstants.paddingM),
+                                  Text(
+                                    widget.prompt.description,
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: AppConstants.textOnDark.withOpacity(0.9),
+                                      height: 1.4,
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: AppConstants.paddingM),
-                              Text(
-                                widget.prompt.description,
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: AppConstants.textOnDark.withOpacity(0.9),
-                                  height: 1.4,
-                                ),
+                            ),
+
+                            const SizedBox(height: AppConstants.paddingXL),
+
+                            // Unlock Options
+                            Text(
+                              'Choose how to unlock this premium prompt:',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: AppConstants.paddingL),
+
+                            // Individual Payment Option
+                            _buildUnlockOption(
+                              context: context,
+                              icon: Icons.payment_rounded,
+                              title: 'Pay ${provider.getIndividualPromptPrice()}',
+                              subtitle: 'Instant unlock with secure payment',
+                              buttonText: 'Pay Now',
+                              onTap: _unlockWithPayment,
+                              isPrimary: false,
+                            ),
+
+                            const SizedBox(height: AppConstants.paddingM),
+
+                            // Monthly Subscription Option
+                            _buildUnlockOption(
+                              context: context,
+                              icon: Icons.repeat_rounded,
+                              title: 'Subscribe ${provider.getMonthlySubscriptionPrice()}',
+                              subtitle: 'Unlock all prompts with monthly subscription',
+                              buttonText: 'Subscribe',
+                              onTap: _unlockWithSubscription,
+                              isPrimary: true,
+                            ),
+                          ],
                         ),
-
-                        const SizedBox(height: AppConstants.paddingXL),
-
-                        // Unlock Options
-                        Text(
-                          'Choose how to unlock this premium prompt:',
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: AppConstants.paddingL),
-
-                        // Individual Payment Option
-                        _buildUnlockOption(
-                          context: context,
-                          icon: Icons.payment_rounded,
-                          title: 'Pay ${provider.getIndividualPromptPrice()}',
-                          subtitle: 'Instant unlock with secure payment',
-                          buttonText: 'Pay Now',
-                          onTap: _unlockWithPayment,
-                          isPrimary: false,
-                        ),
-
-                        const SizedBox(height: AppConstants.paddingM),
-
-                        // Monthly Subscription Option
-                        _buildUnlockOption(
-                          context: context,
-                          icon: Icons.repeat_rounded,
-                          title: 'Subscribe ${provider.getMonthlySubscriptionPrice()}',
-                          subtitle: 'Unlock all prompts with monthly subscription',
-                          buttonText: 'Subscribe',
-                          onTap: _unlockWithSubscription,
-                          isPrimary: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Bottom Note
-                Container(
-                  padding: const EdgeInsets.all(AppConstants.paddingM),
-                  decoration: BoxDecoration(
-                    color: AppConstants.surfaceColor,
-                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                    border: Border.all(
-                      color: AppConstants.borderColor,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.info_outline_rounded,
-                        color: AppConstants.textSecondary,
-                        size: 20,
                       ),
-                      const SizedBox(width: AppConstants.paddingS),
-                      Expanded(
-                        child: Text(
-                          'Once unlocked, you\'ll have permanent access to this prompt.',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    ),
+
+                    // Bottom Note
+                    Container(
+                      padding: const EdgeInsets.all(AppConstants.paddingM),
+                      decoration: BoxDecoration(
+                        color: AppConstants.surfaceColor,
+                        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                        border: Border.all(
+                          color: AppConstants.borderColor,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.info_outline_rounded,
                             color: AppConstants.textSecondary,
+                            size: 20,
                           ),
-                        ),
+                          const SizedBox(width: AppConstants.paddingS),
+                          Expanded(
+                            child: Text(
+                              'Once unlocked, you\'ll have permanent access to this prompt.',
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppConstants.textSecondary,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         );
@@ -258,7 +298,6 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
     );
   }
 
-
   Future<void> _unlockWithPayment() async {
     setState(() {
       _isUnlocking = true;
@@ -270,24 +309,57 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
 
       if (success) {
         if (mounted) {
+          // Show success animation
+          _scaleController.forward();
+          
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Row(
                 children: [
-                  Icon(Icons.check_circle_rounded, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text('Purchase successful! Prompt unlocked.'),
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Purchase Successful!',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Prompt unlocked and ready to use',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               backgroundColor: Colors.green,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           );
           
-          // Wait a moment for the purchase to process, then navigate back to prompt detail
-          await Future.delayed(const Duration(seconds: 1));
+          // Wait for smooth transition
+          await Future.delayed(const Duration(milliseconds: 1500));
           if (mounted) {
-            // Navigate back to prompt detail screen with the prompt unlocked
             Navigator.pop(context, true);
           }
         }
@@ -344,22 +416,56 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
 
       if (success) {
         if (mounted) {
+          // Show success animation
+          _scaleController.forward();
+          
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Row(
                 children: [
-                  Icon(Icons.check_circle_rounded, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text('Subscription initiated! All prompts will unlock once payment is confirmed.'),
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Subscription Activated!',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'All premium prompts are now unlocked',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               backgroundColor: Colors.green,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           );
           
-          // Wait a moment for the subscription to process, then navigate back
-          await Future.delayed(const Duration(seconds: 1));
+          // Wait for smooth transition
+          await Future.delayed(const Duration(milliseconds: 1500));
           if (mounted) {
             Navigator.pop(context, true);
           }
