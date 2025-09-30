@@ -252,6 +252,142 @@ class PremiumScreen extends StatelessWidget {
 
                 const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
 
+                // Monthly Subscription Card
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+                    child: Container(
+                      padding: const EdgeInsets.all(AppConstants.paddingL),
+                      decoration: BoxDecoration(
+                        color: AppConstants.surfaceColor,
+                        borderRadius: BorderRadius.circular(AppConstants.radiusL),
+                        border: Border.all(
+                          color: AppConstants.vaultRed.withOpacity(0.3),
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppConstants.vaultRed.withOpacity(0.1),
+                            blurRadius: 15,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(AppConstants.paddingS),
+                                decoration: BoxDecoration(
+                                  gradient: AppConstants.vaultRedGradient,
+                                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                                ),
+                                child: const Icon(
+                                  Icons.repeat,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: AppConstants.paddingM),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Monthly Subscription',
+                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Unlimited access with monthly billing',
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                        color: AppConstants.textSecondary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: AppConstants.paddingL),
+                          
+                          // Features List
+                          ...const [
+                            '✨ Access to all premium prompts',
+                            '🔄 Auto-renewal every month',
+                            '📱 Works across all devices',
+                            '💡 New prompts added weekly',
+                            '🎯 Advanced filtering & search',
+                          ].map((feature) => Padding(
+                            padding: const EdgeInsets.only(bottom: AppConstants.paddingS),
+                            child: Row(
+                              children: [
+                                Text(
+                                  feature.split(' ')[0],
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                const SizedBox(width: AppConstants.paddingS),
+                                Expanded(
+                                  child: Text(
+                                    feature.substring(feature.indexOf(' ') + 1),
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                          
+                          const SizedBox(height: AppConstants.paddingL),
+                          
+                          // Pricing
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    provider.getMonthlySubscriptionPrice(),
+                                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppConstants.vaultRed,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Billed monthly',
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppConstants.textSecondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              ElevatedButton(
+                                onPressed: () {
+                                  _showSubscriptionDialog(context, provider);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppConstants.vaultRed,
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppConstants.paddingXL,
+                                    vertical: AppConstants.paddingM,
+                                  ),
+                                ),
+                                child: const Text('Subscribe'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+
                 // Individual Unlock Section
                 SliverToBoxAdapter(
                   child: Padding(
@@ -505,5 +641,91 @@ class PremiumScreen extends StatelessWidget {
         ),
       );
     }
+  }
+
+  void _showSubscriptionDialog(BuildContext context, AppProvider provider) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Subscribe to Premium'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('This will activate your monthly subscription and unlock all premium prompts.'),
+            const SizedBox(height: 16),
+            Text(
+              'Price: ${provider.getMonthlySubscriptionPrice()}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            const Text('Your subscription will auto-renew monthly. Continue with subscription?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              
+              // Show loading
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Row(
+                    children: [
+                      SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      ),
+                      SizedBox(width: 8),
+                      Text('Processing subscription...'),
+                    ],
+                  ),
+                  backgroundColor: Colors.blue,
+                  duration: Duration(seconds: 2),
+                ),
+              );
+              
+              final success = await provider.purchaseMonthlySubscription();
+              
+              if (success) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Row(
+                      children: [
+                        Icon(Icons.check_circle_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text('Subscription initiated! All prompts will unlock once payment is confirmed.'),
+                      ],
+                    ),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Row(
+                      children: [
+                        Icon(Icons.error_outline_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text('Subscription not available. Please try again later.'),
+                      ],
+                    ),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              }
+            },
+            child: const Text('Subscribe'),
+          ),
+        ],
+      ),
+    );
   }
 }

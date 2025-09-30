@@ -4,7 +4,6 @@ import '../models/prompt.dart';
 import '../models/user_location.dart';
 import '../services/data_service.dart';
 import '../services/location_service.dart';
-import '../services/ads_service.dart';
 import '../services/billing_service.dart';
 
 class AppProvider with ChangeNotifier {
@@ -17,6 +16,7 @@ class AppProvider with ChangeNotifier {
   String? _selectedCategoryId;
   UserLocation? _userLocation;
   bool _hasLifetimeAccess = false;
+  bool _hasActiveSubscription = false;
 
   // Getters
   bool get isLoading => _isLoading;
@@ -26,6 +26,8 @@ class AppProvider with ChangeNotifier {
   String? get selectedCategoryId => _selectedCategoryId;
   UserLocation? get userLocation => _userLocation;
   bool get hasLifetimeAccess => _hasLifetimeAccess;
+  bool get hasActiveSubscription => _hasActiveSubscription;
+  bool get isUserSubscribed => _hasLifetimeAccess || _hasActiveSubscription;
   
   List<Category> get categories => _dataService.categories;
   List<Prompt> get prompts => _dataService.prompts;
@@ -54,23 +56,25 @@ class AppProvider with ChangeNotifier {
       await _dataService.loadData();
       print('Data service loaded successfully');
       
-      // Initialize ads
-      AdsService.initialize();
-      print('Ads service initialized');
       
       // Initialize billing
       await BillingService.initialize();
       _hasLifetimeAccess = BillingService.hasLifetimeAccess;
+      _hasActiveSubscription = BillingService.hasActiveSubscription;
       
       // Set purchase callback to refresh UI
-      BillingService.setPurchaseCompleteCallback((promptId, isLifetime) {
+      BillingService.setPurchaseCompleteCallback((promptId, isLifetime, isSubscription) {
         if (isLifetime) {
           _hasLifetimeAccess = true;
-          // Reload all prompts to reflect lifetime access
-          _dataService.loadData();
+          // Unlock all prompts immediately
+          _dataService.unlockAllPrompts();
+        } else if (isSubscription) {
+          _hasActiveSubscription = true;
+          // Unlock all prompts for subscription
+          _dataService.unlockAllPrompts();
         } else {
-          // Reload data to reflect single prompt unlock
-          _dataService.loadData();
+          // Unlock specific prompt immediately
+          _dataService.unlockPrompt(promptId);
         }
         notifyListeners();
       });
@@ -178,17 +182,15 @@ class AppProvider with ChangeNotifier {
   // Premium features
   List<Prompt> get unlockedPrompts => _dataService.getUnlockedPrompts();
   
-  Future<bool> unlockPromptWithAd(String promptId) async {
-    if (AdsService.isRewardedAdReady) {
-      final success = await AdsService.showRewardedAd();
-      if (success) {
-        await _dataService.unlockPrompt(promptId);
-        notifyListeners();
-        return true;
-      }
+  bool isPromptUnlocked(String promptId) {
+    // Check if user has lifetime access or active subscription
+    if (isUserSubscribed) {
+      return true;
     }
-    return false;
+    // Check if specific prompt is unlocked
+    return _dataService.isPromptUnlocked(promptId);
   }
+  
 
   Future<bool> unlockPromptWithPayment(String promptId) async {
     if (!BillingService.isAvailable) {
@@ -222,6 +224,25 @@ class AppProvider with ChangeNotifier {
       }
     } catch (e) {
       print('Payment error: $e');
+    }
+    return false;
+  }
+
+  Future<bool> purchaseMonthlySubscription() async {
+    if (!BillingService.isAvailable) {
+      return false;
+    }
+    
+    try {
+      final success = await BillingService.purchaseMonthlySubscription();
+      if (success) {
+        // The actual subscription activation will happen in the purchase stream listener
+        _hasActiveSubscription = true;
+        notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      print('Subscription error: $e');
     }
     return false;
   }
@@ -278,10 +299,27 @@ class AppProvider with ChangeNotifier {
     return '$currency$price';
   }
 
+  // Get formatted price (alias for getLifetimeAccessPrice)
+  String getFormattedPrice() {
+    return getLifetimeAccessPrice();
+  }
+
+  // Get monthly subscription price
+  String getMonthlySubscriptionPrice() {
+    if (BillingService.isAvailable) {
+      return BillingService.getMonthlySubscriptionPrice();
+    }
+    final pricingData = pricing;
+    final currency = pricingData['currency'] ?? '₹';
+    final price = pricingData['monthly_subscription'] ?? 99;
+    return '$currency$price/month';
+  }
+
   // Restore purchases
   Future<void> restorePurchases() async {
     await BillingService.restorePurchases();
     _hasLifetimeAccess = BillingService.hasLifetimeAccess;
+    _hasActiveSubscription = BillingService.hasActiveSubscription;
     notifyListeners();
   }
 }

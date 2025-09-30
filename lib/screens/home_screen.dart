@@ -4,9 +4,6 @@ import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../widgets/prompt_card.dart';
 import '../widgets/search_bar_widget.dart';
-import '../widgets/stats_card.dart';
-import '../widgets/banner_ad_widget.dart';
-import '../services/ads_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -79,7 +76,6 @@ class HomeScreen extends StatelessWidget {
             }
 
             final featuredPrompts = provider.getFeaturedPrompts();
-            final primaryCategories = provider.categories.where((c) => c.isPrimary).toList();
             final allCategories = provider.categories;
 
             return CustomScrollView(
@@ -245,13 +241,6 @@ class HomeScreen extends StatelessWidget {
 
                 const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
 
-                // Banner Ad
-                const SliverToBoxAdapter(
-                  child: BannerAdWidget(),
-                ),
-
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
-
                 // Categories Section
                 SliverToBoxAdapter(
                   child: Padding(
@@ -267,7 +256,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                         TextButton.icon(
                           onPressed: () {
-                            AdsService.showInterstitialAd();
                             provider.setCurrentIndex(1);
                           },
                           icon: const Icon(Icons.arrow_forward_rounded, size: 16),
@@ -297,7 +285,6 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(right: AppConstants.paddingM),
                           child: GestureDetector(
                             onTap: () {
-                              AdsService.showInterstitialAd();
                               provider.setSelectedCategory(category.id);
                               provider.setCurrentIndex(1);
                             },
@@ -419,7 +406,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                         TextButton.icon(
                           onPressed: () {
-                            AdsService.showInterstitialAd();
                             provider.setCurrentIndex(1);
                           },
                           icon: const Icon(Icons.arrow_forward_rounded, size: 16),
@@ -475,7 +461,6 @@ class HomeScreen extends StatelessWidget {
                                 subtitle: 'Unlock all prompts',
                                 color: AppConstants.vaultRed,
                                 onTap: () {
-                                  AdsService.showInterstitialAd();
                                   provider.setCurrentIndex(3);
                                 },
                               ),

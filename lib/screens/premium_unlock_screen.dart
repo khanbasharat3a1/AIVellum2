@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../models/prompt.dart';
-import '../services/ads_service.dart';
 
 class PremiumUnlockScreen extends StatefulWidget {
   final Prompt prompt;
@@ -110,20 +109,7 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
                         ),
                         const SizedBox(height: AppConstants.paddingL),
 
-                        // Watch Ad Option
-                        _buildUnlockOption(
-                          context: context,
-                          icon: Icons.play_circle_outline_rounded,
-                          title: 'Watch an Ad',
-                          subtitle: 'Free unlock by watching a short video ad',
-                          buttonText: 'Watch Ad',
-                          onTap: _unlockWithAd,
-                          isPrimary: true,
-                        ),
-
-                        const SizedBox(height: AppConstants.paddingM),
-
-                        // Payment Option
+                        // Individual Payment Option
                         _buildUnlockOption(
                           context: context,
                           icon: Icons.payment_rounded,
@@ -132,6 +118,19 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
                           buttonText: 'Pay Now',
                           onTap: _unlockWithPayment,
                           isPrimary: false,
+                        ),
+
+                        const SizedBox(height: AppConstants.paddingM),
+
+                        // Monthly Subscription Option
+                        _buildUnlockOption(
+                          context: context,
+                          icon: Icons.repeat_rounded,
+                          title: 'Subscribe ${provider.getMonthlySubscriptionPrice()}',
+                          subtitle: 'Unlock all prompts with monthly subscription',
+                          buttonText: 'Subscribe',
+                          onTap: _unlockWithSubscription,
+                          isPrimary: true,
                         ),
                       ],
                     ),
@@ -259,67 +258,6 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
     );
   }
 
-  Future<void> _unlockWithAd() async {
-    setState(() {
-      _isUnlocking = true;
-    });
-
-    try {
-      // Check ad limits first
-      final canShow = await AdsService.canShowRewardedAd();
-      if (!canShow) {
-        final limitMessage = await AdsService.getAdLimitMessage();
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(limitMessage ?? 'Ad not available right now.'),
-              backgroundColor: Colors.orange,
-            ),
-          );
-        }
-        return;
-      }
-
-      final provider = Provider.of<AppProvider>(context, listen: false);
-      final success = await provider.unlockPromptWithAd(widget.prompt.id);
-
-      if (success) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Prompt unlocked successfully!'),
-              backgroundColor: Colors.green,
-            ),
-          );
-          Navigator.pop(context, true);
-        }
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Ad not available. Please try again later.'),
-              backgroundColor: Colors.orange,
-            ),
-          );
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isUnlocking = false;
-        });
-      }
-    }
-  }
 
   Future<void> _unlockWithPayment() async {
     setState(() {
@@ -346,7 +284,81 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
             ),
           );
           
-          // Wait a moment for the purchase to process, then close
+          // Wait a moment for the purchase to process, then navigate back to prompt detail
+          await Future.delayed(const Duration(seconds: 1));
+          if (mounted) {
+            // Navigate back to prompt detail screen with the prompt unlocked
+            Navigator.pop(context, true);
+          }
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.error_outline_rounded, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text('Payment not available. Please try again later.'),
+                ],
+              ),
+              backgroundColor: Colors.orange,
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error_outline_rounded, color: Colors.white),
+                const SizedBox(width: 8),
+                Expanded(child: Text('Error: ${e.toString()}')),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isUnlocking = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _unlockWithSubscription() async {
+    setState(() {
+      _isUnlocking = true;
+    });
+
+    try {
+      final provider = Provider.of<AppProvider>(context, listen: false);
+      final success = await provider.purchaseMonthlySubscription();
+
+      if (success) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.check_circle_rounded, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text('Subscription initiated! All prompts will unlock once payment is confirmed.'),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+            ),
+          );
+          
+          // Wait a moment for the subscription to process, then navigate back
           await Future.delayed(const Duration(seconds: 1));
           if (mounted) {
             Navigator.pop(context, true);
@@ -360,7 +372,7 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> {
                 children: [
                   Icon(Icons.error_outline_rounded, color: Colors.white),
                   SizedBox(width: 8),
-                  Text('Payment not available. Please try watching an ad instead.'),
+                  Text('Subscription not available. Please try again later.'),
                 ],
               ),
               backgroundColor: Colors.orange,

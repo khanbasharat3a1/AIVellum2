@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/category.dart';
 import '../models/prompt.dart';
 import 'database_service.dart';
@@ -14,6 +13,8 @@ class DataService {
   List<Prompt> _prompts = [];
   Map<String, dynamic> _pricing = {};
   Map<String, dynamic> _appConfig = {};
+  bool _hasLifetimeAccess = false;
+  bool _hasActiveSubscription = false;
 
   List<Category> get categories => _categories;
   List<Prompt> get prompts => _prompts;
@@ -28,6 +29,10 @@ class DataService {
       
       final Map<String, dynamic> data = json.decode(jsonString);
       print('JSON parsed successfully');
+      
+      // Load subscription status
+      _hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
+      _hasActiveSubscription = await DatabaseService.hasActiveSubscription();
 
       if (data['categories'] != null) {
         _categories = (data['categories'] as List)
@@ -113,6 +118,10 @@ class DataService {
     
     final prompt = _prompts.firstWhere((p) => p.id == promptId);
     prompt.isUnlocked = true;
+    
+    // Refresh subscription status
+    _hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
+    _hasActiveSubscription = await DatabaseService.hasActiveSubscription();
   }
 
   Future<void> unlockAllPrompts() async {
@@ -121,6 +130,10 @@ class DataService {
     for (var prompt in _prompts) {
       prompt.isUnlocked = true;
     }
+    
+    // Refresh subscription status
+    _hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
+    _hasActiveSubscription = await DatabaseService.hasActiveSubscription();
   }
 
   int getFreePromptsCount() {
@@ -137,5 +150,29 @@ class DataService {
 
   Future<bool> hasLifetimeAccess() async {
     return await DatabaseService.hasLifetimeAccess();
+  }
+
+  bool isPromptUnlocked(String promptId) {
+    // Check if user has lifetime access or active subscription
+    final hasLifetime = _hasLifetimeAccess;
+    final hasSubscription = _hasActiveSubscription;
+    
+    if (hasLifetime || hasSubscription) {
+      return true;
+    }
+    
+    // Check if specific prompt is unlocked
+    final prompt = _prompts.firstWhere((p) => p.id == promptId, orElse: () => Prompt(
+      id: '', 
+      title: '', 
+      description: '', 
+      content: '',
+      categoryId: '', 
+      isPremium: false,
+      difficulty: 'Beginner',
+      estimatedTime: '5 min',
+      tags: [],
+    ));
+    return prompt.isUnlocked;
   }
 }

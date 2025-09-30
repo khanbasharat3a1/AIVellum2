@@ -9,11 +9,6 @@ class AppConstants {
   // Debug Mode (set to false for production)
   static const bool isDebugMode = false;
 
-  // AdMob IDs
-  static const String adMobAppId = 'ca-app-pub-5294128665280219~2632618644';
-  static const String bannerAdUnitId = 'ca-app-pub-5294128665280219/1765156851';
-  static const String interstitialAdUnitId = 'ca-app-pub-5294128665280219/3632772298';
-  static const String rewardedAdUnitId = 'ca-app-pub-5294128665280219/6594989317';
 
   // Vault Red Brand Color Scheme
   static const Color vaultRed = Color(0xFFFF3131); // Primary brand color

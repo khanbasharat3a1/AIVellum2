@@ -161,6 +161,13 @@ class SettingsScreen extends StatelessWidget {
                               subtitle: 'Read our terms of service',
                               onTap: () => _openTerms(),
                             ),
+                            _buildSettingsTile(
+                              context,
+                              icon: Icons.restore,
+                              title: 'Restore Purchases',
+                              subtitle: 'Restore your previous purchases',
+                              onTap: () => _restorePurchases(context, provider),
+                            ),
                           ],
                         ),
 
@@ -344,5 +351,58 @@ class SettingsScreen extends StatelessWidget {
       Uri.parse('https://www.khanbasharat.com/p/terms-and-conditions-aivellum.html'),
       mode: LaunchMode.externalApplication,
     );
+  }
+
+  void _restorePurchases(BuildContext context, AppProvider provider) async {
+    // Show loading
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Row(
+          children: [
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+            ),
+            SizedBox(width: 8),
+            Text('Restoring purchases...'),
+          ],
+        ),
+        backgroundColor: Colors.blue,
+        duration: Duration(seconds: 2),
+      ),
+    );
+    
+    try {
+      await provider.restorePurchases();
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.check_circle_rounded, color: Colors.white),
+              SizedBox(width: 8),
+              Text('Purchases restored successfully!'),
+            ],
+          ),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.error_outline_rounded, color: Colors.white),
+              const SizedBox(width: 8),
+              Expanded(child: Text('Failed to restore purchases: ${e.toString()}')),
+            ],
+          ),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
 }

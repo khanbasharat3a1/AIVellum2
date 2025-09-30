@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'constants/app_theme.dart';
 import 'providers/app_provider.dart';
@@ -11,9 +10,6 @@ import 'services/billing_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize Mobile Ads SDK
-  await MobileAds.instance.initialize();
   
   runApp(const AivellumApp());
 }

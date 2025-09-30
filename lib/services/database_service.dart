@@ -5,9 +5,9 @@ class DatabaseService {
   static const String _unlockedPromptsKey = 'unlocked_prompts';
   static const String _favoritePromptsKey = 'favorite_prompts';
   static const String _userStatsKey = 'user_stats';
-  static const String _adWatchCountKey = 'ad_watch_count';
-  static const String _lastAdWatchKey = 'last_ad_watch';
   static const String _lifetimeAccessKey = 'lifetime_access';
+  static const String _activeSubscriptionKey = 'active_subscription';
+  static const String _subscriptionStartDateKey = 'subscription_start_date';
 
   // Unlocked prompts management
   static Future<Set<String>> getUnlockedPrompts() async {
@@ -52,6 +52,53 @@ class DatabaseService {
     return prefs.getBool(_lifetimeAccessKey) ?? false;
   }
 
+  static Future<void> activateSubscription() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_activeSubscriptionKey, true);
+    await prefs.setInt(_subscriptionStartDateKey, DateTime.now().millisecondsSinceEpoch);
+    
+    // Update stats
+    await _updateStats('subscription_activated', true);
+    await _updateStats('subscription_start_date', DateTime.now().millisecondsSinceEpoch);
+  }
+
+  static Future<bool> hasActiveSubscription() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isActive = prefs.getBool(_activeSubscriptionKey) ?? false;
+    
+    if (isActive) {
+      // Check if subscription is still valid (not expired)
+      final startDate = prefs.getInt(_subscriptionStartDateKey) ?? 0;
+      final subscriptionDate = DateTime.fromMillisecondsSinceEpoch(startDate);
+      final now = DateTime.now();
+      final daysSinceStart = now.difference(subscriptionDate).inDays;
+      
+      // For monthly subscription, check if it's been less than 30 days
+      if (daysSinceStart >= 30) {
+        // Subscription expired, deactivate it
+        await deactivateSubscription();
+        return false;
+      }
+    }
+    
+    return isActive;
+  }
+
+  static Future<void> deactivateSubscription() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_activeSubscriptionKey, false);
+    await prefs.remove(_subscriptionStartDateKey);
+    
+    // Update stats
+    await _updateStats('subscription_deactivated', true);
+  }
+
+  static Future<bool> isUserSubscribed() async {
+    final hasLifetime = await hasLifetimeAccess();
+    final hasSubscription = await hasActiveSubscription();
+    return hasLifetime || hasSubscription;
+  }
+
   static Future<bool> isPromptUnlocked(String promptId) async {
     final unlocked = await getUnlockedPrompts();
     return unlocked.contains(promptId);
@@ -89,39 +136,6 @@ class DatabaseService {
     return favorites.contains(promptId);
   }
 
-  // Ad tracking
-  static Future<int> getAdWatchCount() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(_adWatchCountKey) ?? 0;
-  }
-
-  static Future<void> incrementAdWatchCount() async {
-    final prefs = await SharedPreferences.getInstance();
-    final currentCount = await getAdWatchCount();
-    await prefs.setInt(_adWatchCountKey, currentCount + 1);
-    await prefs.setInt(_lastAdWatchKey, DateTime.now().millisecondsSinceEpoch);
-    
-    // Update stats
-    await _updateStats('ads_watched', currentCount + 1);
-    
-    // Update daily count
-    final stats = await getUserStats();
-    final dailyCount = stats['ads_watched_today'] ?? 0;
-    await _updateStats('ads_watched_today', dailyCount + 1);
-  }
-
-  static Future<void> resetDailyAdCount() async {
-    await _updateStats('ads_watched_today', 0);
-  }
-
-  static Future<DateTime?> getLastAdWatchTime() async {
-    final prefs = await SharedPreferences.getInstance();
-    final timestamp = prefs.getInt(_lastAdWatchKey);
-    if (timestamp != null) {
-      return DateTime.fromMillisecondsSinceEpoch(timestamp);
-    }
-    return null;
-  }
 
   // User statistics
   static Future<Map<String, dynamic>> getUserStats() async {
@@ -133,8 +147,6 @@ class DatabaseService {
     return {
       'prompts_unlocked': 0,
       'favorites_count': 0,
-      'ads_watched': 0,
-      'ads_watched_today': 0,
       'total_sessions': 0,
       'first_launch': DateTime.now().millisecondsSinceEpoch,
       'last_active': DateTime.now().millisecondsSinceEpoch,
@@ -161,8 +173,6 @@ class DatabaseService {
     await prefs.remove(_unlockedPromptsKey);
     await prefs.remove(_favoritePromptsKey);
     await prefs.remove(_userStatsKey);
-    await prefs.remove(_adWatchCountKey);
-    await prefs.remove(_lastAdWatchKey);
     await prefs.remove(_lifetimeAccessKey);
   }
 
@@ -172,7 +182,6 @@ class DatabaseService {
       'unlocked_prompts': (await getUnlockedPrompts()).toList(),
       'favorite_prompts': (await getFavoritePrompts()).toList(),
       'user_stats': await getUserStats(),
-      'ad_watch_count': await getAdWatchCount(),
       'lifetime_access': await hasLifetimeAccess(),
       'export_timestamp': DateTime.now().millisecondsSinceEpoch,
     };
@@ -193,9 +202,6 @@ class DatabaseService {
       await prefs.setString(_userStatsKey, json.encode(data['user_stats']));
     }
     
-    if (data['ad_watch_count'] != null) {
-      await prefs.setInt(_adWatchCountKey, data['ad_watch_count']);
-    }
     
     if (data['lifetime_access'] != null) {
       await prefs.setBool(_lifetimeAccessKey, data['lifetime_access']);

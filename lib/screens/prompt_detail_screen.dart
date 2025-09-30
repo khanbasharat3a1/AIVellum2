@@ -22,7 +22,7 @@ class PromptDetailScreen extends StatelessWidget {
       body: Consumer<AppProvider>(
         builder: (context, provider, child) {
           final category = provider.getCategoryById(prompt.categoryId);
-          final isUnlocked = prompt.isUnlocked || !prompt.isPremium;
+          final isUnlocked = provider.isPromptUnlocked(prompt.id) || !prompt.isPremium;
           final categoryColor = AppConstants.categoryColors[prompt.categoryId] ?? AppConstants.cardColor;
 
           return CustomScrollView(

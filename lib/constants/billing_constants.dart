@@ -6,6 +6,7 @@ class BillingConstants {
   // Product IDs
   static const String unlockAllPromptsId = 'unlock_all_prompts';
   static const String unlockSinglePromptId = 'unlock_prompt';
+  static const String premiumMonthlyId = 'premium_monthly';
   
   // Product details for fallback
   static const Map<String, Map<String, dynamic>> productDetails = {
@@ -18,6 +19,11 @@ class BillingConstants {
       'name': 'Unlock Single Prompt',
       'description': 'Unlock access to one premium AI prompt instantly.',
       'price': '₹4.00',
+    },
+    premiumMonthlyId: {
+      'name': 'Premium Monthly',
+      'description': 'Get unlimited access to all premium AI prompts with monthly subscription.',
+      'price': '₹99.00/month',
     },
   };
 }
