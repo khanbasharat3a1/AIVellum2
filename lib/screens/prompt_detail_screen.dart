@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import '../constants/app_constants.dart';
 import '../models/prompt.dart';
 import '../providers/app_provider.dart';
+import '../utils/text_utils.dart';
 import 'premium_unlock_screen.dart';
 
 class PromptDetailScreen extends StatelessWidget {
@@ -507,11 +508,14 @@ class PromptDetailScreen extends StatelessWidget {
   }
 
   Widget _buildUnlockedContent(BuildContext context) {
+    // Strip markup from content for display
+    final displayContent = TextUtils.stripMarkup(prompt.content);
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectableText(
-          prompt.content,
+          displayContent,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             height: 1.6,
             color: AppConstants.textPrimary,
@@ -524,7 +528,7 @@ class PromptDetailScreen extends StatelessWidget {
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () => _copyToClipboard(context),
+                onPressed: () => _copyToClipboard(context, displayContent),
                 icon: const Icon(Icons.copy_rounded),
                 label: const Text('Copy'),
                 style: OutlinedButton.styleFrom(
@@ -550,8 +554,8 @@ class PromptDetailScreen extends StatelessWidget {
     );
   }
 
-  void _copyToClipboard(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: prompt.content));
+  void _copyToClipboard(BuildContext context, String content) {
+    Clipboard.setData(ClipboardData(text: content));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Row(

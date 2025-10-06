@@ -305,11 +305,37 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
 
     try {
       final provider = Provider.of<AppProvider>(context, listen: false);
+      
+      // Check if already unlocked
+      if (provider.isPromptUnlocked(widget.prompt.id)) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.info_outline_rounded, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('This prompt is already unlocked!')),
+                ],
+              ),
+              backgroundColor: Colors.blue,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          Navigator.pop(context, true);
+        }
+        return;
+      }
+      
       final success = await provider.unlockPromptWithPayment(widget.prompt.id);
 
+      if (!mounted) return;
+
       if (success) {
-        if (mounted) {
-          // Show success animation
+        // Wait for purchase to complete and verify unlock
+        await Future.delayed(const Duration(milliseconds: 500));
+        
+        if (provider.isPromptUnlocked(widget.prompt.id)) {
           _scaleController.forward();
           
           ScaffoldMessenger.of(context).showSnackBar(
@@ -357,28 +383,44 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
             ),
           );
           
-          // Wait for smooth transition
           await Future.delayed(const Duration(milliseconds: 1500));
           if (mounted) {
             Navigator.pop(context, true);
           }
-        }
-      } else {
-        if (mounted) {
+        } else {
+          // Payment initiated but not completed yet
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Row(
                 children: [
-                  Icon(Icons.error_outline_rounded, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text('Payment not available. Please try again later.'),
+                  const Icon(Icons.pending_outlined, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('Payment is processing. Please wait...')),
                 ],
               ),
               backgroundColor: Colors.orange,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
             ),
           );
         }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error_outline_rounded, color: Colors.white),
+                const SizedBox(width: 8),
+                Expanded(child: Text('Payment failed or was canceled. Please try again.')),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
       }
     } catch (e) {
       if (mounted) {
@@ -388,11 +430,15 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
               children: [
                 const Icon(Icons.error_outline_rounded, color: Colors.white),
                 const SizedBox(width: 8),
-                Expanded(child: Text('Error: ${e.toString()}')),
+                Expanded(child: Text('Payment error: ${e.toString()}')),
               ],
             ),
             backgroundColor: Colors.red,
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
         );
       }
@@ -412,11 +458,37 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
 
     try {
       final provider = Provider.of<AppProvider>(context, listen: false);
+      
+      // Check if already subscribed
+      if (provider.isUserSubscribed) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.info_outline_rounded, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('You already have an active subscription!')),
+                ],
+              ),
+              backgroundColor: Colors.blue,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          Navigator.pop(context, true);
+        }
+        return;
+      }
+      
       final success = await provider.purchaseMonthlySubscription();
 
+      if (!mounted) return;
+
       if (success) {
-        if (mounted) {
-          // Show success animation
+        // Wait for subscription to activate and verify
+        await Future.delayed(const Duration(milliseconds: 500));
+        
+        if (provider.isUserSubscribed) {
           _scaleController.forward();
           
           ScaffoldMessenger.of(context).showSnackBar(
@@ -464,28 +536,44 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
             ),
           );
           
-          // Wait for smooth transition
           await Future.delayed(const Duration(milliseconds: 1500));
           if (mounted) {
             Navigator.pop(context, true);
           }
-        }
-      } else {
-        if (mounted) {
+        } else {
+          // Subscription initiated but not completed yet
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Row(
                 children: [
-                  Icon(Icons.error_outline_rounded, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text('Subscription not available. Please try again later.'),
+                  const Icon(Icons.pending_outlined, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('Subscription is processing. Please wait...')),
                 ],
               ),
               backgroundColor: Colors.orange,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
             ),
           );
         }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error_outline_rounded, color: Colors.white),
+                const SizedBox(width: 8),
+                Expanded(child: Text('Subscription failed or was canceled. Please try again.')),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
       }
     } catch (e) {
       if (mounted) {
@@ -495,11 +583,15 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
               children: [
                 const Icon(Icons.error_outline_rounded, color: Colors.white),
                 const SizedBox(width: 8),
-                Expanded(child: Text('Error: ${e.toString()}')),
+                Expanded(child: Text('Subscription error: ${e.toString()}')),
               ],
             ),
             backgroundColor: Colors.red,
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
         );
       }

@@ -68,16 +68,10 @@ class BillingService {
         if (purchase.status == PurchaseStatus.purchased) {
           print('Processing purchase: ${purchase.productID}');
           
-          // Complete purchase first
-          if (purchase.pendingCompletePurchase) {
-            _iap.completePurchase(purchase);
-          }
-          
-          // Then unlock content
+          // Unlock content FIRST before completing purchase
           if (purchase.productID == BillingConstants.unlockAllPromptsId) {
             _unlockAllPrompts();
           } else if (purchase.productID == BillingConstants.unlockSinglePromptId) {
-            // For single prompt, unlock the most recent premium prompt if no pending ID
             final promptId = _pendingPromptId ?? 'fallback';
             _unlockSinglePrompt(promptId);
             _pendingPromptId = null;
@@ -85,12 +79,22 @@ class BillingService {
             _activateSubscription();
           }
           
+          // Complete purchase AFTER unlocking to ensure content is available
+          if (purchase.pendingCompletePurchase) {
+            _iap.completePurchase(purchase);
+          }
+          
         } else if (purchase.status == PurchaseStatus.error) {
           print('Purchase error: ${purchase.error}');
           _pendingPromptId = null;
+          _onPurchaseComplete?.call('error', false, false);
         } else if (purchase.status == PurchaseStatus.canceled) {
           print('Purchase canceled: ${purchase.productID}');
           _pendingPromptId = null;
+          _onPurchaseComplete?.call('canceled', false, false);
+        } else if (purchase.status == PurchaseStatus.pending) {
+          print('Purchase pending: ${purchase.productID}');
+          _onPurchaseComplete?.call('pending', false, false);
         }
       }
     });
@@ -157,10 +161,11 @@ class BillingService {
       );
       
       final purchaseParam = PurchaseParam(productDetails: product);
+      // Use buyNonConsumable for auto-renewable subscriptions on both platforms
       await _iap.buyNonConsumable(purchaseParam: purchaseParam);
       return true;
     } catch (e) {
-      print('Purchase error: $e');
+      print('Subscription purchase error: $e');
       return false;
     }
   }

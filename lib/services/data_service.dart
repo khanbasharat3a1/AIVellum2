@@ -72,13 +72,16 @@ class DataService {
       prompt.isFavorite = favorites.contains(prompt.id);
     }
 
-    // Check for lifetime access
-    final hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
+    // Check for lifetime access and active subscription
+    _hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
+    _hasActiveSubscription = await DatabaseService.hasActiveSubscription();
+    final hasFullAccess = _hasLifetimeAccess || _hasActiveSubscription;
     
     // Load unlocked prompts from database service
     final unlocked = await DatabaseService.getUnlockedPrompts();
     for (var prompt in _prompts) {
-      prompt.isUnlocked = hasLifetimeAccess || unlocked.contains(prompt.id) || !prompt.isPremium;
+      // Unlock if: has full access OR individually unlocked OR is free
+      prompt.isUnlocked = hasFullAccess || unlocked.contains(prompt.id) || !prompt.isPremium;
     }
 
     // Increment session count
@@ -162,17 +165,15 @@ class DataService {
     }
     
     // Check if specific prompt is unlocked
-    final prompt = _prompts.firstWhere((p) => p.id == promptId, orElse: () => Prompt(
-      id: '', 
-      title: '', 
-      description: '', 
-      content: '',
-      categoryId: '', 
-      isPremium: false,
-      difficulty: 'Beginner',
-      estimatedTime: '5 min',
-      tags: [],
-    ));
-    return prompt.isUnlocked;
+    try {
+      final prompt = _prompts.firstWhere((p) => p.id == promptId);
+      // Free prompts are always unlocked
+      if (!prompt.isPremium) {
+        return true;
+      }
+      return prompt.isUnlocked;
+    } catch (e) {
+      return false;
+    }
   }
 }

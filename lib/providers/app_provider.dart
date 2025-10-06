@@ -64,6 +64,12 @@ class AppProvider with ChangeNotifier {
       
       // Set purchase callback to refresh UI
       BillingService.setPurchaseCompleteCallback((promptId, isLifetime, isSubscription) async {
+        // Handle error/canceled/pending states
+        if (promptId == 'error' || promptId == 'canceled' || promptId == 'pending') {
+          notifyListeners();
+          return;
+        }
+        
         if (isLifetime) {
           _hasLifetimeAccess = true;
           // Unlock all prompts immediately
@@ -220,8 +226,7 @@ class AppProvider with ChangeNotifier {
       final success = await BillingService.purchaseUnlockAll();
       if (success) {
         // The actual unlock will happen in the purchase stream listener
-        _hasLifetimeAccess = true;
-        notifyListeners();
+        // Don't set _hasLifetimeAccess here, wait for verification
         return true;
       }
     } catch (e) {
@@ -239,8 +244,7 @@ class AppProvider with ChangeNotifier {
       final success = await BillingService.purchaseMonthlySubscription();
       if (success) {
         // The actual subscription activation will happen in the purchase stream listener
-        _hasActiveSubscription = true;
-        notifyListeners();
+        // Don't set _hasActiveSubscription here, wait for verification
         return true;
       }
     } catch (e) {
