@@ -7,9 +7,11 @@ import 'screens/main_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/location_setup_screen.dart';
 import 'services/billing_service.dart';
+import 'services/ad_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AdService.initialize();
   
   runApp(const AivellumApp());
 }

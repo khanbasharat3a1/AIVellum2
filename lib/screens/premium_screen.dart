@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 
@@ -13,20 +14,18 @@ class PremiumScreen extends StatelessWidget {
       body: SafeArea(
         child: Consumer<AppProvider>(
           builder: (context, provider, child) {
-            final pricing = provider.pricing;
             final unlockedCount = provider.unlockedPromptsCount;
             final totalCount = provider.totalPrompts;
             final progress = totalCount > 0 ? unlockedCount / totalCount : 0.0;
 
             return CustomScrollView(
               slivers: [
-                // App Bar
                 SliverAppBar(
                   floating: true,
                   backgroundColor: AppConstants.backgroundColor,
                   elevation: 0,
                   title: Text(
-                    'Premium',
+                    'Unlock Prompts',
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -55,11 +54,7 @@ class PremiumScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(
-                                Icons.workspace_premium,
-                                color: Colors.white,
-                                size: 32,
-                              ),
+                              const Icon(Icons.workspace_premium, color: Colors.white, size: 32),
                               const SizedBox(width: AppConstants.paddingM),
                               Expanded(
                                 child: Column(
@@ -104,281 +99,128 @@ class PremiumScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Lifetime Access Card
+                // AivellumPro Premium Card
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
                     child: Container(
-                      padding: const EdgeInsets.all(AppConstants.paddingL),
+                      padding: const EdgeInsets.all(AppConstants.paddingXL),
                       decoration: BoxDecoration(
                         color: AppConstants.surfaceColor,
                         borderRadius: BorderRadius.circular(AppConstants.radiusL),
-                        border: Border.all(
-                          color: AppConstants.primaryColor.withOpacity(0.3), // Use vault red border for premium card
-                          width: 2,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(AppConstants.paddingS),
-                                decoration: BoxDecoration(
-                                  gradient: AppConstants.vaultRedGradient,
-                                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                                ),
-                                child: const Icon(
-                                  Icons.all_inclusive,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                              ),
-                              const SizedBox(width: AppConstants.paddingM),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Lifetime Access',
-                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Unlock all prompts forever',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: AppConstants.textSecondary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: AppConstants.paddingL),
-                          
-                          // Features List
-                          ...const [
-                            '✨ Access to all premium prompts',
-                            '🚀 New prompts added weekly',
-                            '📱 Works across all devices',
-                            '💡 Priority customer support',
-                            '🎯 Advanced filtering & search',
-                          ].map((feature) => Padding(
-                            padding: const EdgeInsets.only(bottom: AppConstants.paddingS),
-                            child: Row(
-                              children: [
-                                Text(
-                                  feature.split(' ')[0],
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                const SizedBox(width: AppConstants.paddingS),
-                                Expanded(
-                                  child: Text(
-                                    feature.substring(feature.indexOf(' ') + 1),
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                          
-                          const SizedBox(height: AppConstants.paddingL),
-                          
-                          // Pricing
-                          Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    provider.getLifetimeAccessPrice(),
-                                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppConstants.primaryColor, // Use vault red for pricing
-                                    ),
-                                  ),
-                                  Text(
-                                    'One-time payment',
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppConstants.textSecondary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              ElevatedButton(
-                                onPressed: () {
-                                  _showPurchaseDialog(context, provider);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppConstants.paddingXL,
-                                    vertical: AppConstants.paddingM,
-                                  ),
-                                ),
-                                child: const Text('Unlock All'),
-                              ),
-                            ],
-                          ),
-                          
-                          const SizedBox(height: AppConstants.paddingM),
-                          
-                          // Restore Purchases Button
-                          Center(
-                            child: TextButton.icon(
-                              onPressed: () => _restorePurchases(context, provider),
-                              icon: const Icon(Icons.restore_rounded),
-                              label: const Text('Restore Purchases'),
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppConstants.textSecondary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
-
-                // Monthly Subscription Card
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
-                    child: Container(
-                      padding: const EdgeInsets.all(AppConstants.paddingL),
-                      decoration: BoxDecoration(
-                        color: AppConstants.surfaceColor,
-                        borderRadius: BorderRadius.circular(AppConstants.radiusL),
-                        border: Border.all(
-                          color: AppConstants.vaultRed.withOpacity(0.3),
-                          width: 2,
-                        ),
+                        border: Border.all(color: AppConstants.vaultRed.withOpacity(0.3), width: 2),
                         boxShadow: [
                           BoxShadow(
                             color: AppConstants.vaultRed.withOpacity(0.1),
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
                           ),
                         ],
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppConstants.vaultRed.withOpacity(0.1),
+                                  AppConstants.vaultRedLight.withOpacity(0.05),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Image.asset(
+                              'assets/images/logoPremium.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                          ),
+                          const SizedBox(height: AppConstants.paddingL),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                padding: const EdgeInsets.all(AppConstants.paddingS),
-                                decoration: BoxDecoration(
-                                  gradient: AppConstants.vaultRedGradient,
-                                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                                ),
-                                child: const Icon(
-                                  Icons.repeat,
-                                  color: Colors.white,
-                                  size: 24,
+                              Text(
+                                'Aivellum',
+                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                  color: AppConstants.textPrimary,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(width: AppConstants.paddingM),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Monthly Subscription',
-                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Unlimited access with monthly billing',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: AppConstants.textSecondary,
-                                      ),
-                                    ),
-                                  ],
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  gradient: AppConstants.vaultRedGradient,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [AppConstants.premiumShadow],
+                                ),
+                                child: Text(
+                                  'PRO',
+                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: AppConstants.paddingL),
-                          
-                          // Features List
-                          ...const [
-                            '✨ Access to all premium prompts',
-                            '🔄 Auto-renewal every month',
-                            '📱 Works across all devices',
-                            '💡 New prompts added weekly',
-                            '🎯 Advanced filtering & search',
-                          ].map((feature) => Padding(
-                            padding: const EdgeInsets.only(bottom: AppConstants.paddingS),
-                            child: Row(
+                          const SizedBox(height: AppConstants.paddingS),
+                          Text(
+                            'The Ultimate AI Prompts Experience',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: AppConstants.textSecondary,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: AppConstants.paddingXL),
+                          Container(
+                            padding: const EdgeInsets.all(AppConstants.paddingL),
+                            decoration: BoxDecoration(
+                              color: AppConstants.cardColor,
+                              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                              border: Border.all(color: AppConstants.borderColor),
+                            ),
+                            child: Column(
                               children: [
-                                Text(
-                                  feature.split(' ')[0],
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                const SizedBox(width: AppConstants.paddingS),
-                                Expanded(
-                                  child: Text(
-                                    feature.substring(feature.indexOf(' ') + 1),
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ),
+                                _buildFeature(context, Icons.auto_awesome, 'All Prompts Unlocked Forever', AppConstants.vaultRed),
+                                _buildFeature(context, Icons.block, 'Completely Ad-Free', AppConstants.successColor),
+                                _buildFeature(context, Icons.security, 'No Tracking or Analytics', AppConstants.infoColor),
+                                _buildFeature(context, Icons.update, 'Lifetime Updates', Color(0xFF8B5CF6)),
+                                _buildFeature(context, Icons.offline_bolt, 'Full Offline Access', AppConstants.warningColor),
                               ],
                             ),
-                          )),
-                          
-                          const SizedBox(height: AppConstants.paddingL),
-                          
-                          // Pricing
-                          Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                          const SizedBox(height: AppConstants.paddingXL),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () => _launchProApp(context),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppConstants.vaultRed,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingL),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                                ),
+                                elevation: 0,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  const Icon(Icons.shopping_bag, size: 20),
+                                  const SizedBox(width: AppConstants.paddingS),
                                   Text(
-                                    provider.getMonthlySubscriptionPrice(),
-                                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                    'Get Aivellum Pro',
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: AppConstants.vaultRed,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Billed monthly',
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppConstants.textSecondary,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ],
                               ),
-                              const Spacer(),
-                              ElevatedButton(
-                                onPressed: () {
-                                  _showSubscriptionDialog(context, provider);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppConstants.vaultRed,
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppConstants.paddingXL,
-                                    vertical: AppConstants.paddingM,
-                                  ),
-                                ),
-                                child: const Text('Subscribe'),
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -386,7 +228,7 @@ class PremiumScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
 
                 // Individual Unlock Section
                 SliverToBoxAdapter(
@@ -411,36 +253,35 @@ class PremiumScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.all(AppConstants.paddingM),
+                            padding: const EdgeInsets.all(AppConstants.paddingL),
                             decoration: BoxDecoration(
                               color: AppConstants.surfaceColor,
                               borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                              border: Border.all(color: AppConstants.borderColor),
+                              boxShadow: [AppConstants.cardShadow],
                             ),
                             child: Column(
                               children: [
-                                const Icon(
-                                  Icons.payment,
-                                  color: AppConstants.primaryColor, // Use vault red for payment icon
-                                  size: 32,
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: AppConstants.infoColor.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Icon(Icons.payment, color: AppConstants.infoColor, size: 28),
                                 ),
-                                const SizedBox(height: AppConstants.paddingS),
+                                const SizedBox(height: AppConstants.paddingM),
                                 Text(
                                   'Pay per Prompt',
-                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: AppConstants.paddingXS),
                                 Text(
                                   '${provider.getIndividualPromptPrice()} each',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: AppConstants.textSecondary,
                                   ),
                                 ),
@@ -451,36 +292,35 @@ class PremiumScreen extends StatelessWidget {
                         const SizedBox(width: AppConstants.paddingM),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.all(AppConstants.paddingM),
+                            padding: const EdgeInsets.all(AppConstants.paddingL),
                             decoration: BoxDecoration(
                               color: AppConstants.surfaceColor,
                               borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                              border: Border.all(color: AppConstants.borderColor),
+                              boxShadow: [AppConstants.cardShadow],
                             ),
                             child: Column(
                               children: [
-                                const Icon(
-                                  Icons.play_circle_outline,
-                                  color: AppConstants.successColor,
-                                  size: 32,
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: AppConstants.successColor.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Icon(Icons.play_circle_outline, color: AppConstants.successColor, size: 28),
                                 ),
-                                const SizedBox(height: AppConstants.paddingS),
+                                const SizedBox(height: AppConstants.paddingM),
                                 Text(
                                   'Watch Ad',
-                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: AppConstants.paddingXS),
                                 Text(
                                   'Free unlock',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: AppConstants.textSecondary,
                                   ),
                                 ),
@@ -493,7 +333,7 @@ class PremiumScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL * 2)),
               ],
             );
           },
@@ -502,230 +342,44 @@ class PremiumScreen extends StatelessWidget {
     );
   }
 
-  void _showPurchaseDialog(BuildContext context, AppProvider provider) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Unlock All Prompts'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('This will unlock all premium prompts for lifetime access.'),
-            const SizedBox(height: 16),
-            Text(
-              'Price: ${provider.getLifetimeAccessPrice()}',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+  Widget _buildFeature(BuildContext context, IconData icon, String text, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppConstants.paddingS),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(height: 8),
-            const Text('Continue with purchase?'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Icon(icon, color: color, size: 18),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              Navigator.of(context).pop();
-              
-              // Show loading
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Row(
-                    children: [
-                      SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Processing purchase...'),
-                    ],
-                  ),
-                  backgroundColor: Colors.blue,
-                  duration: Duration(seconds: 2),
-                ),
-              );
-              
-              final success = await provider.unlockAllPromptsWithPayment();
-              
-              if (success) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Row(
-                      children: [
-                        Icon(Icons.check_circle_rounded, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text('Purchase initiated! All prompts will unlock once payment is confirmed.'),
-                      ],
-                    ),
-                    backgroundColor: Colors.green,
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Row(
-                      children: [
-                        Icon(Icons.error_outline_rounded, color: Colors.white),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text('Payment not available. Please try again later or unlock individual prompts.'),
-                        ),
-                      ],
-                    ),
-                    backgroundColor: Colors.orange,
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-              }
-            },
-            child: const Text('Purchase'),
+          const SizedBox(width: AppConstants.paddingM),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppConstants.textPrimary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Future<void> _restorePurchases(BuildContext context, AppProvider provider) async {
-    // Show loading
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          children: [
-            SizedBox(
-              width: 16,
-              height: 16,
-              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-            ),
-            SizedBox(width: 8),
-            Text('Restoring purchases...'),
-          ],
-        ),
-        backgroundColor: Colors.blue,
-        duration: Duration(seconds: 2),
-      ),
-    );
-    
-    try {
-      await provider.restorePurchases();
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Row(
-            children: [
-              Icon(Icons.check_circle_rounded, color: Colors.white),
-              SizedBox(width: 8),
-              Text('Purchases restored successfully!'),
-            ],
-          ),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              const Icon(Icons.error_outline_rounded, color: Colors.white),
-              const SizedBox(width: 8),
-              Expanded(child: Text('Failed to restore purchases: ${e.toString()}')),
-            ],
-          ),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-        ),
-      );
+  Future<void> _launchProApp(BuildContext context) async {
+    final uri = Uri.parse('https://play.google.com/store/apps/details?id=com.khanbasharat.aivellumpro');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open Play Store')),
+        );
+      }
     }
-  }
-
-  void _showSubscriptionDialog(BuildContext context, AppProvider provider) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Subscribe to Premium'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('This will activate your monthly subscription and unlock all premium prompts.'),
-            const SizedBox(height: 16),
-            Text(
-              'Price: ${provider.getMonthlySubscriptionPrice()}',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            const Text('Your subscription will auto-renew monthly. Continue with subscription?'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              Navigator.of(context).pop();
-              
-              // Show loading
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Row(
-                    children: [
-                      SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Processing subscription...'),
-                    ],
-                  ),
-                  backgroundColor: Colors.blue,
-                  duration: Duration(seconds: 2),
-                ),
-              );
-              
-              final success = await provider.purchaseMonthlySubscription();
-              
-              if (success) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Row(
-                      children: [
-                        Icon(Icons.check_circle_rounded, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text('Subscription initiated! All prompts will unlock once payment is confirmed.'),
-                      ],
-                    ),
-                    backgroundColor: Colors.green,
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Row(
-                      children: [
-                        Icon(Icons.error_outline_rounded, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text('Subscription not available. Please try again later.'),
-                      ],
-                    ),
-                    backgroundColor: Colors.orange,
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-              }
-            },
-            child: const Text('Subscribe'),
-          ),
-        ],
-      ),
-    );
   }
 }

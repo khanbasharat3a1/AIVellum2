@@ -1,11 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../widgets/prompt_card.dart';
+import '../widgets/pro_banner_widget.dart';
+import '../services/ad_service.dart';
 
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
+
+  @override
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    _bannerAd = AdService.createBannerAd()..load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +54,14 @@ class FavoritesScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ),
+
+                // Pro Banner
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(AppConstants.paddingM),
+                    child: ProBannerWidget(),
                   ),
                 ),
 
@@ -135,6 +169,20 @@ class FavoritesScreen extends StatelessWidget {
                       childCount: favoritePrompts.length,
                     ),
                   ),
+
+                  const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+
+                  // Banner Ad
+                  if (_bannerAd != null)
+                    SliverToBoxAdapter(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+                        height: 50,
+                        child: AdWidget(ad: _bannerAd!),
+                      ),
+                    ),
+
+                  const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
                 ],
               ],
             );

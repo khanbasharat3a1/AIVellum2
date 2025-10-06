@@ -211,6 +211,11 @@ class AppProvider with ChangeNotifier {
     return false;
   }
 
+  Future<void> unlockPromptWithAd(String promptId) async {
+    await _dataService.unlockPrompt(promptId);
+    notifyListeners();
+  }
+
   Future<bool> unlockAllPromptsWithPayment() async {
     if (!BillingService.isAvailable) {
       return false;
