@@ -8,6 +8,7 @@ import '../services/billing_service.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
 import '../services/ad_service.dart';
+import '../services/database_service.dart';
 
 class AppProvider with ChangeNotifier {
   final DataService _dataService = DataService();
@@ -56,20 +57,18 @@ class AppProvider with ChangeNotifier {
       _error = '';
       notifyListeners();
 
-      // Load user location first
-      _userLocation = await LocationService.getUserLocation();
-      print('User location: ${_userLocation?.countryName}');
-
-      await _dataService.loadData();
-      print('Data service loaded successfully');
+      // Load data and location in parallel
+      await Future.wait([
+        _dataService.loadData(),
+        LocationService.getUserLocation().then((loc) => _userLocation = loc),
+        BillingService.initialize(),
+      ]);
       
+      print('Core services loaded');
       
-      // Initialize billing
-      await BillingService.initialize();
-      
-      // Load user data from Firestore if signed in
+      // Load user data from Firestore if signed in (in background)
       if (AuthService.isSignedIn) {
-        await _loadFirestoreData();
+        _loadFirestoreData().then((_) => notifyListeners());
       } else {
         _hasLifetimeAccess = BillingService.hasLifetimeAccess;
         _hasActiveSubscription = BillingService.hasActiveSubscription;
@@ -102,7 +101,6 @@ class AppProvider with ChangeNotifier {
             await FirestoreService.unlockPrompt(AuthService.userId!, promptId);
           }
         }
-        await Future.delayed(const Duration(milliseconds: 100));
         notifyListeners();
       });
       
@@ -200,26 +198,65 @@ class AppProvider with ChangeNotifier {
 
   Future<void> _loadFirestoreData() async {
     final uid = AuthService.userId!;
+    
+    // Sync local data to cloud
+    final localUnlocked = _dataService.getUnlockedPrompts().map((p) => p.id).toList();
+    final localFavorites = _dataService.getFavoritePrompts().map((p) => p.id).toList();
+    await FirestoreService.syncLocalToCloud(uid, localUnlocked, localFavorites);
+    
+    // Load cloud data
     _hasLifetimeAccess = await FirestoreService.hasLifetimeAccess(uid);
     _hasActiveSubscription = await FirestoreService.hasActiveSubscription(uid);
     _isAdFree = await FirestoreService.isAdFree(uid);
+    
+    // Sync unlocked prompts from cloud
+    final cloudUnlocked = await FirestoreService.getUnlockedPrompts(uid);
+    for (var promptId in cloudUnlocked) {
+      if (!_dataService.isPromptUnlocked(promptId)) {
+        await _dataService.unlockPrompt(promptId);
+      }
+    }
+    
+    // Sync favorites from cloud
+    final cloudFavorites = await FirestoreService.getFavoritePrompts(uid);
+    for (var promptId in cloudFavorites) {
+      if (!_dataService.isPromptFavorite(promptId)) {
+        await _dataService.toggleFavorite(promptId);
+      }
+    }
   }
 
   Future<void> signInWithGoogle() async {
     final user = await AuthService.signInWithGoogle();
     if (user != null) {
+      _isLoading = true;
+      notifyListeners();
+      
       await _loadFirestoreData();
-      await _dataService.loadData();
+      
+      _isLoading = false;
       notifyListeners();
     }
   }
 
   Future<void> signOut() async {
+    _isLoading = true;
+    notifyListeners();
+    
     await AuthService.signOut();
+    
+    // Clear all subscription data
     _hasLifetimeAccess = false;
     _hasActiveSubscription = false;
     _isAdFree = false;
+    
+    // Clear local database
+    await DatabaseService.clearAllData();
+    
+    // Force reload data to reset to default state
     await _dataService.loadData();
+    
+    _isLoading = false;
     notifyListeners();
   }
 
@@ -294,14 +331,18 @@ class AppProvider with ChangeNotifier {
   }
 
   Future<bool> unlockPromptWithAd(String promptId) async {
-    final rewarded = await AdService.showRewardedAd();
-    if (rewarded) {
-      await _dataService.unlockPrompt(promptId);
-      if (AuthService.isSignedIn) {
-        await FirestoreService.unlockPrompt(AuthService.userId!, promptId);
+    try {
+      final rewarded = await AdService.showRewardedAd();
+      if (rewarded) {
+        await _dataService.unlockPrompt(promptId);
+        if (AuthService.isSignedIn) {
+          await FirestoreService.unlockPrompt(AuthService.userId!, promptId);
+        }
+        notifyListeners();
+        return true;
       }
-      notifyListeners();
-      return true;
+    } catch (e) {
+      print('Ad unlock error: $e');
     }
     return false;
   }

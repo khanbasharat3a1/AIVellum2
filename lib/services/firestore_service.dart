@@ -17,8 +17,11 @@ class FirestoreService {
         'createdAt': FieldValue.serverTimestamp(),
         'lastLoginAt': FieldValue.serverTimestamp(),
         'hasLifetimeAccess': false,
+        'lifetimeAccessDate': null,
         'hasActiveSubscription': false,
         'subscriptionStartDate': null,
+        'subscriptionEndDate': null,
+        'subscriptionAutoRenew': false,
         'unlockedPrompts': [],
         'favoritePrompts': [],
         'totalPromptsUnlocked': 0,
@@ -28,6 +31,21 @@ class FirestoreService {
       await userDoc.update({
         'lastLoginAt': FieldValue.serverTimestamp(),
       });
+      // Check subscription expiry on login
+      await _checkSubscriptionExpiry(user.uid);
+    }
+  }
+
+  static Future<void> _checkSubscriptionExpiry(String uid) async {
+    final data = await getUserData(uid);
+    if (data == null) return;
+    
+    final hasSubscription = data['hasActiveSubscription'] ?? false;
+    if (!hasSubscription) return;
+    
+    final endDate = data['subscriptionEndDate'] as Timestamp?;
+    if (endDate != null && DateTime.now().isAfter(endDate.toDate())) {
+      await deactivateSubscription(uid);
     }
   }
 
@@ -56,10 +74,15 @@ class FirestoreService {
   }
 
   static Future<void> activateSubscription(String uid) async {
+    final now = DateTime.now();
+    final endDate = DateTime(now.year, now.month + 1, now.day);
+    
     await _db.collection('users').doc(uid).update({
       'hasActiveSubscription': true,
       'isAdFree': true,
-      'subscriptionStartDate': FieldValue.serverTimestamp(),
+      'subscriptionStartDate': Timestamp.fromDate(now),
+      'subscriptionEndDate': Timestamp.fromDate(endDate),
+      'subscriptionAutoRenew': true,
     });
 
     await _logPurchase(uid, 'monthly_subscription', null);
@@ -69,6 +92,7 @@ class FirestoreService {
     await _db.collection('users').doc(uid).update({
       'hasActiveSubscription': false,
       'isAdFree': false,
+      'subscriptionAutoRenew': false,
     });
   }
 
@@ -103,17 +127,35 @@ class FirestoreService {
     final hasSubscription = data?['hasActiveSubscription'] ?? false;
     
     if (hasSubscription) {
-      final startDate = data?['subscriptionStartDate'] as Timestamp?;
-      if (startDate != null) {
-        final daysSinceStart = DateTime.now().difference(startDate.toDate()).inDays;
-        if (daysSinceStart >= 30) {
-          await deactivateSubscription(uid);
-          return false;
-        }
+      final endDate = data?['subscriptionEndDate'] as Timestamp?;
+      if (endDate != null && DateTime.now().isAfter(endDate.toDate())) {
+        await deactivateSubscription(uid);
+        return false;
       }
     }
     
     return hasSubscription;
+  }
+
+  static Stream<Map<String, dynamic>?> getUserDataStream(String uid) {
+    return _db.collection('users').doc(uid).snapshots().map((doc) => doc.data());
+  }
+
+  static Future<void> syncLocalToCloud(String uid, List<String> localUnlocked, List<String> localFavorites) async {
+    final cloudData = await getUserData(uid);
+    if (cloudData == null) return;
+    
+    final cloudUnlocked = List<String>.from(cloudData['unlockedPrompts'] ?? []);
+    final cloudFavorites = List<String>.from(cloudData['favoritePrompts'] ?? []);
+    
+    final mergedUnlocked = {...cloudUnlocked, ...localUnlocked}.toList();
+    final mergedFavorites = {...cloudFavorites, ...localFavorites}.toList();
+    
+    await _db.collection('users').doc(uid).update({
+      'unlockedPrompts': mergedUnlocked,
+      'favoritePrompts': mergedFavorites,
+      'totalPromptsUnlocked': mergedUnlocked.length,
+    });
   }
 
   static Future<bool> isAdFree(String uid) async {

@@ -175,16 +175,53 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
 
                             const SizedBox(height: AppConstants.paddingM),
 
-                            // Monthly Subscription Option
-                            _buildUnlockOption(
-                              context: context,
-                              icon: Icons.repeat_rounded,
-                              title: 'Subscribe ${provider.getMonthlySubscriptionPrice()}',
-                              subtitle: 'Unlock all prompts with monthly subscription',
-                              buttonText: 'Subscribe',
-                              onTap: _unlockWithSubscription,
-                              isPrimary: true,
-                            ),
+                            // Monthly Subscription Option (only if not subscribed)
+                            if (!provider.isUserSubscribed)
+                              _buildUnlockOption(
+                                context: context,
+                                icon: Icons.repeat_rounded,
+                                title: 'Subscribe ${provider.getMonthlySubscriptionPrice()}',
+                                subtitle: 'Unlock all prompts with monthly subscription',
+                                buttonText: 'Subscribe',
+                                onTap: _unlockWithSubscription,
+                                isPrimary: true,
+                              )
+                            else
+                              Container(
+                                padding: const EdgeInsets.all(AppConstants.paddingL),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.shade50,
+                                  borderRadius: BorderRadius.circular(AppConstants.radiusL),
+                                  border: Border.all(color: Colors.green),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.check_circle, color: Colors.green),
+                                    const SizedBox(width: AppConstants.paddingM),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            provider.hasLifetimeAccess ? 'Lifetime Access Active' : 'Subscription Active',
+                                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green,
+                                            ),
+                                          ),
+                                          const SizedBox(height: AppConstants.paddingXS),
+                                          Text(
+                                            provider.hasLifetimeAccess 
+                                                ? 'You have unlimited access to all prompts'
+                                                : 'All prompts are unlocked with your subscription',
+                                            style: Theme.of(context).textTheme.bodySmall,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -321,153 +358,46 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
       return;
     }
 
-    setState(() {
-      _isUnlocking = true;
-    });
+    if (provider.isPromptUnlocked(widget.prompt.id)) {
+      if (mounted) Navigator.pop(context, true);
+      return;
+    }
+
+    setState(() => _isUnlocking = true);
 
     try {
-      
-      // Check if already unlocked
-      if (provider.isPromptUnlocked(widget.prompt.id)) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  const Icon(Icons.info_outline_rounded, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text('This prompt is already unlocked!')),
-                ],
-              ),
-              backgroundColor: Colors.blue,
-              duration: const Duration(seconds: 2),
-            ),
-          );
-          Navigator.pop(context, true);
-        }
-        return;
-      }
-      
       final success = await provider.unlockPromptWithPayment(widget.prompt.id);
 
       if (!mounted) return;
 
       if (success) {
-        // Wait for purchase to complete and verify unlock
+        // Wait for state to update
         await Future.delayed(const Duration(milliseconds: 500));
         
-        if (provider.isPromptUnlocked(widget.prompt.id)) {
-          _scaleController.forward();
-          
+        if (mounted) {
+          setState(() => _isUnlocking = false);
+          Navigator.pop(context, true);
+        }
+      } else {
+        if (mounted) {
+          setState(() => _isUnlocking = false);
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Purchase Successful!',
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'Prompt unlocked and ready to use',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withOpacity(0.9),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              backgroundColor: Colors.green,
-              duration: const Duration(seconds: 3),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          );
-          
-          await Future.delayed(const Duration(milliseconds: 800));
-          if (mounted) {
-            Navigator.of(context).pop(true);
-          }
-        } else {
-          // Payment initiated but not completed yet
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  const Icon(Icons.pending_outlined, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text('Payment is processing. Please wait...')),
-                ],
-              ),
+            const SnackBar(
+              content: Text('Payment canceled'),
               backgroundColor: Colors.orange,
-              duration: const Duration(seconds: 3),
             ),
           );
         }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline_rounded, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Payment failed or was canceled. Please try again.')),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 4),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        );
       }
     } catch (e) {
       if (mounted) {
+        setState(() => _isUnlocking = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline_rounded, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Payment error: ${e.toString()}')),
-              ],
-            ),
+            content: Text('Error: ${e.toString()}'),
             backgroundColor: Colors.red,
-            duration: const Duration(seconds: 4),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
           ),
         );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isUnlocking = false;
-        });
       }
     }
   }
@@ -480,153 +410,46 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
       return;
     }
 
-    setState(() {
-      _isUnlocking = true;
-    });
+    if (provider.isUserSubscribed) {
+      if (mounted) Navigator.pop(context, true);
+      return;
+    }
+
+    setState(() => _isUnlocking = true);
 
     try {
-      
-      // Check if already subscribed
-      if (provider.isUserSubscribed) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  const Icon(Icons.info_outline_rounded, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text('You already have an active subscription!')),
-                ],
-              ),
-              backgroundColor: Colors.blue,
-              duration: const Duration(seconds: 2),
-            ),
-          );
-          Navigator.pop(context, true);
-        }
-        return;
-      }
-      
       final success = await provider.purchaseMonthlySubscription();
 
       if (!mounted) return;
 
       if (success) {
-        // Wait for subscription to activate and verify
+        // Wait for state to update
         await Future.delayed(const Duration(milliseconds: 500));
         
-        if (provider.isUserSubscribed) {
-          _scaleController.forward();
-          
+        if (mounted) {
+          setState(() => _isUnlocking = false);
+          Navigator.pop(context, true);
+        }
+      } else {
+        if (mounted) {
+          setState(() => _isUnlocking = false);
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Subscription Activated!',
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'All premium prompts are now unlocked',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withOpacity(0.9),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              backgroundColor: Colors.green,
-              duration: const Duration(seconds: 3),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          );
-          
-          await Future.delayed(const Duration(milliseconds: 800));
-          if (mounted) {
-            Navigator.of(context).pop(true);
-          }
-        } else {
-          // Subscription initiated but not completed yet
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  const Icon(Icons.pending_outlined, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text('Subscription is processing. Please wait...')),
-                ],
-              ),
+            const SnackBar(
+              content: Text('Subscription canceled'),
               backgroundColor: Colors.orange,
-              duration: const Duration(seconds: 3),
             ),
           );
         }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline_rounded, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Subscription failed or was canceled. Please try again.')),
-              ],
-            ),
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 4),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        );
       }
     } catch (e) {
       if (mounted) {
+        setState(() => _isUnlocking = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline_rounded, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Subscription error: ${e.toString()}')),
-              ],
-            ),
+            content: Text('Error: ${e.toString()}'),
             backgroundColor: Colors.red,
-            duration: const Duration(seconds: 4),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
           ),
         );
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isUnlocking = false;
-        });
       }
     }
   }
@@ -642,38 +465,34 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
       if (!mounted) return;
 
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.check_circle_rounded, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Prompt unlocked! Thanks for watching.')),
-              ],
-            ),
-            backgroundColor: Colors.green,
-            duration: const Duration(seconds: 2),
-          ),
-        );
-        await Future.delayed(const Duration(milliseconds: 800));
-        if (mounted) Navigator.of(context).pop(true);
+        // Wait for state to update
+        await Future.delayed(const Duration(milliseconds: 300));
+        
+        if (mounted) {
+          setState(() => _isUnlocking = false);
+          Navigator.pop(context, true);
+        }
       } else {
+        if (mounted) {
+          setState(() => _isUnlocking = false);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Ad not available'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isUnlocking = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline_rounded, color: Colors.white),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Ad not available. Try again later.')),
-              ],
-            ),
-            backgroundColor: Colors.orange,
-            duration: const Duration(seconds: 3),
+            content: Text('Error: ${e.toString()}'),
+            backgroundColor: Colors.red,
           ),
         );
       }
-    } finally {
-      if (mounted) setState(() => _isUnlocking = false);
     }
   }
 

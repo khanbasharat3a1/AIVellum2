@@ -3,9 +3,17 @@ import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../services/auth_service.dart';
+import '../services/database_service.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,18 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Consumer<AppProvider>(
+      body: _isLoading
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text('Loading profile...'),
+                ],
+              ),
+            )
+          : Consumer<AppProvider>(
         builder: (context, provider, child) {
           if (!AuthService.isSignedIn) {
             return Center(
@@ -79,17 +98,28 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(height: AppConstants.paddingL),
 
                 // Account Status
-                _buildInfoCard(
-                  context,
-                  'Account Status',
-                  [
-                    _buildInfoRow(context, 'Subscription', provider.hasActiveSubscription ? 'Active' : 'None', 
-                      provider.hasActiveSubscription ? Colors.green : AppConstants.textSecondary),
-                    _buildInfoRow(context, 'Lifetime Access', provider.hasLifetimeAccess ? 'Yes' : 'No',
-                      provider.hasLifetimeAccess ? Colors.green : AppConstants.textSecondary),
-                    _buildInfoRow(context, 'Ad-Free', provider.isAdFree ? 'Yes' : 'No',
-                      provider.isAdFree ? Colors.green : AppConstants.textSecondary),
-                  ],
+                FutureBuilder<DateTime?>(
+                  future: DatabaseService.getSubscriptionEndDate(),
+                  builder: (context, snapshot) {
+                    final endDate = snapshot.data;
+                    final daysLeft = endDate != null ? endDate.difference(DateTime.now()).inDays : 0;
+                    
+                    return _buildInfoCard(
+                      context,
+                      'Account Status',
+                      [
+                        _buildInfoRow(context, 'Subscription', provider.hasActiveSubscription ? 'Active' : 'None', 
+                          provider.hasActiveSubscription ? Colors.green : AppConstants.textSecondary),
+                        if (provider.hasActiveSubscription && endDate != null)
+                          _buildInfoRow(context, 'Expires In', '$daysLeft days', 
+                            daysLeft <= 3 ? Colors.orange : Colors.green),
+                        _buildInfoRow(context, 'Lifetime Access', provider.hasLifetimeAccess ? 'Yes' : 'No',
+                          provider.hasLifetimeAccess ? Colors.green : AppConstants.textSecondary),
+                        _buildInfoRow(context, 'Ad-Free', provider.isAdFree ? 'Yes' : 'No',
+                          provider.isAdFree ? Colors.green : AppConstants.textSecondary),
+                      ],
+                    );
+                  },
                 ),
 
                 const SizedBox(height: AppConstants.paddingM),
@@ -163,26 +193,13 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _signIn(BuildContext context, AppProvider provider) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          children: [
-            SizedBox(
-              width: 16,
-              height: 16,
-              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-            ),
-            SizedBox(width: 12),
-            Text('Signing in...'),
-          ],
-        ),
-        duration: Duration(seconds: 2),
-      ),
-    );
+    setState(() => _isLoading = true);
     
     await provider.signInWithGoogle();
     
-    if (!context.mounted) return;
+    if (!mounted) return;
+    
+    setState(() => _isLoading = false);
     
     if (AuthService.isSignedIn) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -256,8 +273,10 @@ class ProfileScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               Navigator.pop(context);
+              setState(() => _isLoading = true);
               await provider.signOut();
-              if (context.mounted) {
+              if (mounted) {
+                setState(() => _isLoading = false);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Signed out successfully'), backgroundColor: Colors.green),
                 );

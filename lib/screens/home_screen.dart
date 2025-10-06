@@ -5,6 +5,7 @@ import '../providers/app_provider.dart';
 import '../widgets/prompt_card.dart';
 import '../widgets/search_bar_widget.dart';
 import '../widgets/banner_ad_widget.dart';
+import '../widgets/subscription_status_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -240,7 +241,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+
+                // Subscription Status
+                const SliverToBoxAdapter(
+                  child: SubscriptionStatusWidget(),
+                ),
+
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
 
                 // Categories Section
                 SliverToBoxAdapter(

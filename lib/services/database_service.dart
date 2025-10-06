@@ -8,6 +8,7 @@ class DatabaseService {
   static const String _lifetimeAccessKey = 'lifetime_access';
   static const String _activeSubscriptionKey = 'active_subscription';
   static const String _subscriptionStartDateKey = 'subscription_start_date';
+  static const String _subscriptionEndDateKey = 'subscription_end_date';
 
   // Unlocked prompts management
   static Future<Set<String>> getUnlockedPrompts() async {
@@ -54,12 +55,17 @@ class DatabaseService {
 
   static Future<void> activateSubscription() async {
     final prefs = await SharedPreferences.getInstance();
+    final now = DateTime.now();
+    final endDate = DateTime(now.year, now.month + 1, now.day);
+    
     await prefs.setBool(_activeSubscriptionKey, true);
-    await prefs.setInt(_subscriptionStartDateKey, DateTime.now().millisecondsSinceEpoch);
+    await prefs.setInt(_subscriptionStartDateKey, now.millisecondsSinceEpoch);
+    await prefs.setInt(_subscriptionEndDateKey, endDate.millisecondsSinceEpoch);
     
     // Update stats
     await _updateStats('subscription_activated', true);
-    await _updateStats('subscription_start_date', DateTime.now().millisecondsSinceEpoch);
+    await _updateStats('subscription_start_date', now.millisecondsSinceEpoch);
+    await _updateStats('subscription_end_date', endDate.millisecondsSinceEpoch);
   }
 
   static Future<bool> hasActiveSubscription() async {
@@ -67,17 +73,13 @@ class DatabaseService {
     final isActive = prefs.getBool(_activeSubscriptionKey) ?? false;
     
     if (isActive) {
-      // Check if subscription is still valid (not expired)
-      final startDate = prefs.getInt(_subscriptionStartDateKey) ?? 0;
-      final subscriptionDate = DateTime.fromMillisecondsSinceEpoch(startDate);
-      final now = DateTime.now();
-      final daysSinceStart = now.difference(subscriptionDate).inDays;
-      
-      // For monthly subscription, check if it's been less than 30 days
-      if (daysSinceStart >= 30) {
-        // Subscription expired, deactivate it
-        await deactivateSubscription();
-        return false;
+      final endDateMs = prefs.getInt(_subscriptionEndDateKey);
+      if (endDateMs != null) {
+        final endDate = DateTime.fromMillisecondsSinceEpoch(endDateMs);
+        if (DateTime.now().isAfter(endDate)) {
+          await deactivateSubscription();
+          return false;
+        }
       }
     }
     
@@ -88,9 +90,20 @@ class DatabaseService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_activeSubscriptionKey, false);
     await prefs.remove(_subscriptionStartDateKey);
+    await prefs.remove(_subscriptionEndDateKey);
     
     // Update stats
     await _updateStats('subscription_deactivated', true);
+    await _updateStats('subscription_deactivated_date', DateTime.now().millisecondsSinceEpoch);
+  }
+
+  static Future<DateTime?> getSubscriptionEndDate() async {
+    final prefs = await SharedPreferences.getInstance();
+    final endDateMs = prefs.getInt(_subscriptionEndDateKey);
+    if (endDateMs != null) {
+      return DateTime.fromMillisecondsSinceEpoch(endDateMs);
+    }
+    return null;
   }
 
   static Future<bool> isUserSubscribed() async {

@@ -440,6 +440,37 @@ class PromptDetailScreen extends StatelessWidget {
   }
 
   Widget _buildLockedContent(BuildContext context, AppProvider provider) {
+    // If user has subscription, show message instead of unlock button
+    if (provider.isUserSubscribed) {
+      return Container(
+        padding: const EdgeInsets.all(AppConstants.paddingXL),
+        decoration: BoxDecoration(
+          color: Colors.green.shade50,
+          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          border: Border.all(color: Colors.green),
+        ),
+        child: Column(
+          children: [
+            Icon(Icons.check_circle, size: 48, color: Colors.green),
+            const SizedBox(height: AppConstants.paddingM),
+            Text(
+              'Already Unlocked!',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
+            ),
+            const SizedBox(height: AppConstants.paddingS),
+            Text(
+              'This prompt is included in your subscription',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
+
     return Column(
       children: [
         Container(
@@ -582,13 +613,10 @@ class PromptDetailScreen extends StatelessWidget {
   }
 
   Future<void> _showUnlockScreen(BuildContext context) async {
-    final result = await Navigator.of(context).push<bool>(
+    await Navigator.of(context).push<bool>(
       MaterialPageRoute(
         builder: (context) => PremiumUnlockScreen(prompt: prompt),
       ),
     );
-    
-    // If prompt was unlocked, the screen will rebuild automatically
-    // due to the provider notifying listeners
   }
 }

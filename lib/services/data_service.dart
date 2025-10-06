@@ -75,13 +75,20 @@ class DataService {
     // Check for lifetime access and active subscription
     _hasLifetimeAccess = await DatabaseService.hasLifetimeAccess();
     _hasActiveSubscription = await DatabaseService.hasActiveSubscription();
-    final hasFullAccess = _hasLifetimeAccess || _hasActiveSubscription;
     
     // Load unlocked prompts from database service
     final unlocked = await DatabaseService.getUnlockedPrompts();
     for (var prompt in _prompts) {
-      // Unlock if: has full access OR individually unlocked OR is free
-      prompt.isUnlocked = hasFullAccess || unlocked.contains(prompt.id) || !prompt.isPremium;
+      if (!prompt.isPremium) {
+        // Free prompts are always unlocked
+        prompt.isUnlocked = true;
+      } else if (_hasLifetimeAccess || _hasActiveSubscription) {
+        // Premium prompts unlocked if user has subscription
+        prompt.isUnlocked = true;
+      } else {
+        // Premium prompts unlocked only if individually purchased
+        prompt.isUnlocked = unlocked.contains(prompt.id);
+      }
     }
 
     // Increment session count
