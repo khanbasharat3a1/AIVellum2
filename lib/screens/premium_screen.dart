@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
+import '../services/auth_service.dart';
+import 'profile_screen.dart';
 
 class PremiumScreen extends StatelessWidget {
   const PremiumScreen({super.key});
@@ -233,16 +235,25 @@ class PremiumScreen extends StatelessWidget {
                           
                           const SizedBox(height: AppConstants.paddingM),
                           
-                          // Restore Purchases Button
+                          // Auth/Restore Button
                           Center(
-                            child: TextButton.icon(
-                              onPressed: () => _restorePurchases(context, provider),
-                              icon: const Icon(Icons.restore_rounded),
-                              label: const Text('Restore Purchases'),
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppConstants.textSecondary,
-                              ),
-                            ),
+                            child: AuthService.isSignedIn
+                                ? TextButton.icon(
+                                    onPressed: () => _restorePurchases(context, provider),
+                                    icon: const Icon(Icons.restore_rounded),
+                                    label: const Text('Restore Purchases'),
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: AppConstants.textSecondary,
+                                    ),
+                                  )
+                                : ElevatedButton.icon(
+                                    onPressed: () => _signIn(context, provider),
+                                    icon: const Icon(Icons.login_rounded),
+                                    label: const Text('Sign In to Purchase'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppConstants.primaryColor,
+                                    ),
+                                  ),
                           ),
                         ],
                       ),
@@ -502,7 +513,16 @@ class PremiumScreen extends StatelessWidget {
     );
   }
 
+  void _signIn(BuildContext context, AppProvider provider) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen()));
+  }
+
   void _showPurchaseDialog(BuildContext context, AppProvider provider) {
+    if (!AuthService.isSignedIn) {
+      _signIn(context, provider);
+      return;
+    }
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -644,6 +664,11 @@ class PremiumScreen extends StatelessWidget {
   }
 
   void _showSubscriptionDialog(BuildContext context, AppProvider provider) {
+    if (!AuthService.isSignedIn) {
+      _signIn(context, provider);
+      return;
+    }
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

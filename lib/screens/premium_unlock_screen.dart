@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../models/prompt.dart';
+import '../services/auth_service.dart';
+import 'profile_screen.dart';
 
 class PremiumUnlockScreen extends StatefulWidget {
   final Prompt prompt;
@@ -160,6 +162,19 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
 
                             const SizedBox(height: AppConstants.paddingM),
 
+                            // Watch Ad Option
+                            _buildUnlockOption(
+                              context: context,
+                              icon: Icons.play_circle_outline_rounded,
+                              title: 'Watch Ad',
+                              subtitle: 'Unlock by watching a short video ad',
+                              buttonText: 'Watch Ad',
+                              onTap: _unlockWithAd,
+                              isPrimary: false,
+                            ),
+
+                            const SizedBox(height: AppConstants.paddingM),
+
                             // Monthly Subscription Option
                             _buildUnlockOption(
                               context: context,
@@ -299,12 +314,18 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
   }
 
   Future<void> _unlockWithPayment() async {
+    final provider = Provider.of<AppProvider>(context, listen: false);
+    
+    if (!AuthService.isSignedIn) {
+      _showAuthRequired();
+      return;
+    }
+
     setState(() {
       _isUnlocking = true;
     });
 
     try {
-      final provider = Provider.of<AppProvider>(context, listen: false);
       
       // Check if already unlocked
       if (provider.isPromptUnlocked(widget.prompt.id)) {
@@ -383,9 +404,9 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
             ),
           );
           
-          await Future.delayed(const Duration(milliseconds: 1500));
+          await Future.delayed(const Duration(milliseconds: 800));
           if (mounted) {
-            Navigator.pop(context, true);
+            Navigator.of(context).pop(true);
           }
         } else {
           // Payment initiated but not completed yet
@@ -452,12 +473,18 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
   }
 
   Future<void> _unlockWithSubscription() async {
+    final provider = Provider.of<AppProvider>(context, listen: false);
+    
+    if (!AuthService.isSignedIn) {
+      _showAuthRequired();
+      return;
+    }
+
     setState(() {
       _isUnlocking = true;
     });
 
     try {
-      final provider = Provider.of<AppProvider>(context, listen: false);
       
       // Check if already subscribed
       if (provider.isUserSubscribed) {
@@ -536,9 +563,9 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
             ),
           );
           
-          await Future.delayed(const Duration(milliseconds: 1500));
+          await Future.delayed(const Duration(milliseconds: 800));
           if (mounted) {
-            Navigator.pop(context, true);
+            Navigator.of(context).pop(true);
           }
         } else {
           // Subscription initiated but not completed yet
@@ -602,5 +629,55 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
         });
       }
     }
+  }
+
+  Future<void> _unlockWithAd() async {
+    final provider = Provider.of<AppProvider>(context, listen: false);
+
+    setState(() => _isUnlocking = true);
+
+    try {
+      final success = await provider.unlockPromptWithAd(widget.prompt.id);
+
+      if (!mounted) return;
+
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle_rounded, color: Colors.white),
+                const SizedBox(width: 8),
+                Expanded(child: Text('Prompt unlocked! Thanks for watching.')),
+              ],
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+        await Future.delayed(const Duration(milliseconds: 800));
+        if (mounted) Navigator.of(context).pop(true);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error_outline_rounded, color: Colors.white),
+                const SizedBox(width: 8),
+                Expanded(child: Text('Ad not available. Try again later.')),
+              ],
+            ),
+            backgroundColor: Colors.orange,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isUnlocking = false);
+    }
+  }
+
+  void _showAuthRequired() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen()));
   }
 }

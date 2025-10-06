@@ -4,7 +4,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
+import '../services/auth_service.dart';
 import 'billing_test_screen.dart';
+import 'profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -35,63 +37,103 @@ class SettingsScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(AppConstants.paddingL),
-                    child: Container(
-                      padding: const EdgeInsets.all(AppConstants.paddingL),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            AppConstants.primaryColor,
-                            AppConstants.secondaryColor,
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen())),
+                      child: Container(
+                        padding: const EdgeInsets.all(AppConstants.paddingL),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              AppConstants.primaryColor,
+                              AppConstants.secondaryColor,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(AppConstants.radiusL),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppConstants.primaryColor.withOpacity(0.2),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
                           ],
                         ),
-                        borderRadius: BorderRadius.circular(AppConstants.radiusL),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppConstants.primaryColor.withOpacity(0.2),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: AuthService.currentUser?.photoURL != null 
+                                ? NetworkImage(AuthService.currentUser!.photoURL!) 
+                                : null,
+                              child: AuthService.currentUser?.photoURL == null 
+                                ? const Icon(Icons.person, size: 32, color: Colors.white) 
+                                : null,
                             ),
-                            child: const Icon(
-                              Icons.person,
-                              size: 32,
-                              color: AppConstants.primaryColor,
-                            ),
-                          ),
-                          const SizedBox(width: AppConstants.paddingM),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Welcome to ${AppConstants.appName}',
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                            const SizedBox(width: AppConstants.paddingM),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AuthService.isSignedIn 
+                                      ? (AuthService.currentUser?.displayName ?? 'User')
+                                      : 'Not Signed In',
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  '${provider.unlockedPromptsCount}/${provider.totalPrompts} prompts unlocked',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.white.withOpacity(0.9),
+                                  Text(
+                                    AuthService.isSignedIn
+                                      ? (AuthService.currentUser?.email ?? '')
+                                      : 'Tap to sign in',
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: Colors.white.withOpacity(0.9),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  if (AuthService.isSignedIn) ...<Widget>[
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        if (provider.hasLifetimeAccess)
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: const Text('Lifetime', style: TextStyle(color: Colors.white, fontSize: 10)),
+                                          ),
+                                        if (provider.hasActiveSubscription)
+                                          Container(
+                                            margin: const EdgeInsets.only(left: 4),
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: const Text('Subscribed', style: TextStyle(color: Colors.white, fontSize: 10)),
+                                          ),
+                                        if (provider.isAdFree)
+                                          Container(
+                                            margin: const EdgeInsets.only(left: 4),
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.orange,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: const Text('Ad-Free', style: TextStyle(color: Colors.white, fontSize: 10)),
+                                          ),
+                                      ],
+                                    ),
+                                  ]
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -104,6 +146,8 @@ class SettingsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
+
                         // App Section
                         _buildSectionTitle(context, 'App'),
                         _buildSettingsCard(

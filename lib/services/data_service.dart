@@ -116,6 +116,15 @@ class DataService {
     prompt.isFavorite = await DatabaseService.isPromptFavorite(promptId);
   }
 
+  bool isPromptFavorite(String promptId) {
+    try {
+      final prompt = _prompts.firstWhere((p) => p.id == promptId);
+      return prompt.isFavorite;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<void> unlockPrompt(String promptId) async {
     await DatabaseService.unlockPrompt(promptId);
     

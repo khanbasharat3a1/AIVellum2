@@ -4,6 +4,7 @@ import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../widgets/prompt_card.dart';
 import '../widgets/search_bar_widget.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -215,6 +216,17 @@ class CategoriesScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+
+                  // Banner Ad
+                  if (!provider.isAdFree)
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+                        child: BannerAdWidget(),
+                      ),
+                    ),
+
                   const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
                 ],
               ],

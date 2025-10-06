@@ -4,6 +4,7 @@ import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../widgets/prompt_card.dart';
 import '../widgets/search_bar_widget.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -483,7 +484,18 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL * 2)),
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+
+                // Banner Ad
+                if (!provider.isAdFree)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: AppConstants.paddingL),
+                      child: BannerAdWidget(),
+                    ),
+                  ),
+
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
               ],
             );
           },

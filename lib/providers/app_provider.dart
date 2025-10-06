@@ -5,6 +5,9 @@ import '../models/user_location.dart';
 import '../services/data_service.dart';
 import '../services/location_service.dart';
 import '../services/billing_service.dart';
+import '../services/auth_service.dart';
+import '../services/firestore_service.dart';
+import '../services/ad_service.dart';
 
 class AppProvider with ChangeNotifier {
   final DataService _dataService = DataService();
@@ -17,6 +20,7 @@ class AppProvider with ChangeNotifier {
   UserLocation? _userLocation;
   bool _hasLifetimeAccess = false;
   bool _hasActiveSubscription = false;
+  bool _isAdFree = false;
 
   // Getters
   bool get isLoading => _isLoading;
@@ -28,6 +32,9 @@ class AppProvider with ChangeNotifier {
   bool get hasLifetimeAccess => _hasLifetimeAccess;
   bool get hasActiveSubscription => _hasActiveSubscription;
   bool get isUserSubscribed => _hasLifetimeAccess || _hasActiveSubscription;
+  bool get isAdFree => _isAdFree;
+  bool get isSignedIn => AuthService.isSignedIn;
+  String? get userEmail => AuthService.currentUser?.email;
   
   List<Category> get categories => _dataService.categories;
   List<Prompt> get prompts => _dataService.prompts;
@@ -59,12 +66,17 @@ class AppProvider with ChangeNotifier {
       
       // Initialize billing
       await BillingService.initialize();
-      _hasLifetimeAccess = BillingService.hasLifetimeAccess;
-      _hasActiveSubscription = BillingService.hasActiveSubscription;
+      
+      // Load user data from Firestore if signed in
+      if (AuthService.isSignedIn) {
+        await _loadFirestoreData();
+      } else {
+        _hasLifetimeAccess = BillingService.hasLifetimeAccess;
+        _hasActiveSubscription = BillingService.hasActiveSubscription;
+      }
       
       // Set purchase callback to refresh UI
       BillingService.setPurchaseCompleteCallback((promptId, isLifetime, isSubscription) async {
-        // Handle error/canceled/pending states
         if (promptId == 'error' || promptId == 'canceled' || promptId == 'pending') {
           notifyListeners();
           return;
@@ -72,17 +84,24 @@ class AppProvider with ChangeNotifier {
         
         if (isLifetime) {
           _hasLifetimeAccess = true;
-          // Unlock all prompts immediately
+          _isAdFree = true;
           await _dataService.unlockAllPrompts();
+          if (AuthService.isSignedIn) {
+            await FirestoreService.activateLifetimeAccess(AuthService.userId!);
+          }
         } else if (isSubscription) {
           _hasActiveSubscription = true;
-          // Unlock all prompts for subscription
+          _isAdFree = true;
           await _dataService.unlockAllPrompts();
+          if (AuthService.isSignedIn) {
+            await FirestoreService.activateSubscription(AuthService.userId!);
+          }
         } else {
-          // Unlock specific prompt immediately
           await _dataService.unlockPrompt(promptId);
+          if (AuthService.isSignedIn) {
+            await FirestoreService.unlockPrompt(AuthService.userId!, promptId);
+          }
         }
-        // Smooth UI update with slight delay to prevent jitter
         await Future.delayed(const Duration(milliseconds: 100));
         notifyListeners();
       });
@@ -179,11 +198,40 @@ class AppProvider with ChangeNotifier {
     return featured.take(8).toList();
   }
 
+  Future<void> _loadFirestoreData() async {
+    final uid = AuthService.userId!;
+    _hasLifetimeAccess = await FirestoreService.hasLifetimeAccess(uid);
+    _hasActiveSubscription = await FirestoreService.hasActiveSubscription(uid);
+    _isAdFree = await FirestoreService.isAdFree(uid);
+  }
+
+  Future<void> signInWithGoogle() async {
+    final user = await AuthService.signInWithGoogle();
+    if (user != null) {
+      await _loadFirestoreData();
+      await _dataService.loadData();
+      notifyListeners();
+    }
+  }
+
+  Future<void> signOut() async {
+    await AuthService.signOut();
+    _hasLifetimeAccess = false;
+    _hasActiveSubscription = false;
+    _isAdFree = false;
+    await _dataService.loadData();
+    notifyListeners();
+  }
+
   // Favorites
   List<Prompt> get favoritePrompts => _dataService.getFavoritePrompts();
 
   Future<void> toggleFavorite(String promptId) async {
     await _dataService.toggleFavorite(promptId);
+    if (AuthService.isSignedIn) {
+      final isFav = _dataService.isPromptFavorite(promptId);
+      await FirestoreService.toggleFavorite(AuthService.userId!, promptId, isFav);
+    }
     notifyListeners();
   }
 
@@ -201,14 +249,12 @@ class AppProvider with ChangeNotifier {
   
 
   Future<bool> unlockPromptWithPayment(String promptId) async {
-    if (!BillingService.isAvailable) {
-      return false;
-    }
+    if (!AuthService.isSignedIn) return false;
+    if (!BillingService.isAvailable) return false;
     
     try {
       final success = await BillingService.purchaseSinglePrompt(promptId);
       if (success) {
-        // The actual unlock will happen in the purchase stream listener
         return true;
       }
     } catch (e) {
@@ -218,15 +264,12 @@ class AppProvider with ChangeNotifier {
   }
 
   Future<bool> unlockAllPromptsWithPayment() async {
-    if (!BillingService.isAvailable) {
-      return false;
-    }
+    if (!AuthService.isSignedIn) return false;
+    if (!BillingService.isAvailable) return false;
     
     try {
       final success = await BillingService.purchaseUnlockAll();
       if (success) {
-        // The actual unlock will happen in the purchase stream listener
-        // Don't set _hasLifetimeAccess here, wait for verification
         return true;
       }
     } catch (e) {
@@ -236,21 +279,37 @@ class AppProvider with ChangeNotifier {
   }
 
   Future<bool> purchaseMonthlySubscription() async {
-    if (!BillingService.isAvailable) {
-      return false;
-    }
+    if (!AuthService.isSignedIn) return false;
+    if (!BillingService.isAvailable) return false;
     
     try {
       final success = await BillingService.purchaseMonthlySubscription();
       if (success) {
-        // The actual subscription activation will happen in the purchase stream listener
-        // Don't set _hasActiveSubscription here, wait for verification
         return true;
       }
     } catch (e) {
       print('Subscription error: $e');
     }
     return false;
+  }
+
+  Future<bool> unlockPromptWithAd(String promptId) async {
+    final rewarded = await AdService.showRewardedAd();
+    if (rewarded) {
+      await _dataService.unlockPrompt(promptId);
+      if (AuthService.isSignedIn) {
+        await FirestoreService.unlockPrompt(AuthService.userId!, promptId);
+      }
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> showInterstitialAd() async {
+    if (!_isAdFree) {
+      await AdService.showInterstitialAd();
+    }
   }
 
   // Statistics

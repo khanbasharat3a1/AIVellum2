@@ -49,3 +49,8 @@ app.*.map.json
 *.keystore
 android/key.properties
 keystore/
+
+# Firebase config (contains API keys)
+lib/firebase_options.dart
+google-services.json
+GoogleService-Info.plist
