@@ -163,12 +163,83 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _signIn(BuildContext context, AppProvider provider) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Row(
+          children: [
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+            ),
+            SizedBox(width: 12),
+            Text('Signing in...'),
+          ],
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+    
     await provider.signInWithGoogle();
-    if (AuthService.isSignedIn && context.mounted) {
+    
+    if (!context.mounted) return;
+    
+    if (AuthService.isSignedIn) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Welcome, ${AuthService.currentUser?.displayName ?? "User"}!'),
+          content: Row(
+            children: [
+              const Icon(Icons.check_circle, color: Colors.white),
+              const SizedBox(width: 12),
+              Text('Welcome, ${AuthService.currentUser?.displayName ?? "User"}!'),
+            ],
+          ),
           backgroundColor: Colors.green,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Row(
+            children: [
+              Icon(Icons.error_outline, color: Colors.white),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Sign-in failed. Please check your internet connection or try again.',
+                  style: TextStyle(fontSize: 13),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 4),
+          action: SnackBarAction(
+            label: 'Help',
+            textColor: Colors.white,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Sign-In Help'),
+                  content: const Text(
+                    'Google Sign-In requires:\n'
+                    '1. Active internet connection\n'
+                    '2. Google Play Services installed\n'
+                    '3. SHA-1 fingerprint configured in Firebase\n\n'
+                    'You can still use the app without signing in to browse and watch ads.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       );
     }
