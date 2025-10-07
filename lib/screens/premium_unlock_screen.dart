@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../models/prompt.dart';
-import '../services/auth_service.dart';
-import 'profile_screen.dart';
+import '../services/ad_service.dart';
 
 class PremiumUnlockScreen extends StatefulWidget {
   final Prompt prompt;
@@ -20,6 +21,7 @@ class PremiumUnlockScreen extends StatefulWidget {
 
 class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerProviderStateMixin {
   bool _isUnlocking = false;
+  RewardedAd? _rewardedAd;
   late AnimationController _fadeController;
   late AnimationController _scaleController;
   late Animation<double> _fadeAnimation;
@@ -28,6 +30,7 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
   @override
   void initState() {
     super.initState();
+    _loadRewardedAd();
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
@@ -50,9 +53,14 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
 
   @override
   void dispose() {
+    _rewardedAd?.dispose();
     _fadeController.dispose();
     _scaleController.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadRewardedAd() async {
+    _rewardedAd = await AdService.loadRewardedAd();
   }
 
   @override
@@ -149,6 +157,11 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
                             ),
                             const SizedBox(height: AppConstants.paddingL),
 
+                            // AivellumPro Option
+                            _buildProOption(context),
+
+                            const SizedBox(height: AppConstants.paddingM),
+
                             // Individual Payment Option
                             _buildUnlockOption(
                               context: context,
@@ -165,10 +178,10 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
                             // Watch Ad Option
                             _buildUnlockOption(
                               context: context,
-                              icon: Icons.play_circle_outline_rounded,
+                              icon: Icons.play_circle_outline,
                               title: 'Watch Ad',
-                              subtitle: 'Unlock by watching a short video ad',
-                              buttonText: 'Watch Ad',
+                              subtitle: 'Unlock this prompt for free',
+                              buttonText: 'Watch',
                               onTap: _unlockWithAd,
                               isPrimary: false,
                             ),
@@ -375,8 +388,59 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
         await Future.delayed(const Duration(milliseconds: 500));
         
         if (mounted) {
-          setState(() => _isUnlocking = false);
-          Navigator.pop(context, true);
+          // Show success animation
+          _scaleController.forward();
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Purchase Successful!',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Prompt unlocked and ready to use',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+          
+          // Wait for smooth transition
+          await Future.delayed(const Duration(milliseconds: 800));
+          if (mounted) {
+            Navigator.pop(context);
+          }
         }
       } else {
         if (mounted) {
@@ -400,6 +464,165 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
         );
       }
     }
+  }
+
+  Widget _buildProOption(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingL),
+      decoration: BoxDecoration(
+        color: AppConstants.surfaceColor,
+        borderRadius: BorderRadius.circular(AppConstants.radiusL),
+        border: Border.all(color: AppConstants.vaultRed.withOpacity(0.3), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: AppConstants.vaultRed.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      AppConstants.vaultRed.withOpacity(0.1),
+                      AppConstants.vaultRedLight.withOpacity(0.05),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Image.asset('assets/images/logoPremium.png', width: 32, height: 32),
+              ),
+              const SizedBox(width: AppConstants.paddingM),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Aivellum',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: AppConstants.textPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            gradient: AppConstants.vaultRedGradient,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [AppConstants.premiumShadow],
+                          ),
+                          child: Text(
+                            'PRO',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'All prompts • Ad-free • No tracking',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppConstants.textSecondary,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppConstants.paddingM),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _openProApp,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppConstants.vaultRed,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 0,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.shopping_bag, size: 16),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Get Pro Version',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _openProApp() async {
+    final uri = Uri.parse('https://play.google.com/store/apps/details?id=com.khanbasharat.aivellumpro');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  Future<void> _unlockWithAd() async {
+    if (_rewardedAd == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Ad not ready. Please try again.')),
+      );
+      _loadRewardedAd();
+      return;
+    }
+
+    _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        _loadRewardedAd();
+      },
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        ad.dispose();
+        _loadRewardedAd();
+      },
+    );
+
+    await _rewardedAd!.show(
+      onUserEarnedReward: (ad, reward) async {
+        final provider = Provider.of<AppProvider>(context, listen: false);
+        await provider.unlockPromptWithAd(widget.prompt.id);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Prompt unlocked!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          await Future.delayed(const Duration(milliseconds: 500));
+          if (mounted) {
+            Navigator.pop(context);
+          }
+        }
+      },
+    );
+    _rewardedAd = null;
   }
 
   Future<void> _unlockWithSubscription() async {
@@ -427,8 +650,59 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
         await Future.delayed(const Duration(milliseconds: 500));
         
         if (mounted) {
-          setState(() => _isUnlocking = false);
-          Navigator.pop(context, true);
+          // Show success animation
+          _scaleController.forward();
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Subscription Activated!',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'All premium prompts are now unlocked',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+          
+          // Wait for smooth transition
+          await Future.delayed(const Duration(milliseconds: 800));
+          if (mounted) {
+            Navigator.pop(context);
+          }
         }
       } else {
         if (mounted) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
+import '../widgets/pro_promotion_dialog.dart';
 import 'main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -87,6 +89,28 @@ class _SplashScreenState extends State<SplashScreen>
           transitionDuration: const Duration(milliseconds: 600),
         ),
       );
+      _showProPromotionIfNeeded();
+    }
+  }
+
+  Future<void> _showProPromotionIfNeeded() async {
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    
+    final prefs = await SharedPreferences.getInstance();
+    final lastShown = prefs.getInt('pro_dialog_last_shown') ?? 0;
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final daysSinceLastShown = (now - lastShown) / (1000 * 60 * 60 * 24);
+
+    if (daysSinceLastShown >= 2 || lastShown == 0) {
+      if (mounted) {
+        await showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) => const ProPromotionDialog(),
+        );
+        await prefs.setInt('pro_dialog_last_shown', now);
+      }
     }
   }
 

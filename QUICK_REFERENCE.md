@@ -1,159 +1,96 @@
-# Quick Reference Card - Critical Fixes
+# Quick Reference - What Changed
 
-## 🚨 CRITICAL FIX: Payment Security
+## 🎯 Main Goals Achieved
 
-### The Problem
-Prompts unlocked even when payment failed or was canceled.
+1. ✅ HTML markup stripped from prompts (displays clean text)
+2. ✅ Navigation fixed after prompt unlock
+3. ✅ Google Mobile Ads integrated
+4. ✅ Banner ads on Home, Categories, and Favorites screens
+5. ✅ Rewarded ads for free prompt unlocking
+6. ✅ Premium screen redesigned to promote AivellumPro
+7. ✅ Startup popup promoting AivellumPro (every 3 days)
+8. ✅ Removed monthly subscription and lifetime access from UI
 
-### The Solution
-```dart
-// BEFORE (BROKEN)
-completePurchase() → unlockContent()
+## 📱 Ad Configuration
 
-// AFTER (FIXED)
-unlockContent() → completePurchase()
+### Ad IDs (Already Configured)
+- **App ID**: ca-app-pub-5294128665280219~2632618644
+- **Banner**: ca-app-pub-5294128665280219/1765156851
+- **Interstitial**: ca-app-pub-5294128665280219/3632772298
+- **Rewarded**: ca-app-pub-5294128665280219/6594989317
+
+### Where Ads Appear
+- **Banner Ads**: Bottom of Home, Categories, and Favorites screens
+- **Rewarded Ads**: Prompt unlock screen (watch to unlock for free)
+
+## 🔄 User Journey Changes
+
+### Before (Old Flow)
+Locked Prompt → Unlock Screen → Pay OR Subscribe → Back to Prompt
+
+### After (New Flow)
+Locked Prompt → Unlock Screen → **Get Pro** OR Pay OR **Watch Ad** → Back to Prompt
+
+## 🎨 Premium Screen Changes
+
+### Removed
+- ❌ Monthly Subscription option
+- ❌ Lifetime Access purchase option
+
+### Added
+- ✅ Large AivellumPro promotion card
+- ✅ Direct link to Play Store
+- ✅ Feature highlights (ad-free, no tracking, etc.)
+
+### Kept
+- ✅ Individual prompt unlock (pay per prompt)
+- ✅ Watch ad option (now visible)
+
+## 🚀 To Build and Test
+
+```bash
+# Install dependencies
+flutter pub get
+
+# Build release APK
+flutter build apk --release
+
+# Build app bundle for Play Store
+flutter build appbundle --release
 ```
 
-### How to Verify
-1. Click "Pay Now"
-2. Cancel payment
-3. **Check:** Prompt should stay LOCKED ✅
+## ⚠️ Important Notes
 
----
+1. **Ads won't show in emulator** - Test on real device
+2. **Test ads will show initially** - Until AdMob approves your app
+3. **Pro dialog shows every 3 days** - Not on every startup
+4. **HTML stripping is automatic** - No user action needed
+5. **Navigation is fixed** - Returns to prompt details after unlock
 
-## 💬 User Feedback Messages
+## 🔗 AivellumPro Link
+https://play.google.com/store/apps/details?id=com.khanbasharat.aivellumpro
 
-### Success (Green)
-```
-✓ Purchase Successful!
-  Prompt unlocked and ready to use
-```
+## 📝 Key Files Modified
 
-### Error (Red)
-```
-✗ Payment failed or was canceled
-  Please try again
-```
+- `lib/screens/premium_screen.dart` - Complete redesign
+- `lib/screens/premium_unlock_screen.dart` - Added Pro option & ads
+- `lib/screens/splash_screen.dart` - Added Pro popup
+- `lib/screens/home_screen.dart` - Added banner ad
+- `lib/screens/categories_screen.dart` - Added banner ad
+- `lib/screens/favorites_screen.dart` - Added banner ad
+- `lib/screens/prompt_detail_screen.dart` - HTML stripping
+- `lib/main.dart` - Ad initialization
 
-### Pending (Orange)
-```
-⏳ Payment is processing
-   Please wait...
-```
+## 🆕 New Files Created
 
-### Info (Blue)
-```
-ℹ Already unlocked!
-```
+- `lib/utils/html_utils.dart` - HTML stripping utility
+- `lib/services/ad_service.dart` - Ad management
+- `lib/widgets/pro_promotion_dialog.dart` - Startup popup
 
----
+## 🎯 Next Steps
 
-## 🧹 Markdown Stripping
-
-### Before
-```
-**Bold text** and *italic* with [links](url)
-```
-
-### After
-```
-Bold text and italic with links
-```
-
-### Implementation
-```dart
-final clean = TextUtils.stripMarkup(content);
-```
-
----
-
-## 📁 Modified Files
-
-1. `billing_service.dart` - Payment flow
-2. `app_provider.dart` - State management
-3. `premium_unlock_screen.dart` - UI feedback
-4. `data_service.dart` - Verification
-5. `prompt_detail_screen.dart` - Display
-6. `text_utils.dart` - NEW utility
-
----
-
-## ✅ Must-Pass Tests
-
-1. Canceled payment = locked ✅
-2. Failed payment = locked ✅
-3. Success payment = unlocked ✅
-4. No markdown visible ✅
-5. Subscription unlocks all ✅
-
----
-
-## 🔧 Debug Commands
-
-### Check unlock status
-```dart
-print('Unlocked: ${provider.isPromptUnlocked(promptId)}');
-```
-
-### Check subscription
-```dart
-print('Subscribed: ${provider.isUserSubscribed}');
-```
-
-### Check payment status
-```dart
-print('Purchase status: ${purchase.status}');
-```
-
----
-
-## 📊 Key Metrics
-
-- Payment Security: 🔒 100% improved
-- User Feedback: 😊 90% better
-- Content Quality: 💎 100% cleaner
-- Reliability: 🔄 80% more stable
-
----
-
-## 🚀 Deploy Checklist
-
-- [ ] Test canceled payment
-- [ ] Test failed payment
-- [ ] Test successful payment
-- [ ] Verify no markdown
-- [ ] Test subscription
-- [ ] Build release
-- [ ] Deploy
-
----
-
-## 📞 Quick Help
-
-**Issue:** Payment not working
-**Fix:** Check console logs, verify test mode
-
-**Issue:** Prompt not unlocking
-**Fix:** Check `isPromptUnlocked()` return value
-
-**Issue:** Markdown still visible
-**Fix:** Verify `TextUtils.stripMarkup()` is called
-
----
-
-## 🎯 Priority Order
-
-1. **FIRST:** Test payment security
-2. **SECOND:** Test user feedback
-3. **THIRD:** Test markdown stripping
-4. **FOURTH:** Deploy to production
-
----
-
-**Status:** ✅ READY
-**Risk:** 🟢 LOW
-**Impact:** 🚀 HIGH
-
----
-
-Print this card and keep it handy during testing! 📋
+1. Test on real Android device
+2. Verify all ads load correctly
+3. Test Pro link opens Play Store
+4. Upload to Play Console
+5. Monitor ad performance

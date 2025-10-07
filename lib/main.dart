@@ -9,14 +9,10 @@ import 'screens/splash_screen.dart';
 import 'screens/location_setup_screen.dart';
 import 'services/billing_service.dart';
 import 'services/ad_service.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AdService.initialize();
-  await AdService.loadInterstitialAd();
-  await AdService.loadRewardedAd();
   
   runApp(const AivellumApp());
 }

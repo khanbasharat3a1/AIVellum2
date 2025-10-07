@@ -1,111 +1,62 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdService {
-  static const String appId = 'ca-app-pub-5294128665280219~2632618644';
-  static const String bannerId = 'ca-app-pub-5294128665280219/1765156851';
-  static const String interstitialId = 'ca-app-pub-5294128665280219/3632772298';
-  static const String rewardedId = 'ca-app-pub-5294128665280219/6594989317';
-
-  static bool _isInitialized = false;
-  static InterstitialAd? _interstitialAd;
-  static RewardedAd? _rewardedAd;
-  static bool _isLoadingInterstitial = false;
-  static bool _isLoadingRewarded = false;
+  static const String _bannerId = 'ca-app-pub-5294128665280219/1765156851';
+  static const String _interstitialId = 'ca-app-pub-5294128665280219/3632772298';
+  static const String _rewardedId = 'ca-app-pub-5294128665280219/6594989317';
 
   static Future<void> initialize() async {
-    if (_isInitialized) return;
     await MobileAds.instance.initialize();
-    _isInitialized = true;
-    
-    // Preload ads
-    await loadInterstitialAd();
-    await loadRewardedAd();
   }
 
   static BannerAd createBannerAd() {
     return BannerAd(
-      adUnitId: bannerId,
+      adUnitId: _bannerId,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
+        onAdLoaded: (ad) => print('Banner ad loaded'),
         onAdFailedToLoad: (ad, error) {
+          print('Banner ad failed to load: $error');
           ad.dispose();
         },
       ),
     );
   }
 
-  static Future<void> loadInterstitialAd() async {
-    if (_isLoadingInterstitial || _interstitialAd != null) return;
-    
-    _isLoadingInterstitial = true;
+  static Future<InterstitialAd?> loadInterstitialAd() async {
+    InterstitialAd? ad;
     await InterstitialAd.load(
-      adUnitId: interstitialId,
+      adUnitId: _interstitialId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          _interstitialAd = ad;
-          _isLoadingInterstitial = false;
+        onAdLoaded: (InterstitialAd loadedAd) {
+          ad = loadedAd;
+          print('Interstitial ad loaded');
         },
-        onAdFailedToLoad: (error) {
-          _interstitialAd = null;
-          _isLoadingInterstitial = false;
+        onAdFailedToLoad: (LoadAdError error) {
+          print('Interstitial ad failed to load: $error');
         },
       ),
     );
+    return ad;
   }
 
-  static Future<void> showInterstitialAd() async {
-    if (_interstitialAd != null) {
-      await _interstitialAd!.show();
-      _interstitialAd = null;
-      // Immediately load next ad
-      loadInterstitialAd();
-    } else {
-      // Try to load if not available
-      await loadInterstitialAd();
-    }
-  }
-
-  static Future<void> loadRewardedAd() async {
-    if (_isLoadingRewarded || _rewardedAd != null) return;
-    
-    _isLoadingRewarded = true;
+  static Future<RewardedAd?> loadRewardedAd() async {
+    RewardedAd? ad;
     await RewardedAd.load(
-      adUnitId: rewardedId,
+      adUnitId: _rewardedId,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          _rewardedAd = ad;
-          _isLoadingRewarded = false;
+        onAdLoaded: (RewardedAd loadedAd) {
+          ad = loadedAd;
+          print('Rewarded ad loaded');
         },
-        onAdFailedToLoad: (error) {
-          _rewardedAd = null;
-          _isLoadingRewarded = false;
+        onAdFailedToLoad: (LoadAdError error) {
+          print('Rewarded ad failed to load: $error');
         },
       ),
     );
-  }
-
-  static Future<bool> showRewardedAd() async {
-    if (_rewardedAd == null) {
-      // Try to load if not available
-      await loadRewardedAd();
-      if (_rewardedAd == null) return false;
-    }
-
-    bool rewarded = false;
-    await _rewardedAd!.show(
-      onUserEarnedReward: (ad, reward) => rewarded = true,
-    );
-    _rewardedAd = null;
-    // Immediately load next ad
-    loadRewardedAd();
-    return rewarded;
-  }
-
-  static void dispose() {
-    _interstitialAd?.dispose();
-    _rewardedAd?.dispose();
+    return ad;
   }
 }

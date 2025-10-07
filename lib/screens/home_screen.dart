@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../widgets/prompt_card.dart';
 import '../widgets/search_bar_widget.dart';
-import '../widgets/banner_ad_widget.dart';
-import '../widgets/subscription_status_widget.dart';
+import '../widgets/pro_banner_widget.dart';
+import '../services/ad_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    _bannerAd = AdService.createBannerAd()..load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,12 +267,15 @@ class HomeScreen extends StatelessWidget {
 
                 const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
 
-                // Subscription Status
+                // Pro Banner
                 const SliverToBoxAdapter(
-                  child: SubscriptionStatusWidget(),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppConstants.paddingL),
+                    child: ProBannerWidget(),
+                  ),
                 ),
 
-                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
+                const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingXL)),
 
                 // Categories Section
                 SliverToBoxAdapter(
@@ -495,11 +522,12 @@ class HomeScreen extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: AppConstants.paddingL)),
 
                 // Banner Ad
-                if (!provider.isAdFree)
-                  const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppConstants.paddingL),
-                      child: BannerAdWidget(),
+                if (_bannerAd != null)
+                  SliverToBoxAdapter(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: AppConstants.paddingL),
+                      height: 50,
+                      child: AdWidget(ad: _bannerAd!),
                     ),
                   ),
 

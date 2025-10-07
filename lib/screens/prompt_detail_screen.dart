@@ -5,7 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import '../constants/app_constants.dart';
 import '../models/prompt.dart';
 import '../providers/app_provider.dart';
-import '../utils/text_utils.dart';
+import '../utils/html_utils.dart';
 import 'premium_unlock_screen.dart';
 
 class PromptDetailScreen extends StatelessWidget {
@@ -539,14 +539,12 @@ class PromptDetailScreen extends StatelessWidget {
   }
 
   Widget _buildUnlockedContent(BuildContext context) {
-    // Strip markup from content for display
-    final displayContent = TextUtils.stripMarkup(prompt.content);
-    
+    final cleanContent = HtmlUtils.stripHtmlTags(prompt.content);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectableText(
-          displayContent,
+          cleanContent,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             height: 1.6,
             color: AppConstants.textPrimary,
@@ -585,8 +583,9 @@ class PromptDetailScreen extends StatelessWidget {
     );
   }
 
-  void _copyToClipboard(BuildContext context, String content) {
-    Clipboard.setData(ClipboardData(text: content));
+  void _copyToClipboard(BuildContext context) {
+    final cleanContent = HtmlUtils.stripHtmlTags(prompt.content);
+    Clipboard.setData(ClipboardData(text: cleanContent));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Row(
@@ -606,14 +605,16 @@ class PromptDetailScreen extends StatelessWidget {
   }
 
   void _sharePrompt(BuildContext context) {
+    final cleanTitle = HtmlUtils.stripHtmlTags(prompt.title);
+    final cleanDescription = HtmlUtils.stripHtmlTags(prompt.description);
     Share.share(
-      '${prompt.title}\n\n${prompt.description}\n\nGet more AI prompts at Aivellum!',
-      subject: prompt.title,
+      '$cleanTitle\n\n$cleanDescription\n\nGet more AI prompts at Aivellum!',
+      subject: cleanTitle,
     );
   }
 
   Future<void> _showUnlockScreen(BuildContext context) async {
-    await Navigator.of(context).push<bool>(
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => PremiumUnlockScreen(prompt: prompt),
       ),
