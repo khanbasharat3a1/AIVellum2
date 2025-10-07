@@ -557,7 +557,7 @@ class PromptDetailScreen extends StatelessWidget {
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () => _copyToClipboard(context, displayContent),
+                onPressed: () => _copyToClipboard(context),
                 icon: const Icon(Icons.copy_rounded),
                 label: const Text('Copy'),
                 style: OutlinedButton.styleFrom(

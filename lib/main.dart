@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'constants/app_theme.dart';
 import 'providers/app_provider.dart';
@@ -28,7 +27,6 @@ class _AivellumAppState extends State<AivellumApp> {
   @override
   void dispose() {
     BillingService.dispose();
-    AdService.dispose();
     super.dispose();
   }
 

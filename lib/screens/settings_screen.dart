@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
-import '../services/auth_service.dart';
+
 import 'billing_test_screen.dart';
 import 'profile_screen.dart';
 
@@ -63,12 +63,7 @@ class SettingsScreen extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               radius: 30,
-                              backgroundImage: AuthService.currentUser?.photoURL != null 
-                                ? NetworkImage(AuthService.currentUser!.photoURL!) 
-                                : null,
-                              child: AuthService.currentUser?.photoURL == null 
-                                ? const Icon(Icons.person, size: 32, color: Colors.white) 
-                                : null,
+                              child: const Icon(Icons.person, size: 32, color: Colors.white),
                             ),
                             const SizedBox(width: AppConstants.paddingM),
                             Expanded(
@@ -76,23 +71,19 @@ class SettingsScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    AuthService.isSignedIn 
-                                      ? (AuthService.currentUser?.displayName ?? 'User')
-                                      : 'Not Signed In',
+                                    'Local User',
                                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    AuthService.isSignedIn
-                                      ? (AuthService.currentUser?.email ?? '')
-                                      : 'Tap to sign in',
+                                    'View your profile',
                                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                       color: Colors.white.withOpacity(0.9),
                                     ),
                                   ),
-                                  if (AuthService.isSignedIn) ...<Widget>[
+                                  ...<Widget>[
                                     const SizedBox(height: 4),
                                     Row(
                                       children: [

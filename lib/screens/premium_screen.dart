@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
-import '../services/auth_service.dart';
-import 'profile_screen.dart';
+
 
 class PremiumScreen extends StatelessWidget {
   const PremiumScreen({super.key});

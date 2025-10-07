@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
-import '../services/auth_service.dart';
 import '../services/database_service.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,54 +16,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: _isLoading
-          ? const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 16),
-                  Text('Loading profile...'),
-                ],
-              ),
-            )
-          : Consumer<AppProvider>(
+      body: Consumer<AppProvider>(
         builder: (context, provider, child) {
-          if (!AuthService.isSignedIn) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(AppConstants.paddingL),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.person_outline, size: 80, color: AppConstants.textTertiary),
-                    const SizedBox(height: AppConstants.paddingL),
-                    Text('Not Signed In', style: Theme.of(context).textTheme.headlineSmall),
-                    const SizedBox(height: AppConstants.paddingS),
-                    Text('Sign in to sync your data and purchases', 
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppConstants.textSecondary)),
-                    const SizedBox(height: AppConstants.paddingXL),
-                    ElevatedButton.icon(
-                      onPressed: () => _signIn(context, provider),
-                      icon: const Icon(Icons.login),
-                      label: const Text('Sign In with Google'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-
-          final user = AuthService.currentUser!;
           return SingleChildScrollView(
             padding: const EdgeInsets.all(AppConstants.paddingL),
             child: Column(
               children: [
-                // Profile Header
                 Container(
                   padding: const EdgeInsets.all(AppConstants.paddingXL),
                   decoration: BoxDecoration(
@@ -82,22 +32,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       CircleAvatar(
                         radius: 50,
-                        backgroundImage: user.photoURL != null ? NetworkImage(user.photoURL!) : null,
-                        child: user.photoURL == null ? const Icon(Icons.person, size: 50) : null,
+                        child: const Icon(Icons.person, size: 50),
                       ),
                       const SizedBox(height: AppConstants.paddingM),
-                      Text(user.displayName ?? 'User', 
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: AppConstants.paddingXS),
-                      Text(user.email ?? '', 
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white70)),
+                      Text('Local User', 
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
 
                 const SizedBox(height: AppConstants.paddingL),
 
-                // Account Status
                 FutureBuilder<DateTime?>(
                   future: DatabaseService.getSubscriptionEndDate(),
                   builder: (context, snapshot) {
@@ -124,7 +70,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 const SizedBox(height: AppConstants.paddingM),
 
-                // Stats
                 _buildInfoCard(
                   context,
                   'Your Stats',
@@ -133,23 +78,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _buildInfoRow(context, 'Favorites', '${provider.favoritePromptsCount}', AppConstants.vaultRed),
                     _buildInfoRow(context, 'Total Prompts', '${provider.totalPrompts}', AppConstants.textSecondary),
                   ],
-                ),
-
-                const SizedBox(height: AppConstants.paddingXL),
-
-                // Sign Out Button
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: () => _signOut(context, provider),
-                    icon: const Icon(Icons.logout),
-                    label: const Text('Sign Out'),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      side: BorderSide(color: Colors.red.shade300),
-                      foregroundColor: Colors.red,
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -187,103 +115,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Text(label, style: Theme.of(context).textTheme.bodyMedium),
           Text(value, style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: valueColor, fontWeight: FontWeight.w600)),
-        ],
-      ),
-    );
-  }
-
-  void _signIn(BuildContext context, AppProvider provider) async {
-    setState(() => _isLoading = true);
-    
-    await provider.signInWithGoogle();
-    
-    if (!mounted) return;
-    
-    setState(() => _isLoading = false);
-    
-    if (AuthService.isSignedIn) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              const Icon(Icons.check_circle, color: Colors.white),
-              const SizedBox(width: 12),
-              Text('Welcome, ${AuthService.currentUser?.displayName ?? "User"}!'),
-            ],
-          ),
-          backgroundColor: Colors.green,
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Row(
-            children: [
-              Icon(Icons.error_outline, color: Colors.white),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'Sign-in failed. Please check your internet connection or try again.',
-                  style: TextStyle(fontSize: 13),
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 4),
-          action: SnackBarAction(
-            label: 'Help',
-            textColor: Colors.white,
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Sign-In Help'),
-                  content: const Text(
-                    'Google Sign-In requires:\n'
-                    '1. Active internet connection\n'
-                    '2. Google Play Services installed\n'
-                    '3. SHA-1 fingerprint configured in Firebase\n\n'
-                    'You can still use the app without signing in to browse and watch ads.',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      );
-    }
-  }
-
-  void _signOut(BuildContext context, AppProvider provider) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
-          ElevatedButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              setState(() => _isLoading = true);
-              await provider.signOut();
-              if (mounted) {
-                setState(() => _isLoading = false);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Signed out successfully'), backgroundColor: Colors.green),
-                );
-              }
-            },
-            child: const Text('Sign Out'),
-          ),
         ],
       ),
     );

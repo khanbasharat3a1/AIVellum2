@@ -6,6 +6,7 @@ import '../constants/app_constants.dart';
 import '../providers/app_provider.dart';
 import '../models/prompt.dart';
 import '../services/ad_service.dart';
+import '../services/database_service.dart';
 
 class PremiumUnlockScreen extends StatefulWidget {
   final Prompt prompt;
@@ -365,11 +366,6 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
 
   Future<void> _unlockWithPayment() async {
     final provider = Provider.of<AppProvider>(context, listen: false);
-    
-    if (!AuthService.isSignedIn) {
-      _showAuthRequired();
-      return;
-    }
 
     if (provider.isPromptUnlocked(widget.prompt.id)) {
       if (mounted) Navigator.pop(context, true);
@@ -584,54 +580,10 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
     }
   }
 
-  Future<void> _unlockWithAd() async {
-    if (_rewardedAd == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Ad not ready. Please try again.')),
-      );
-      _loadRewardedAd();
-      return;
-    }
 
-    _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdDismissedFullScreenContent: (ad) {
-        ad.dispose();
-        _loadRewardedAd();
-      },
-      onAdFailedToShowFullScreenContent: (ad, error) {
-        ad.dispose();
-        _loadRewardedAd();
-      },
-    );
-
-    await _rewardedAd!.show(
-      onUserEarnedReward: (ad, reward) async {
-        final provider = Provider.of<AppProvider>(context, listen: false);
-        await provider.unlockPromptWithAd(widget.prompt.id);
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Prompt unlocked!'),
-              backgroundColor: Colors.green,
-            ),
-          );
-          await Future.delayed(const Duration(milliseconds: 500));
-          if (mounted) {
-            Navigator.pop(context);
-          }
-        }
-      },
-    );
-    _rewardedAd = null;
-  }
 
   Future<void> _unlockWithSubscription() async {
     final provider = Provider.of<AppProvider>(context, listen: false);
-    
-    if (!AuthService.isSignedIn) {
-      _showAuthRequired();
-      return;
-    }
 
     if (provider.isUserSubscribed) {
       if (mounted) Navigator.pop(context, true);
@@ -729,48 +681,64 @@ class _PremiumUnlockScreenState extends State<PremiumUnlockScreen> with TickerPr
   }
 
   Future<void> _unlockWithAd() async {
-    final provider = Provider.of<AppProvider>(context, listen: false);
+    if (_rewardedAd == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Ad not ready. Please try again.')),
+      );
+      _loadRewardedAd();
+      return;
+    }
 
-    setState(() => _isUnlocking = true);
+    bool adWatched = false;
 
-    try {
-      final success = await provider.unlockPromptWithAd(widget.prompt.id);
-
-      if (!mounted) return;
-
-      if (success) {
-        // Wait for state to update
-        await Future.delayed(const Duration(milliseconds: 300));
-        
+    _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        _loadRewardedAd();
+      },
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        ad.dispose();
+        _loadRewardedAd();
         if (mounted) {
-          setState(() => _isUnlocking = false);
-          Navigator.pop(context, true);
-        }
-      } else {
-        if (mounted) {
-          setState(() => _isUnlocking = false);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Ad not available'),
-              backgroundColor: Colors.orange,
+              content: Text('Failed to show ad'),
+              backgroundColor: Colors.red,
             ),
           );
         }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isUnlocking = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
+      },
+    );
+
+    await _rewardedAd!.show(
+      onUserEarnedReward: (ad, reward) async {
+        adWatched = true;
+        final provider = Provider.of<AppProvider>(context, listen: false);
+        // Unlock via database
+        await DatabaseService.unlockPrompt(widget.prompt.id);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Prompt unlocked!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          await Future.delayed(const Duration(milliseconds: 500));
+          if (mounted) {
+            Navigator.pop(context);
+          }
+        }
+      },
+    );
+    _rewardedAd = null;
   }
 
   void _showAuthRequired() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen()));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Please sign in to unlock premium content'),
+        backgroundColor: Colors.orange,
+      ),
+    );
   }
 }
