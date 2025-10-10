@@ -35,7 +35,15 @@ class AppProvider with ChangeNotifier {
   bool get isAdFree => _isAdFree;
 
   
-  List<Category> get categories => _dataService.categories;
+  List<Category> get categories {
+    final cats = _dataService.categories.toList();
+    cats.sort((a, b) {
+      final aCount = getPromptsByCategory(a.id).length;
+      final bCount = getPromptsByCategory(b.id).length;
+      return bCount.compareTo(aCount); // Descending order
+    });
+    return cats;
+  }
   List<Prompt> get prompts => _dataService.prompts;
   Map<String, dynamic> get pricing {
     final allPricing = _dataService.pricing;

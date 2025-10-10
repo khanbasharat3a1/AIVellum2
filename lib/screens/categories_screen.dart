@@ -36,10 +36,24 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppConstants.backgroundColor,
-      body: SafeArea(
-        child: Consumer<AppProvider>(
+    return Consumer<AppProvider>(
+      builder: (context, provider, child) {
+        return WillPopScope(
+          onWillPop: () async {
+            if (provider.searchQuery.isNotEmpty) {
+              provider.setSearchQuery('');
+              return false;
+            }
+            if (provider.selectedCategoryId != null) {
+              provider.setSelectedCategory(null);
+              return false;
+            }
+            return true;
+          },
+          child: Scaffold(
+            backgroundColor: AppConstants.backgroundColor,
+            body: SafeArea(
+              child: Consumer<AppProvider>(
           builder: (context, provider, child) {
             final searchResults = provider.searchQuery.isNotEmpty 
                 ? provider.getSearchResults() 
@@ -268,7 +282,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             );
           },
         ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

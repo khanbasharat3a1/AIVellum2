@@ -6,7 +6,7 @@
       "description": "Creative AI art and visual content prompts",
       "icon": "🎭",
       "color": "",
-      "promptCount": 4
+      "promptCount": 10
     },
     {
       "id": "ai_automation",
@@ -14,7 +14,7 @@
       "description": "Intelligent automation and workflow optimization",
       "icon": "🤖",
       "color": "",
-      "promptCount": 3
+      "promptCount": 7
     },
     {
       "id": "business_strategy",
@@ -22,7 +22,7 @@
       "description": "Strategic business planning and growth prompts",
       "icon": "📊",
       "color": "",
-      "promptCount": 20
+      "promptCount": 39
     },
     {
       "id": "content_creation",
@@ -30,7 +30,7 @@
       "description": "Social media and digital content creation",
       "icon": "🎨",
       "color": "",
-      "promptCount": 27
+      "promptCount": 46
     },
     {
       "id": "crypto_trading",
@@ -38,7 +38,7 @@
       "description": "Cryptocurrency trading and blockchain strategies",
       "icon": "₿",
       "color": "",
-      "promptCount": 3
+      "promptCount": 7
     },
     {
       "id": "development_tech",
@@ -46,7 +46,7 @@
       "description": "Programming and technical development prompts",
       "icon": "💻",
       "color": "",
-      "promptCount": 13
+      "promptCount": 32
     },
     {
       "id": "fitness_health",
@@ -54,7 +54,7 @@
       "description": "Health optimization and fitness planning",
       "icon": "💪",
       "color": "",
-      "promptCount": 6
+      "promptCount": 11
     },
     {
       "id": "freelancing",
@@ -62,7 +62,7 @@
       "description": "Freelance success and client acquisition prompts",
       "icon": "💼",
       "color": "",
-      "promptCount": 25
+      "promptCount": 45
     },
     {
       "id": "learning_education",
@@ -70,7 +70,7 @@
       "description": "Educational content and learning acceleration",
       "icon": "🎓",
       "color": "",
-      "promptCount": 16
+      "promptCount": 26
     },
     {
       "id": "marketing_sales",
@@ -78,7 +78,7 @@
       "description": "Marketing strategies and sales optimization",
       "icon": "📈",
       "color": "",
-      "promptCount": 26
+      "promptCount": 45
     },
     {
       "id": "money_making",
@@ -86,7 +86,7 @@
       "description": "AI prompts to generate income and build wealth",
       "icon": "💰",
       "color": "",
-      "promptCount": 41
+      "promptCount": 61
     },
     {
       "id": "nft_creation",
@@ -94,7 +94,7 @@
       "description": "Digital collectibles and NFT marketplace strategies",
       "icon": "🖼️",
       "color": "",
-      "promptCount": 3
+      "promptCount": 7
     },
     {
       "id": "productivity",
@@ -102,7 +102,7 @@
       "description": "Efficiency and time management optimization",
       "icon": "⚡",
       "color": "",
-      "promptCount": 13
+      "promptCount": 24
     },
     {
       "id": "psychology",
@@ -110,7 +110,7 @@
       "description": "Human behavior and psychological insights",
       "icon": "🧠",
       "color": "",
-      "promptCount": 8
+      "promptCount": 21
     },
     {
       "id": "research_analysis",
@@ -118,7 +118,7 @@
       "description": "Data analysis and research methodologies",
       "icon": "🔍",
       "color": "",
-      "promptCount": 7
+      "promptCount": 16
     },
     {
       "id": "social_media",
@@ -126,7 +126,7 @@
       "description": "Social media growth and engagement strategies",
       "icon": "📱",
       "color": "",
-      "promptCount": 25
+      "promptCount": 45
     },
     {
       "id": "virtual_reality",
@@ -134,7 +134,7 @@
       "description": "VR content creation and immersive experiences",
       "icon": "🥽",
       "color": "",
-      "promptCount": 2
+      "promptCount": 6
     },
     {
       "id": "voice_cloning",
@@ -142,7 +142,7 @@
       "description": "AI voice synthesis and audio content creation",
       "icon": "🎙️",
       "color": "",
-      "promptCount": 2
+      "promptCount": 5
     },
     {
       "id": "writing",
@@ -150,7 +150,7 @@
       "description": "Creative and professional writing assistance",
       "icon": "✍️",
       "color": "",
-      "promptCount": 21
+      "promptCount": 41
     }
   ],
   "prompts": [
@@ -4323,6 +4323,3516 @@
       "isPremium": true,
       "categoryId": "fitness_health",
       "estimatedTime": "35 min"
+    },
+    {
+      "id": 271,
+      "title": "Email Subject Line Generator",
+      "description": "Write high-open-rate email subject lines",
+      "content": "Generate 20 email subject line variations for [TOPIC/OFFER]. Include: curiosity-driven, benefit-focused, urgency-based, and personalized angles. Test for mobile preview length and spam trigger words.",
+      "difficulty": "Beginner",
+      "tags": [
+        "email",
+        "subject lines",
+        "open rates"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 272,
+      "title": "Instagram Reel Hooks Generator",
+      "description": "Create scroll-stopping reel openings",
+      "content": "Generate 20 Instagram reel hooks for [NICHE]. Include pattern interrupts, bold statements, questions, and curiosity gaps that stop scrolling in first 3 seconds.",
+      "difficulty": "Beginner",
+      "tags": [
+        "instagram",
+        "reels",
+        "hooks"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 273,
+      "title": "Blog Post Outline Generator",
+      "description": "Structure SEO-optimized blog posts",
+      "content": "Create detailed blog post outline for [KEYWORD]. Include: SEO title, meta description, H2/H3 structure, key points for each section, internal linking opportunities, and FAQ section.",
+      "difficulty": "Beginner",
+      "tags": [
+        "blogging",
+        "seo",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 274,
+      "title": "Viral Video Ideas Generator",
+      "description": "Generate trending video concepts",
+      "content": "Generate 20 viral video ideas for [NICHE] on [PLATFORM]. Include: hook, content angle, trending audio suggestions, and engagement tactics.",
+      "difficulty": "Beginner",
+      "tags": [
+        "video",
+        "viral",
+        "ideas"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 275,
+      "title": "Client Objection Handler",
+      "description": "Overcome common client objections",
+      "content": "Create responses to common objections for [SERVICE]: \"Too expensive\", \"Need to think about it\", \"Can I get a discount\", \"What if it doesn't work\". Include empathy, reframe, and close techniques.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "sales",
+        "objections",
+        "clients"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 276,
+      "title": "SWOT Analysis Generator",
+      "description": "Analyze business strengths and weaknesses",
+      "content": "Perform SWOT analysis for [BUSINESS/IDEA]. Identify: Strengths (internal advantages), Weaknesses (internal limitations), Opportunities (external factors), Threats (external risks). Include strategic recommendations.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "strategy",
+        "analysis",
+        "planning"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 277,
+      "title": "Daily Task Prioritizer",
+      "description": "Prioritize tasks using proven frameworks",
+      "content": "Prioritize [TASKS] using Eisenhower Matrix (urgent/important). Categorize into: Do First, Schedule, Delegate, Eliminate. Include time estimates and energy levels.",
+      "difficulty": "Beginner",
+      "tags": [
+        "productivity",
+        "prioritization",
+        "time management"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 278,
+      "title": "Code Documentation Generator",
+      "description": "Write clear code documentation",
+      "content": "Generate documentation for [CODE/FUNCTION]. Include: purpose, parameters, return values, usage examples, edge cases, and error handling.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "documentation",
+        "code",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 279,
+      "title": "Study Schedule Creator",
+      "description": "Plan effective study sessions",
+      "content": "Create study schedule for [SUBJECT/EXAM] with [X] days available. Include: topic breakdown, time allocation, active recall sessions, practice tests, and review days.",
+      "difficulty": "Beginner",
+      "tags": [
+        "studying",
+        "planning",
+        "schedule"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 280,
+      "title": "Side Hustle Idea Generator",
+      "description": "Find profitable side hustle ideas",
+      "content": "Generate 10 side hustle ideas for someone with [SKILLS/INTERESTS] and [AVAILABLE TIME]. Include: startup cost, time investment, income potential, and first steps.",
+      "difficulty": "Beginner",
+      "tags": [
+        "side hustle",
+        "ideas",
+        "income"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 281,
+      "title": "E-Commerce Brand Builder - $1M+ Strategy",
+      "description": "Build 7-figure DTC brand from scratch",
+      "content": "Build DTC e-commerce brand in [NICHE] to $1M+ revenue. Include: product selection (winning criteria), supplier sourcing, brand identity development, Shopify store optimization, product photography, email marketing automation (welcome, abandoned cart, post-purchase), SMS marketing, influencer seeding strategy, paid ads (Meta, Google, TikTok), retention tactics, subscription model, customer lifetime value optimization, and scaling roadmap. Include financial projections, tech stack, and 12-month timeline.",
+      "difficulty": "Expert",
+      "tags": [
+        "ecommerce",
+        "dtc",
+        "brand building"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 282,
+      "title": "Attribution & Analytics Mastery",
+      "description": "Track and optimize marketing ROI",
+      "content": "Build complete attribution system for [BUSINESS]. Include: pixel setup (Meta, Google, TikTok), Google Analytics 4 configuration, conversion tracking, attribution modeling (first-click, last-click, linear, time-decay), customer journey mapping, cohort analysis, LTV calculation, CAC optimization, ROAS tracking, dashboard creation, and data-driven decision framework. Implement proper tracking for accurate scaling.",
+      "difficulty": "Expert",
+      "tags": [
+        "analytics",
+        "attribution",
+        "tracking"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 283,
+      "title": "Documentary Storytelling Framework",
+      "description": "Master documentary narrative structure",
+      "content": "Create documentary storytelling framework for [SUBJECT]. Include: three-act structure, character development, conflict escalation, emotional beats, interview techniques, B-roll strategy, narrative voiceover, music selection, pacing, and resolution. Study techniques from: Ken Burns, Errol Morris, Werner Herzog. Include shot list and interview questions.",
+      "difficulty": "Expert",
+      "tags": [
+        "documentary",
+        "storytelling",
+        "filmmaking"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 284,
+      "title": "Niche Domination Strategy",
+      "description": "Become the go-to expert in your niche",
+      "content": "Dominate [NICHE] as the recognized expert. Include: micro-niche selection, competitive analysis, unique positioning, signature methodology creation, content domination strategy, SEO for service pages, case study development, speaking opportunities, podcast tour, book/guide creation, community building, strategic partnerships, and pricing premium. Become the only choice for premium clients.",
+      "difficulty": "Expert",
+      "tags": [
+        "niche",
+        "positioning",
+        "authority"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 285,
+      "title": "Venture Capital Fundraising Playbook",
+      "description": "Raise VC funding for your startup",
+      "content": "Raise [AMOUNT] in VC funding for [STARTUP]. Include: pitch deck creation (problem, solution, market, traction, team, financials), investor targeting, email outreach templates, pitch refinement, due diligence preparation, term sheet negotiation, cap table management, investor updates, and post-money strategy. Cover pre-seed to Series A. Include pitch deck template and financial model.",
+      "difficulty": "Expert",
+      "tags": [
+        "fundraising",
+        "vc",
+        "startup"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 286,
+      "title": "Screenplay & Script Development",
+      "description": "Write professional film/TV scripts",
+      "content": "Write [GENRE] screenplay/script for [CONCEPT]. Include: logline development, three-act structure, character development, dialogue techniques, scene construction, conflict escalation, subplot integration, theme development, formatting standards, and revision process. Cover feature films, TV pilots, and short films. Include script template and industry standards.",
+      "difficulty": "Expert",
+      "tags": [
+        "screenplay",
+        "scriptwriting",
+        "film"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 287,
+      "title": "Influencer Brand Building System",
+      "description": "Build personal brand that attracts deals",
+      "content": "Build influencer brand in [NICHE] that attracts $10K+ brand deals. Include: niche selection, content pillars, posting strategy, engagement tactics, media kit creation, rate card development, brand outreach templates, negotiation tactics, contract essentials, content deliverables, FTC compliance, talent management, and scaling to multiple platforms. Include sponsorship tracker and rate calculator.",
+      "difficulty": "Advanced",
+      "tags": [
+        "influencer",
+        "brand deals",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 288,
+      "title": "Blockchain & Web3 Development",
+      "description": "Build decentralized applications",
+      "content": "Develop [DAPP/WEB3 PROJECT] on [BLOCKCHAIN]. Include: smart contract development (Solidity/Rust), wallet integration, token economics, NFT functionality, DeFi protocols, gas optimization, security auditing, frontend integration (Web3.js/Ethers.js), IPFS storage, testing framework, deployment strategy, and user onboarding. Include code examples and architecture diagrams.",
+      "difficulty": "Expert",
+      "tags": [
+        "blockchain",
+        "web3",
+        "smart contracts"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 289,
+      "title": "Consumer Psychology & Neuromarketing",
+      "description": "Apply psychology to marketing",
+      "content": "Apply consumer psychology to [PRODUCT/SERVICE]. Include: cognitive biases (anchoring, scarcity, social proof), neuromarketing principles, color psychology, pricing psychology, decision-making triggers, emotional drivers, persuasion techniques, FOMO tactics, loss aversion, reciprocity principle, and behavioral economics. Create psychological framework for maximum conversion.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "neuromarketing",
+        "persuasion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "30 min"
+    },
+    {
+      "id": 290,
+      "title": "Data Science & Predictive Analytics",
+      "description": "Extract insights from complex data",
+      "content": "Perform data analysis for [BUSINESS PROBLEM] using [DATA]. Include: data cleaning, exploratory analysis, statistical testing, predictive modeling, machine learning algorithms, feature engineering, model validation, visualization, insights extraction, and actionable recommendations. Use Python/R for analysis. Include code examples and interpretation guide.",
+      "difficulty": "Expert",
+      "tags": [
+        "data science",
+        "analytics",
+        "machine learning"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 291,
+      "title": "Instagram Bio Optimizer",
+      "description": "Write converting Instagram bios",
+      "content": "Create Instagram bio for [NICHE]. Include: value proposition, keywords, CTA, link strategy, emojis. Make it searchable and clickable.",
+      "difficulty": "Beginner",
+      "tags": [
+        "instagram",
+        "bio",
+        "profile"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 292,
+      "title": "YouTube Thumbnail Text Ideas",
+      "description": "Create clickable thumbnail text",
+      "content": "Generate 15 thumbnail text ideas for [VIDEO TOPIC]. Use curiosity, numbers, power words. Keep under 6 words.",
+      "difficulty": "Beginner",
+      "tags": [
+        "youtube",
+        "thumbnails",
+        "ctr"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 293,
+      "title": "Product Description Template",
+      "description": "Write converting product descriptions",
+      "content": "Write product description for [PRODUCT]. Include: attention-grabbing headline, key features, benefits, specifications, use cases, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "ecommerce",
+        "product",
+        "copywriting"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 294,
+      "title": "Viral Hooks Generator",
+      "description": "Create attention-grabbing hooks",
+      "content": "Generate 20 viral hooks for [TOPIC]. Use: questions, bold statements, shocking facts, curiosity gaps, pattern interrupts.",
+      "difficulty": "Beginner",
+      "tags": [
+        "hooks",
+        "viral",
+        "attention"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 295,
+      "title": "Project Scope Document",
+      "description": "Define clear project scope",
+      "content": "Create project scope for [PROJECT]. Include: objectives, deliverables, timeline, exclusions, assumptions, acceptance criteria.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "scope",
+        "project",
+        "clarity"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 296,
+      "title": "Competitor Analysis Framework",
+      "description": "Analyze competitors systematically",
+      "content": "Analyze [COMPETITOR] in [INDUSTRY]. Cover: products, pricing, marketing, strengths, weaknesses, opportunities.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "competition",
+        "analysis",
+        "research"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 297,
+      "title": "Weekly Review Template",
+      "description": "Reflect and plan effectively",
+      "content": "Create weekly review for [GOALS]. Include: wins, lessons, metrics, next week priorities, improvements.",
+      "difficulty": "Beginner",
+      "tags": [
+        "review",
+        "reflection",
+        "planning"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 298,
+      "title": "API Endpoint Documentation",
+      "description": "Document APIs clearly",
+      "content": "Document [ENDPOINT]. Include: method, URL, parameters, request body, response, errors, examples.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "api",
+        "documentation",
+        "technical"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 299,
+      "title": "Flashcard Generator",
+      "description": "Create effective study flashcards",
+      "content": "Create flashcards for [TOPIC]. Use: question/answer format, spaced repetition, active recall, mnemonics.",
+      "difficulty": "Beginner",
+      "tags": [
+        "flashcards",
+        "study",
+        "memory"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 300,
+      "title": "Passive Income Ideas Generator",
+      "description": "Find passive income opportunities",
+      "content": "Generate 10 passive income ideas for [SKILLS/INTERESTS]. Include: startup cost, time investment, income potential, difficulty.",
+      "difficulty": "Beginner",
+      "tags": [
+        "passive income",
+        "ideas",
+        "money"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 301,
+      "title": "Print-On-Demand Empire Builder",
+      "description": "Build profitable POD business",
+      "content": "Build POD business in [NICHE] to $10K+/month. Include: niche research, design strategy (trends, tools), product selection (t-shirts, mugs, etc), supplier comparison (Printful, Printify), store setup (Shopify/Etsy), SEO optimization, paid ads strategy (Facebook, Pinterest), organic marketing, customer service, scaling tactics, and automation. Include design templates and marketing calendar.",
+      "difficulty": "Advanced",
+      "tags": [
+        "print on demand",
+        "ecommerce",
+        "passive income"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 302,
+      "title": "Influencer Outreach & Partnership System",
+      "description": "Build influencer marketing machine",
+      "content": "Create influencer marketing system for [BRAND]. Include: influencer research (tools, metrics), outreach templates, negotiation tactics, content briefs, contract terms, tracking systems, payment structures, relationship management, campaign optimization, and scaling to 50+ influencers. Include influencer database template and ROI calculator.",
+      "difficulty": "Advanced",
+      "tags": [
+        "influencer marketing",
+        "partnerships",
+        "growth"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 303,
+      "title": "Viral Short-Form Content System",
+      "description": "Master short-form video content",
+      "content": "Create viral short-form content system for [PLATFORM]. Include: hook formulas, storytelling structure, editing techniques, trending audio strategy, caption psychology, posting schedule, analytics tracking, content batching, repurposing strategy, and growth tactics. Cover TikTok, Reels, Shorts. Include 30-day content calendar.",
+      "difficulty": "Advanced",
+      "tags": [
+        "short form",
+        "viral",
+        "video"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 304,
+      "title": "Productized Service Launch System",
+      "description": "Package services into scalable offers",
+      "content": "Launch productized service for [SERVICE]. Include: service packaging, pricing tiers, deliverables definition, process documentation, sales page copy, onboarding automation, project management workflow, quality control, team building, client communication templates, upsell strategy, and scaling to $50K+/month. Include service blueprint and SOPs.",
+      "difficulty": "Expert",
+      "tags": [
+        "productized services",
+        "scaling",
+        "systems"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 305,
+      "title": "Strategic Partnership Development",
+      "description": "Build strategic business partnerships",
+      "content": "Develop strategic partnerships for [BUSINESS]. Include: partner identification, value proposition, outreach strategy, partnership structure, legal agreements, revenue sharing, co-marketing campaigns, joint ventures, affiliate programs, integration strategy, relationship management, and scaling to 50+ partners. Include partnership proposal template.",
+      "difficulty": "Expert",
+      "tags": [
+        "partnerships",
+        "strategy",
+        "growth"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 306,
+      "title": "Content Marketing Mastery System",
+      "description": "Build content engine that drives revenue",
+      "content": "Create content marketing system for [BUSINESS]. Include: content strategy, keyword research, topic clusters, content calendar, writing process, SEO optimization, distribution strategy, repurposing workflow, email integration, lead generation, conversion optimization, analytics tracking, team management, and scaling to 100+ pieces monthly. Include content templates and SOPs.",
+      "difficulty": "Expert",
+      "tags": [
+        "content marketing",
+        "seo",
+        "strategy"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 307,
+      "title": "Social Media Agency Blueprint",
+      "description": "Start and scale social media agency",
+      "content": "Build social media agency from $0 to $50K+/month. Include: niche selection, service packages, pricing strategy, client acquisition, onboarding process, content creation workflow, team building, tools/software, client reporting, retention tactics, upselling, and scaling systems. Cover Instagram, TikTok, LinkedIn services. Include agency templates and SOPs.",
+      "difficulty": "Expert",
+      "tags": [
+        "agency",
+        "social media",
+        "business"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 308,
+      "title": "SaaS Growth & Scaling Strategy",
+      "description": "Scale SaaS from $0 to $1M ARR",
+      "content": "Scale [SAAS PRODUCT] to $1M+ ARR. Include: product-market fit validation, pricing optimization, onboarding flow, activation metrics, retention tactics, churn reduction, referral program, content marketing, SEO strategy, paid acquisition, sales process, customer success, feature prioritization, technical scaling, team building, and metrics tracking. Include growth model and KPI dashboard.",
+      "difficulty": "Expert",
+      "tags": [
+        "saas",
+        "growth",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 309,
+      "title": "Behavioral Psychology for Business",
+      "description": "Apply psychology to business growth",
+      "content": "Apply behavioral psychology to [BUSINESS]. Include: cognitive biases, decision-making triggers, habit formation, motivation psychology, social proof, scarcity, reciprocity, commitment consistency, authority, liking, unity, loss aversion, anchoring, framing effects, and behavioral economics. Create psychological framework for marketing, sales, and product design.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "behavior",
+        "persuasion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 310,
+      "title": "Market Research & Validation Framework",
+      "description": "Validate business ideas scientifically",
+      "content": "Conduct market research for [BUSINESS IDEA]. Include: market size analysis, customer interviews, surveys, competitor analysis, keyword research, trend analysis, pricing research, distribution channels, SWOT analysis, financial projections, risk assessment, and go/no-go decision framework. Include research templates and validation checklist.",
+      "difficulty": "Advanced",
+      "tags": [
+        "market research",
+        "validation",
+        "analysis"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 311,
+      "title": "Landing Page Headline Generator",
+      "description": "Write converting headlines",
+      "content": "Generate 15 landing page headlines for [OFFER]. Use: benefit-driven, curiosity, urgency, specificity.",
+      "difficulty": "Beginner",
+      "tags": [
+        "landing page",
+        "headlines",
+        "conversion"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 312,
+      "title": "Blog Post Ideas Generator",
+      "description": "Never run out of content ideas",
+      "content": "Generate 30 blog post ideas for [NICHE]. Include: how-to, listicles, case studies, comparisons, guides.",
+      "difficulty": "Beginner",
+      "tags": [
+        "blogging",
+        "ideas",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 313,
+      "title": "Email Newsletter Template",
+      "description": "Write engaging newsletters",
+      "content": "Create newsletter template for [TOPIC]. Include: subject line, opening, value section, CTA, PS.",
+      "difficulty": "Beginner",
+      "tags": [
+        "newsletter",
+        "email",
+        "engagement"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 314,
+      "title": "Instagram Caption Templates",
+      "description": "Write engaging captions fast",
+      "content": "Create 10 caption templates for [NICHE]. Include: hooks, storytelling, value, CTA, hashtags.",
+      "difficulty": "Beginner",
+      "tags": [
+        "instagram",
+        "captions",
+        "templates"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 315,
+      "title": "Client Onboarding Checklist",
+      "description": "Streamline new client setup",
+      "content": "Create onboarding checklist for [SERVICE]. Include: contract, payment, kickoff, access, timeline.",
+      "difficulty": "Beginner",
+      "tags": [
+        "onboarding",
+        "clients",
+        "process"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 316,
+      "title": "Business Model Canvas",
+      "description": "Map your business model",
+      "content": "Create business model canvas for [BUSINESS]. Cover: value proposition, customers, channels, revenue, resources, activities, partners, costs.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "business model",
+        "strategy",
+        "planning"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 317,
+      "title": "Time Blocking Schedule",
+      "description": "Plan your ideal day",
+      "content": "Create time-blocked schedule for [ROLE]. Include: deep work, meetings, breaks, admin, personal time.",
+      "difficulty": "Beginner",
+      "tags": [
+        "time blocking",
+        "schedule",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 318,
+      "title": "Bug Report Template",
+      "description": "Report bugs effectively",
+      "content": "Create bug report for [ISSUE]. Include: steps to reproduce, expected vs actual, environment, screenshots.",
+      "difficulty": "Beginner",
+      "tags": [
+        "bugs",
+        "testing",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 319,
+      "title": "Study Plan Creator",
+      "description": "Plan effective study sessions",
+      "content": "Create study plan for [SUBJECT]. Include: topics, time allocation, active recall, practice tests, review.",
+      "difficulty": "Beginner",
+      "tags": [
+        "study",
+        "planning",
+        "learning"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 320,
+      "title": "Side Hustle Validator",
+      "description": "Validate side hustle ideas",
+      "content": "Validate [SIDE HUSTLE IDEA]. Check: market demand, competition, skills needed, startup cost, time required, income potential.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "side hustle",
+        "validation",
+        "ideas"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 321,
+      "title": "Affiliate Marketing Authority Site",
+      "description": "Build $10K+/month affiliate site",
+      "content": "Build affiliate site in [NICHE] to $10K+/month. Include: niche selection, keyword research, content strategy, SEO optimization, link building, affiliate program selection, conversion optimization, email list building, traffic sources, monetization tactics, scaling strategy, and automation. Include content calendar and keyword research template.",
+      "difficulty": "Expert",
+      "tags": [
+        "affiliate marketing",
+        "seo",
+        "passive income"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 322,
+      "title": "Customer Journey Mapping & Optimization",
+      "description": "Optimize every customer touchpoint",
+      "content": "Map and optimize customer journey for [BUSINESS]. Include: awareness stage, consideration stage, decision stage, retention stage, advocacy stage, touchpoint analysis, pain points, opportunities, content strategy, conversion optimization, retention tactics, and measurement framework. Create journey map and optimization roadmap.",
+      "difficulty": "Expert",
+      "tags": [
+        "customer journey",
+        "optimization",
+        "ux"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 323,
+      "title": "Podcast Production & Monetization System",
+      "description": "Launch and scale profitable podcast",
+      "content": "Launch podcast in [NICHE] to $10K+/month. Include: concept development, format selection, equipment setup, recording workflow, editing process, distribution strategy, guest booking, audience growth, sponsorship acquisition, premium content, community building, repurposing strategy, and monetization streams. Include production checklist and sponsor pitch deck.",
+      "difficulty": "Advanced",
+      "tags": [
+        "podcast",
+        "audio",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 324,
+      "title": "Premium Service Packaging System",
+      "description": "Package services for premium pricing",
+      "content": "Package [SERVICE] for premium pricing ($5K-$50K). Include: positioning strategy, signature methodology, service tiers, deliverables definition, pricing justification, sales process, proposal template, contract terms, onboarding workflow, project management, and client results documentation. Include service blueprint and sales scripts.",
+      "difficulty": "Expert",
+      "tags": [
+        "premium services",
+        "pricing",
+        "positioning"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 325,
+      "title": "Scaling Operations & Systems",
+      "description": "Scale business operations efficiently",
+      "content": "Scale operations for [BUSINESS] from $X to $Y revenue. Include: process documentation, team structure, hiring strategy, tools/software, automation opportunities, KPIs, quality control, customer service, financial systems, legal compliance, and scaling roadmap. Create operations manual and org chart.",
+      "difficulty": "Expert",
+      "tags": [
+        "operations",
+        "scaling",
+        "systems"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 326,
+      "title": "Copywriting Mastery Framework",
+      "description": "Master persuasive copywriting",
+      "content": "Master copywriting for [MEDIUM]. Include: research process, customer psychology, headline formulas, storytelling techniques, benefit vs features, objection handling, social proof, urgency/scarcity, CTA optimization, editing process, A/B testing, and conversion tracking. Cover sales pages, emails, ads, landing pages. Include swipe file and templates.",
+      "difficulty": "Expert",
+      "tags": [
+        "copywriting",
+        "persuasion",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 327,
+      "title": "Personal Brand Monetization System",
+      "description": "Turn personal brand into income",
+      "content": "Monetize personal brand in [NICHE]. Include: positioning, content strategy, audience building, engagement tactics, email list growth, product creation, service offerings, sponsorships, affiliate income, speaking opportunities, consulting, and multiple revenue streams. Create monetization roadmap and content calendar.",
+      "difficulty": "Advanced",
+      "tags": [
+        "personal brand",
+        "monetization",
+        "influence"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 328,
+      "title": "Mobile App Development & Launch",
+      "description": "Build and launch successful mobile app",
+      "content": "Develop and launch [APP IDEA]. Include: market validation, feature prioritization, tech stack selection, UI/UX design, development process, testing strategy, app store optimization, launch strategy, user acquisition, monetization, analytics, iteration process, and scaling. Include product roadmap and launch checklist.",
+      "difficulty": "Expert",
+      "tags": [
+        "mobile app",
+        "development",
+        "launch"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 329,
+      "title": "Influence & Persuasion Mastery",
+      "description": "Master the art of influence",
+      "content": "Master influence and persuasion for [CONTEXT]. Include: Cialdini principles, social proof, authority, scarcity, reciprocity, commitment, liking, unity, framing, anchoring, loss aversion, storytelling, emotional triggers, objection handling, and ethical persuasion. Include persuasion frameworks and scripts.",
+      "difficulty": "Advanced",
+      "tags": [
+        "influence",
+        "persuasion",
+        "psychology"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 330,
+      "title": "Competitive Intelligence System",
+      "description": "Monitor and analyze competitors",
+      "content": "Build competitive intelligence system for [INDUSTRY]. Include: competitor identification, monitoring tools, data collection, analysis framework, SWOT analysis, strategic insights, opportunity identification, threat assessment, reporting system, and strategic response. Create competitor tracking dashboard and analysis template.",
+      "difficulty": "Advanced",
+      "tags": [
+        "competitive intelligence",
+        "analysis",
+        "strategy"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 331,
+      "title": "Viral Product Launch Strategy",
+      "description": "Create a complete product launch campaign",
+      "content": "Design a viral product launch strategy for [PRODUCT] targeting [AUDIENCE]. Include pre-launch teasers, launch day tactics, email sequences, social media posts, and influencer outreach plan.",
+      "difficulty": "Advanced",
+      "tags": [
+        "product launch",
+        "viral marketing",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 332,
+      "title": "Persuasive Sales Page Writer",
+      "description": "Write high-converting sales page copy",
+      "content": "Write a persuasive sales page for [PRODUCT/SERVICE] that converts visitors into buyers. Include attention-grabbing headline, pain points, benefits, social proof, and strong CTA.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "copywriting",
+        "sales",
+        "conversion"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "12 min"
+    },
+    {
+      "id": 333,
+      "title": "YouTube Thumbnail Ideas Generator",
+      "description": "Generate click-worthy thumbnail concepts",
+      "content": "Create 10 eye-catching YouTube thumbnail ideas for videos about [TOPIC]. Include text overlay suggestions, color schemes, and visual elements that maximize CTR.",
+      "difficulty": "Beginner",
+      "tags": [
+        "youtube",
+        "thumbnails",
+        "design"
+      ],
+      "isPremium": false,
+      "categoryId": "content",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 334,
+      "title": "Client Proposal Template Generator",
+      "description": "Create winning freelance proposals",
+      "content": "Generate a professional freelance proposal for [SERVICE] project. Include project understanding, approach, timeline, deliverables, pricing, and terms. Make it personalized for [CLIENT NAME].",
+      "difficulty": "Intermediate",
+      "tags": [
+        "proposals",
+        "freelancing",
+        "clients"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 335,
+      "title": "Competitor SWOT Analysis",
+      "description": "Analyze competitors strengths and weaknesses",
+      "content": "Perform a detailed SWOT analysis for [COMPETITOR] in the [INDUSTRY] market. Identify their strengths, weaknesses, opportunities, and threats. Suggest how to gain competitive advantage.",
+      "difficulty": "Advanced",
+      "tags": [
+        "analysis",
+        "competition",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "business",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 336,
+      "title": "Instagram Story Sequence Creator",
+      "description": "Design engaging Instagram story sequences",
+      "content": "Create a 10-slide Instagram story sequence about [TOPIC] that drives engagement and swipe-ups. Include hooks, value slides, interactive elements, and strong CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "instagram",
+        "stories",
+        "engagement"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 337,
+      "title": "Weekly Goal Planning System",
+      "description": "Create an effective weekly planning routine",
+      "content": "Design a weekly goal planning system for [ROLE/PROFESSION]. Include goal setting framework, daily task breakdown, time blocking schedule, and progress tracking method.",
+      "difficulty": "Beginner",
+      "tags": [
+        "planning",
+        "goals",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "7 min"
+    },
+    {
+      "id": 338,
+      "title": "API Documentation Generator",
+      "description": "Create clear API documentation",
+      "content": "Generate comprehensive API documentation for [API NAME]. Include endpoints, request/response examples, authentication, error codes, and usage examples in multiple languages.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "api",
+        "documentation",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "development",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 339,
+      "title": "Study Notes Summarizer",
+      "description": "Convert long content into concise study notes",
+      "content": "Summarize [TOPIC/CHAPTER] into concise study notes. Use bullet points, key concepts, definitions, examples, and memory aids. Make it easy to review before exams.",
+      "difficulty": "Beginner",
+      "tags": [
+        "studying",
+        "notes",
+        "learning"
+      ],
+      "isPremium": false,
+      "categoryId": "learning",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 340,
+      "title": "Passive Income Idea Validator",
+      "description": "Validate and refine passive income ideas",
+      "content": "Analyze this passive income idea: [YOUR IDEA]. Evaluate market demand, competition, startup costs, time investment, scalability, and profit potential. Provide actionable next steps.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "passive income",
+        "validation",
+        "business"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "12 min"
+    },
+    {
+      "id": 341,
+      "title": "Social Media Ad Copy",
+      "description": "Write converting ad copy",
+      "content": "Write ad copy for [PRODUCT] on [PLATFORM]. Include: hook, benefit, social proof, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "ads",
+        "social media",
+        "copywriting"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 342,
+      "title": "Video Thumbnail Ideas",
+      "description": "Design clickable thumbnails",
+      "content": "Create 10 thumbnail concepts for [VIDEO]. Include: text, colors, emotions, faces, contrast.",
+      "difficulty": "Beginner",
+      "tags": [
+        "thumbnails",
+        "design",
+        "ctr"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 343,
+      "title": "About Page Writer",
+      "description": "Write compelling about pages",
+      "content": "Write about page for [BUSINESS]. Include: story, mission, values, team, social proof.",
+      "difficulty": "Beginner",
+      "tags": [
+        "about page",
+        "website",
+        "branding"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 344,
+      "title": "Hashtag Strategy",
+      "description": "Find best hashtags",
+      "content": "Create hashtag strategy for [NICHE]. Include: big, medium, small hashtags, branded tags.",
+      "difficulty": "Beginner",
+      "tags": [
+        "hashtags",
+        "reach",
+        "discovery"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 345,
+      "title": "Project Proposal Template",
+      "description": "Win more projects",
+      "content": "Create proposal for [PROJECT]. Include: understanding, solution, timeline, pricing, terms.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "proposals",
+        "clients",
+        "sales"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 346,
+      "title": "Competitive Advantage Analysis",
+      "description": "Find your unique edge",
+      "content": "Identify competitive advantage for [BUSINESS]. Include: strengths, differentiators, value proposition.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "competitive advantage",
+        "strategy",
+        "positioning"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 347,
+      "title": "Daily Routine Optimizer",
+      "description": "Design productive routines",
+      "content": "Optimize daily routine for [GOAL]. Include: morning, work blocks, breaks, evening, sleep.",
+      "difficulty": "Beginner",
+      "tags": [
+        "routine",
+        "habits",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 348,
+      "title": "Git Workflow Setup",
+      "description": "Organize code workflow",
+      "content": "Setup Git workflow for [PROJECT]. Include: branches, commits, pull requests, code review.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "git",
+        "workflow",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 349,
+      "title": "Learning Path Creator",
+      "description": "Plan skill development",
+      "content": "Create learning path for [SKILL]. Include: resources, milestones, practice, projects.",
+      "difficulty": "Beginner",
+      "tags": [
+        "learning",
+        "skills",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 350,
+      "title": "Revenue Stream Ideas",
+      "description": "Find new income sources",
+      "content": "Generate revenue stream ideas for [BUSINESS]. Include: products, services, passive income, partnerships.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "revenue",
+        "income",
+        "monetization"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 351,
+      "title": "Coaching Business Blueprint",
+      "description": "Build 6-figure coaching business",
+      "content": "Build coaching business in [NICHE] to $100K+. Include: positioning, signature framework, pricing tiers, client acquisition, sales process, program delivery, client results, testimonials, scaling, team building, and automation. Include program outline and sales scripts.",
+      "difficulty": "Expert",
+      "tags": [
+        "coaching",
+        "business",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 352,
+      "title": "Sales Funnel Optimization System",
+      "description": "Optimize every funnel stage",
+      "content": "Optimize sales funnel for [PRODUCT]. Include: traffic analysis, landing page optimization, email sequences, conversion tracking, cart abandonment, upsells, retention, analytics, A/B testing, and scaling. Increase conversion rates 2-3x. Include optimization checklist and testing framework.",
+      "difficulty": "Expert",
+      "tags": [
+        "funnel optimization",
+        "conversion",
+        "cro"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 353,
+      "title": "Content Repurposing System",
+      "description": "Maximize content ROI",
+      "content": "Create content repurposing system for [CONTENT TYPE]. Include: core content creation, repurposing strategy, platform optimization, distribution schedule, automation tools, team workflow, and scaling to 50+ pieces from one source. Include repurposing matrix and workflow.",
+      "difficulty": "Advanced",
+      "tags": [
+        "repurposing",
+        "efficiency",
+        "content"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 354,
+      "title": "Freelance to Agency Transition",
+      "description": "Scale from solo to agency",
+      "content": "Transition from freelancer to agency in [SERVICE]. Include: positioning shift, service packaging, team building, hiring process, project management, quality control, client communication, pricing strategy, operations, and scaling to $50K+/month. Include transition roadmap and SOPs.",
+      "difficulty": "Expert",
+      "tags": [
+        "agency",
+        "scaling",
+        "transition"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 355,
+      "title": "Strategic Planning Framework",
+      "description": "Create winning business strategy",
+      "content": "Develop strategic plan for [BUSINESS]. Include: vision/mission, market analysis, competitive positioning, strategic objectives, key initiatives, resource allocation, KPIs, quarterly planning, execution framework, and tracking. Create strategic plan document and OKR framework.",
+      "difficulty": "Expert",
+      "tags": [
+        "strategy",
+        "planning",
+        "execution"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 356,
+      "title": "Content Marketing Strategy",
+      "description": "Build content that converts",
+      "content": "Create content marketing strategy for [BUSINESS]. Include: content pillars, keyword research, content calendar, SEO optimization, distribution channels, lead magnets, email integration, conversion optimization, analytics, and scaling to 100+ pieces monthly. Include content calendar and SEO strategy.",
+      "difficulty": "Expert",
+      "tags": [
+        "content marketing",
+        "strategy",
+        "seo"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 357,
+      "title": "Social Media Growth Hacking",
+      "description": "Rapid social media growth",
+      "content": "Grow [PLATFORM] account to 50K+ followers in [NICHE]. Include: growth hacks, viral content, engagement tactics, collaboration strategy, automation tools, analytics, monetization, and scaling. Include growth roadmap and content templates.",
+      "difficulty": "Advanced",
+      "tags": [
+        "growth hacking",
+        "social media",
+        "viral"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 358,
+      "title": "Tech Startup Launch System",
+      "description": "Launch tech startup successfully",
+      "content": "Launch [TECH STARTUP] from idea to market. Include: validation, MVP development, tech stack, team building, funding strategy, go-to-market, user acquisition, growth tactics, metrics tracking, and scaling. Include startup roadmap and launch checklist.",
+      "difficulty": "Expert",
+      "tags": [
+        "startup",
+        "tech",
+        "launch"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 359,
+      "title": "Behavioral Design Framework",
+      "description": "Design products that change behavior",
+      "content": "Apply behavioral design to [PRODUCT/SERVICE]. Include: habit formation, triggers, motivation, ability, prompts, feedback loops, rewards, gamification, and behavior change frameworks. Create behavioral design blueprint.",
+      "difficulty": "Advanced",
+      "tags": [
+        "behavioral design",
+        "psychology",
+        "ux"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 360,
+      "title": "Market Research & Insights",
+      "description": "Conduct professional market research",
+      "content": "Conduct market research for [PRODUCT/SERVICE]. Include: market size, customer segments, pain points, buying behavior, competitive landscape, pricing analysis, distribution channels, trends, opportunities, and strategic recommendations. Include research report template.",
+      "difficulty": "Advanced",
+      "tags": [
+        "market research",
+        "insights",
+        "analysis"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 361,
+      "title": "Email Signature Generator",
+      "description": "Professional email signatures",
+      "content": "Create email signature for [ROLE]. Include: name, title, contact, social, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "email",
+        "branding",
+        "professional"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 362,
+      "title": "Video Script Outline",
+      "description": "Structure engaging videos",
+      "content": "Create video outline for [TOPIC]. Include: hook, problem, solution, proof, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "video",
+        "script",
+        "structure"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 363,
+      "title": "Press Release Writer",
+      "description": "Write newsworthy press releases",
+      "content": "Write press release for [NEWS]. Include: headline, summary, quotes, details, contact.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "pr",
+        "media",
+        "news"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 364,
+      "title": "Story Highlights Ideas",
+      "description": "Organize Instagram highlights",
+      "content": "Create highlight categories for [NICHE]. Include: covers, names, content types.",
+      "difficulty": "Beginner",
+      "tags": [
+        "instagram",
+        "highlights",
+        "organization"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 365,
+      "title": "Contract Template",
+      "description": "Protect your business",
+      "content": "Create contract for [SERVICE]. Include: scope, payment, timeline, terms, termination.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "contract",
+        "legal",
+        "protection"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 366,
+      "title": "SWOT Analysis Template",
+      "description": "Analyze business position",
+      "content": "Conduct SWOT for [BUSINESS]. Include: strengths, weaknesses, opportunities, threats.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "swot",
+        "analysis",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 367,
+      "title": "Task Prioritization Matrix",
+      "description": "Prioritize tasks effectively",
+      "content": "Prioritize tasks using Eisenhower Matrix. Include: urgent/important, schedule, delegate, eliminate.",
+      "difficulty": "Beginner",
+      "tags": [
+        "prioritization",
+        "tasks",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 368,
+      "title": "Code Comments Generator",
+      "description": "Document code properly",
+      "content": "Generate comments for [CODE]. Include: purpose, parameters, returns, examples.",
+      "difficulty": "Beginner",
+      "tags": [
+        "code",
+        "documentation",
+        "comments"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 369,
+      "title": "Quiz Generator",
+      "description": "Create study quizzes",
+      "content": "Generate quiz for [TOPIC]. Include: multiple choice, true/false, short answer.",
+      "difficulty": "Beginner",
+      "tags": [
+        "quiz",
+        "testing",
+        "study"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 370,
+      "title": "Pricing Strategy Calculator",
+      "description": "Price products correctly",
+      "content": "Calculate pricing for [PRODUCT]. Include: costs, margin, value, competitors, psychology.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "pricing",
+        "profit",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 371,
+      "title": "E-Commerce Empire Builder",
+      "description": "Build 7-figure ecommerce business",
+      "content": "Build ecommerce business in [NICHE] to $1M+. Include: product selection, supplier sourcing, store setup, branding, product photography, SEO, paid ads, email marketing, conversion optimization, customer service, fulfillment, scaling, and automation. Include business plan and financial projections.",
+      "difficulty": "Expert",
+      "tags": [
+        "ecommerce",
+        "scaling",
+        "business"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 372,
+      "title": "Marketing Automation System",
+      "description": "Automate marketing processes",
+      "content": "Build marketing automation for [BUSINESS]. Include: email sequences, lead scoring, segmentation, workflows, CRM integration, analytics, personalization, retargeting, and optimization. Automate 80% of marketing tasks. Include automation blueprint and workflows.",
+      "difficulty": "Expert",
+      "tags": [
+        "automation",
+        "marketing",
+        "efficiency"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 373,
+      "title": "Content Strategy Framework",
+      "description": "Build comprehensive content strategy",
+      "content": "Create content strategy for [BUSINESS]. Include: goals, audience, content pillars, formats, channels, calendar, SEO, distribution, promotion, analytics, team, budget, and scaling. Build content engine that drives results. Include strategy document and calendar.",
+      "difficulty": "Expert",
+      "tags": [
+        "content strategy",
+        "planning",
+        "marketing"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 374,
+      "title": "Service Business Scaling System",
+      "description": "Scale service business to 7-figures",
+      "content": "Scale service business to $1M+. Include: positioning, service packaging, pricing strategy, sales system, delivery process, team building, operations, client success, retention, referrals, and automation. Create scalable service business. Include scaling roadmap and SOPs.",
+      "difficulty": "Expert",
+      "tags": [
+        "service business",
+        "scaling",
+        "systems"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 375,
+      "title": "Business Model Innovation",
+      "description": "Create innovative business models",
+      "content": "Innovate business model for [INDUSTRY]. Include: value proposition, revenue streams, cost structure, key resources, partners, customer segments, channels, and competitive advantage. Create disruptive business model. Include business model canvas.",
+      "difficulty": "Expert",
+      "tags": [
+        "business model",
+        "innovation",
+        "strategy"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 376,
+      "title": "Content Writing Mastery System",
+      "description": "Master professional content writing",
+      "content": "Master content writing for [PURPOSE]. Include: research, ideation, outlining, writing, editing, SEO, formatting, publishing, promotion, and analytics. Create content that ranks and converts. Include writing templates and checklist.",
+      "difficulty": "Advanced",
+      "tags": [
+        "content writing",
+        "seo",
+        "mastery"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 377,
+      "title": "Social Media Management System",
+      "description": "Manage social media efficiently",
+      "content": "Manage social media for [BUSINESS]. Include: strategy, content creation, scheduling, engagement, analytics, reporting, team management, tools, and optimization. Manage multiple accounts efficiently. Include management system and templates.",
+      "difficulty": "Advanced",
+      "tags": [
+        "social media",
+        "management",
+        "efficiency"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 378,
+      "title": "Software Development Framework",
+      "description": "Build software products efficiently",
+      "content": "Develop [SOFTWARE] efficiently. Include: requirements, architecture, tech stack, development process, testing, deployment, maintenance, scaling, and team management. Build quality software on time and budget. Include development roadmap.",
+      "difficulty": "Expert",
+      "tags": [
+        "software",
+        "development",
+        "framework"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 379,
+      "title": "Consumer Psychology Framework",
+      "description": "Understand customer psychology",
+      "content": "Apply consumer psychology to [BUSINESS]. Include: buying triggers, decision-making, pain points, desires, objections, emotions, biases, and behavior patterns. Use psychology to increase conversions. Include psychology framework and tactics.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "consumer behavior",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 380,
+      "title": "Data Analytics Framework",
+      "description": "Make data-driven decisions",
+      "content": "Implement data analytics for [BUSINESS]. Include: KPIs, data collection, analysis, visualization, insights, reporting, and optimization. Use data to make better decisions and improve results. Include analytics dashboard and framework.",
+      "difficulty": "Advanced",
+      "tags": [
+        "analytics",
+        "data",
+        "insights"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 381,
+      "title": "Sales Script Generator",
+      "description": "Create effective sales scripts",
+      "content": "Generate sales script for [PRODUCT]. Include: intro, qualification, pitch, objections, close.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "sales",
+        "script",
+        "conversion"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 382,
+      "title": "Podcast Episode Outline",
+      "description": "Structure podcast episodes",
+      "content": "Create outline for [TOPIC]. Include: intro, segments, questions, outro.",
+      "difficulty": "Beginner",
+      "tags": [
+        "podcast",
+        "planning",
+        "structure"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 383,
+      "title": "Bio Generator",
+      "description": "Write compelling bios",
+      "content": "Write bio for [PERSON/BRAND]. Include: background, achievements, personality, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "bio",
+        "profile",
+        "branding"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 384,
+      "title": "Engagement Post Ideas",
+      "description": "Create engaging posts",
+      "content": "Generate 20 engagement post ideas for [NICHE]. Include: questions, polls, challenges.",
+      "difficulty": "Beginner",
+      "tags": [
+        "engagement",
+        "ideas",
+        "social"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 385,
+      "title": "Client Questionnaire",
+      "description": "Gather client requirements",
+      "content": "Create questionnaire for [SERVICE]. Include: goals, budget, timeline, preferences.",
+      "difficulty": "Beginner",
+      "tags": [
+        "client",
+        "questionnaire",
+        "discovery"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 386,
+      "title": "Mission Statement Creator",
+      "description": "Define company mission",
+      "content": "Create mission statement for [COMPANY]. Include: purpose, values, goals.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "mission",
+        "values",
+        "branding"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 387,
+      "title": "Morning Routine Builder",
+      "description": "Design productive mornings",
+      "content": "Create morning routine for [GOAL]. Include: wake time, activities, duration.",
+      "difficulty": "Beginner",
+      "tags": [
+        "routine",
+        "morning",
+        "habits"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 388,
+      "title": "Bug Report Template",
+      "description": "Report bugs effectively",
+      "content": "Create bug report for [ISSUE]. Include: steps, expected, actual, environment.",
+      "difficulty": "Beginner",
+      "tags": [
+        "bugs",
+        "testing",
+        "qa"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 389,
+      "title": "Study Schedule Creator",
+      "description": "Plan effective study time",
+      "content": "Create study schedule for [EXAM]. Include: topics, time, breaks, review.",
+      "difficulty": "Beginner",
+      "tags": [
+        "study",
+        "schedule",
+        "planning"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 390,
+      "title": "Income Stream Ideas",
+      "description": "Find new income sources",
+      "content": "Generate income ideas for [SKILLS]. Include: passive, active, online, offline.",
+      "difficulty": "Beginner",
+      "tags": [
+        "income",
+        "ideas",
+        "money"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 391,
+      "title": "Digital Product Empire System",
+      "description": "Build multiple digital product streams",
+      "content": "Build digital product business in [NICHE] with multiple revenue streams. Include: product ideation, market validation, creation process, pricing strategy, sales funnel, email marketing, affiliate program, upsells, customer success, and scaling to $50K+/month. Include product roadmap and launch checklist.",
+      "difficulty": "Expert",
+      "tags": [
+        "digital products",
+        "multiple streams",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 392,
+      "title": "Customer Acquisition System",
+      "description": "Systematic customer acquisition",
+      "content": "Build customer acquisition system for [BUSINESS]. Include: channels, funnels, conversion optimization, tracking, scaling, CAC optimization, LTV maximization, retention, and referrals. Create predictable customer acquisition machine. Include acquisition framework and metrics.",
+      "difficulty": "Expert",
+      "tags": [
+        "acquisition",
+        "customers",
+        "growth"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 393,
+      "title": "Content Empire Builder",
+      "description": "Build content business",
+      "content": "Build content business in [NICHE]. Include: content strategy, production workflow, distribution channels, monetization streams, team building, tools, analytics, and scaling to $50K+/month. Create content empire. Include business plan and content calendar.",
+      "difficulty": "Expert",
+      "tags": [
+        "content business",
+        "monetization",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 394,
+      "title": "Service Business Blueprint",
+      "description": "Build service business from scratch",
+      "content": "Build service business in [NICHE] from $0 to $100K+. Include: positioning, service packaging, pricing, client acquisition, delivery, team building, operations, and scaling. Create profitable service business. Include business plan and SOPs.",
+      "difficulty": "Expert",
+      "tags": [
+        "service business",
+        "startup",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 395,
+      "title": "Strategic Planning Framework",
+      "description": "Create winning business strategy",
+      "content": "Develop strategic plan for [BUSINESS]. Include: vision, mission, market analysis, competitive positioning, strategic objectives, initiatives, resource allocation, KPIs, execution framework, and tracking. Create comprehensive strategic plan. Include planning templates.",
+      "difficulty": "Expert",
+      "tags": [
+        "strategy",
+        "planning",
+        "execution"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 396,
+      "title": "Copywriting Mastery System",
+      "description": "Master persuasive copywriting",
+      "content": "Master copywriting for [PURPOSE]. Include: research, psychology, headlines, storytelling, benefits, objections, social proof, urgency, CTAs, testing, and optimization. Create copy that converts. Include copywriting templates and swipe file.",
+      "difficulty": "Expert",
+      "tags": [
+        "copywriting",
+        "persuasion",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 397,
+      "title": "Social Media Empire Builder",
+      "description": "Build social media business",
+      "content": "Build social media business in [NICHE]. Include: account growth, content strategy, monetization streams, brand deals, products, services, community, and scaling to $50K+/month. Create social media empire. Include growth plan and monetization strategy.",
+      "difficulty": "Expert",
+      "tags": [
+        "social media",
+        "business",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 398,
+      "title": "Tech Startup Blueprint",
+      "description": "Build successful tech startup",
+      "content": "Build tech startup from idea to scale. Include: validation, MVP development, tech stack, team building, funding, launch, growth, scaling, and exit strategy. Create successful tech startup. Include startup roadmap and resources.",
+      "difficulty": "Expert",
+      "tags": [
+        "startup",
+        "tech",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 399,
+      "title": "Behavioral Psychology System",
+      "description": "Apply psychology to business",
+      "content": "Apply behavioral psychology to [BUSINESS]. Include: cognitive biases, decision-making, motivation, habits, persuasion, influence, emotions, and behavior change. Use psychology to grow business. Include psychology framework and tactics.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "behavior",
+        "persuasion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 400,
+      "title": "Market Research System",
+      "description": "Conduct professional market research",
+      "content": "Conduct market research for [BUSINESS]. Include: market size, customer segments, pain points, competition, trends, opportunities, threats, and strategic recommendations. Create comprehensive market research report. Include research templates and frameworks.",
+      "difficulty": "Advanced",
+      "tags": [
+        "market research",
+        "analysis",
+        "insights"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 401,
+      "title": "Value Proposition Generator",
+      "description": "Create compelling value propositions",
+      "content": "Create value proposition for [PRODUCT]. Include: target customer, problem, solution, benefits.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "value proposition",
+        "positioning",
+        "marketing"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 402,
+      "title": "Blog Post Outline",
+      "description": "Structure blog posts",
+      "content": "Create outline for [TOPIC]. Include: intro, sections, key points, conclusion.",
+      "difficulty": "Beginner",
+      "tags": [
+        "blog",
+        "outline",
+        "writing"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 403,
+      "title": "Email Template Creator",
+      "description": "Create email templates",
+      "content": "Create email template for [PURPOSE]. Include: subject, body, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "email",
+        "template",
+        "communication"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 404,
+      "title": "Content Calendar Planner",
+      "description": "Plan social content",
+      "content": "Create 30-day content calendar for [PLATFORM]. Include: themes, post types, timing.",
+      "difficulty": "Beginner",
+      "tags": [
+        "calendar",
+        "planning",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 405,
+      "title": "Service Package Creator",
+      "description": "Package services effectively",
+      "content": "Create service package for [SERVICE]. Include: deliverables, timeline, price.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "services",
+        "packages",
+        "pricing"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 406,
+      "title": "Competitive Analysis Framework",
+      "description": "Analyze competitors",
+      "content": "Analyze [COMPETITOR]. Include: products, pricing, marketing, strengths, weaknesses.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "competition",
+        "analysis",
+        "research"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 407,
+      "title": "Goal Setting Template",
+      "description": "Set achievable goals",
+      "content": "Set goals for [OBJECTIVE]. Include: specific, measurable, achievable, relevant, time-bound.",
+      "difficulty": "Beginner",
+      "tags": [
+        "goals",
+        "planning",
+        "achievement"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 408,
+      "title": "Project Structure Generator",
+      "description": "Organize code projects",
+      "content": "Create project structure for [PROJECT]. Include: folders, files, naming conventions.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "project",
+        "structure",
+        "organization"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 409,
+      "title": "Study Notes Template",
+      "description": "Take effective notes",
+      "content": "Create notes template for [SUBJECT]. Include: key concepts, examples, questions.",
+      "difficulty": "Beginner",
+      "tags": [
+        "notes",
+        "study",
+        "learning"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 410,
+      "title": "Side Hustle Planner",
+      "description": "Plan side hustle",
+      "content": "Plan side hustle for [IDEA]. Include: validation, setup, marketing, scaling.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "side hustle",
+        "planning",
+        "income"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 411,
+      "title": "AI Art Prompt Engineering",
+      "description": "Master AI art prompts",
+      "content": "Create AI art prompts for [STYLE]. Include: keywords, modifiers, artists, techniques, lighting, composition.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "ai art",
+        "prompts",
+        "midjourney"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_art",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 412,
+      "title": "Character Design Prompts",
+      "description": "Design consistent characters",
+      "content": "Create character design prompts for [CHARACTER]. Include: features, clothing, pose, expression, background.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "character",
+        "design",
+        "ai art"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_art",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 413,
+      "title": "Logo Design Prompts",
+      "description": "Generate logo concepts",
+      "content": "Create logo prompts for [BRAND]. Include: style, colors, symbols, typography, mood.",
+      "difficulty": "Beginner",
+      "tags": [
+        "logo",
+        "branding",
+        "design"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_art",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 414,
+      "title": "Product Photography Prompts",
+      "description": "Create product images",
+      "content": "Generate product photo prompts for [PRODUCT]. Include: angle, lighting, background, style, mood.",
+      "difficulty": "Beginner",
+      "tags": [
+        "product",
+        "photography",
+        "ecommerce"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_art",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 415,
+      "title": "AI Art Business Strategy",
+      "description": "Monetize AI art skills",
+      "content": "Build AI art business. Include: services, pricing, portfolio, clients, marketing, platforms, scaling.",
+      "difficulty": "Advanced",
+      "tags": [
+        "ai art",
+        "business",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "ai_art",
+      "estimatedTime": "30 min"
+    },
+    {
+      "id": 416,
+      "title": "NFT Art Collection Creator",
+      "description": "Create NFT collections",
+      "content": "Design NFT collection with AI. Include: concept, traits, variations, rarity, metadata, generation.",
+      "difficulty": "Advanced",
+      "tags": [
+        "nft",
+        "ai art",
+        "crypto"
+      ],
+      "isPremium": true,
+      "categoryId": "ai_art",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 417,
+      "title": "Workflow Automation Ideas",
+      "description": "Automate repetitive tasks",
+      "content": "Identify automation opportunities for [BUSINESS]. Include: tasks, tools, implementation, ROI.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "automation",
+        "efficiency",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_automation",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 418,
+      "title": "Chatbot Script Creator",
+      "description": "Design chatbot conversations",
+      "content": "Create chatbot script for [PURPOSE]. Include: greeting, questions, responses, fallbacks.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "chatbot",
+        "ai",
+        "automation"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_automation",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 419,
+      "title": "Email Automation Setup",
+      "description": "Automate email marketing",
+      "content": "Setup email automation for [BUSINESS]. Include: sequences, triggers, segments, content.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "email",
+        "automation",
+        "marketing"
+      ],
+      "isPremium": false,
+      "categoryId": "ai_automation",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 420,
+      "title": "AI Automation Business System",
+      "description": "Build automation agency",
+      "content": "Build AI automation business. Include: services, clients, tools, pricing, delivery, scaling to $50K+/month.",
+      "difficulty": "Expert",
+      "tags": [
+        "automation",
+        "business",
+        "ai"
+      ],
+      "isPremium": true,
+      "categoryId": "ai_automation",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 421,
+      "title": "Crypto Trading Strategy",
+      "description": "Trade crypto profitably",
+      "content": "Create crypto trading strategy for [COIN]. Include: entry, exit, risk management, position sizing.",
+      "difficulty": "Advanced",
+      "tags": [
+        "crypto",
+        "trading",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "crypto_trading",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 422,
+      "title": "DeFi Yield Strategy",
+      "description": "Earn passive crypto income",
+      "content": "Find DeFi yield opportunities for [CAPITAL]. Include: protocols, APY, risks, strategy.",
+      "difficulty": "Advanced",
+      "tags": [
+        "defi",
+        "yield",
+        "passive income"
+      ],
+      "isPremium": false,
+      "categoryId": "crypto_trading",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 423,
+      "title": "NFT Flipping Strategy",
+      "description": "Flip NFTs for profit",
+      "content": "Create NFT flipping strategy. Include: research, entry, exit, tools, risk management.",
+      "difficulty": "Advanced",
+      "tags": [
+        "nft",
+        "trading",
+        "profit"
+      ],
+      "isPremium": false,
+      "categoryId": "crypto_trading",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 424,
+      "title": "Crypto Portfolio Strategy",
+      "description": "Build balanced crypto portfolio",
+      "content": "Create crypto portfolio for [RISK LEVEL]. Include: allocation, coins, rebalancing, risk management, tracking.",
+      "difficulty": "Expert",
+      "tags": [
+        "crypto",
+        "portfolio",
+        "investing"
+      ],
+      "isPremium": true,
+      "categoryId": "crypto_trading",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 425,
+      "title": "NFT Project Concept",
+      "description": "Create NFT project idea",
+      "content": "Develop NFT project concept for [THEME]. Include: art style, utility, community, roadmap.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "nft",
+        "concept",
+        "project"
+      ],
+      "isPremium": false,
+      "categoryId": "nft_creation",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 426,
+      "title": "NFT Marketing Strategy",
+      "description": "Market NFT project",
+      "content": "Create NFT marketing plan. Include: Discord, Twitter, influencers, whitelist, launch.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "nft",
+        "marketing",
+        "launch"
+      ],
+      "isPremium": false,
+      "categoryId": "nft_creation",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 427,
+      "title": "NFT Smart Contract Guide",
+      "description": "Understand NFT contracts",
+      "content": "Learn NFT smart contracts for [PLATFORM]. Include: standards, functions, deployment, verification.",
+      "difficulty": "Advanced",
+      "tags": [
+        "nft",
+        "smart contracts",
+        "blockchain"
+      ],
+      "isPremium": false,
+      "categoryId": "nft_creation",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 428,
+      "title": "NFT Project Launch System",
+      "description": "Launch successful NFT project",
+      "content": "Launch NFT project from concept to mint. Include: art, smart contract, community, marketing, mint strategy, post-launch. Full NFT launch system.",
+      "difficulty": "Expert",
+      "tags": [
+        "nft",
+        "launch",
+        "project"
+      ],
+      "isPremium": true,
+      "categoryId": "nft_creation",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 429,
+      "title": "VR Experience Concept",
+      "description": "Design VR experiences",
+      "content": "Create VR experience for [PURPOSE]. Include: concept, interactions, environment, user journey.",
+      "difficulty": "Advanced",
+      "tags": [
+        "vr",
+        "experience",
+        "design"
+      ],
+      "isPremium": false,
+      "categoryId": "virtual_reality",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 430,
+      "title": "Metaverse Strategy",
+      "description": "Build metaverse presence",
+      "content": "Create metaverse strategy for [BRAND]. Include: platform, presence, experiences, monetization.",
+      "difficulty": "Advanced",
+      "tags": [
+        "metaverse",
+        "strategy",
+        "virtual"
+      ],
+      "isPremium": false,
+      "categoryId": "virtual_reality",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 431,
+      "title": "VR Content Creation",
+      "description": "Create VR content",
+      "content": "Create VR content for [PURPOSE]. Include: 360 video, 3D models, interactions, optimization.",
+      "difficulty": "Advanced",
+      "tags": [
+        "vr",
+        "content",
+        "creation"
+      ],
+      "isPremium": false,
+      "categoryId": "virtual_reality",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 432,
+      "title": "VR Business Strategy",
+      "description": "Build VR business",
+      "content": "Build VR business in [NICHE]. Include: services, equipment, clients, pricing, marketing, scaling to $50K+/month.",
+      "difficulty": "Expert",
+      "tags": [
+        "vr",
+        "business",
+        "strategy"
+      ],
+      "isPremium": true,
+      "categoryId": "virtual_reality",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 433,
+      "title": "Voice Clone Setup",
+      "description": "Clone voices with AI",
+      "content": "Clone voice for [PURPOSE]. Include: recording, training, testing, usage, ethics.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "voice",
+        "ai",
+        "audio"
+      ],
+      "isPremium": false,
+      "categoryId": "voice_cloning",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 434,
+      "title": "AI Voice Content Creation",
+      "description": "Create content with AI voices",
+      "content": "Create content using AI voices for [PURPOSE]. Include: script, voice selection, generation, editing.",
+      "difficulty": "Beginner",
+      "tags": [
+        "voice",
+        "content",
+        "ai"
+      ],
+      "isPremium": false,
+      "categoryId": "voice_cloning",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 435,
+      "title": "Voice Acting Business",
+      "description": "Monetize voice cloning",
+      "content": "Build voice business with AI. Include: services, clients, pricing, tools, marketing, scaling.",
+      "difficulty": "Advanced",
+      "tags": [
+        "voice",
+        "business",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "voice_cloning",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 436,
+      "title": "Workout Plan Creator",
+      "description": "Design custom workouts",
+      "content": "Create workout plan for [GOAL]. Include: exercises, sets, reps, schedule, progression.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "workout",
+        "fitness",
+        "exercise"
+      ],
+      "isPremium": false,
+      "categoryId": "fitness_health",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 437,
+      "title": "Meal Plan Generator",
+      "description": "Create nutrition plans",
+      "content": "Create meal plan for [GOAL]. Include: calories, macros, meals, recipes, shopping list.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "nutrition",
+        "diet",
+        "meal plan"
+      ],
+      "isPremium": false,
+      "categoryId": "fitness_health",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 438,
+      "title": "Fitness Tracker Setup",
+      "description": "Track fitness progress",
+      "content": "Setup fitness tracking for [GOAL]. Include: metrics, tools, schedule, analysis.",
+      "difficulty": "Beginner",
+      "tags": [
+        "tracking",
+        "progress",
+        "fitness"
+      ],
+      "isPremium": false,
+      "categoryId": "fitness_health",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 439,
+      "title": "Yoga Routine Creator",
+      "description": "Design yoga sequences",
+      "content": "Create yoga routine for [GOAL]. Include: poses, duration, breathing, modifications.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "yoga",
+        "flexibility",
+        "wellness"
+      ],
+      "isPremium": false,
+      "categoryId": "fitness_health",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 440,
+      "title": "Fitness Coaching Business",
+      "description": "Build online fitness coaching",
+      "content": "Build fitness coaching business. Include: niche, programs, pricing, clients, delivery, scaling to $50K+/month.",
+      "difficulty": "Expert",
+      "tags": [
+        "fitness",
+        "coaching",
+        "business"
+      ],
+      "isPremium": true,
+      "categoryId": "fitness_health",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 441,
+      "title": "Habit Formation System",
+      "description": "Build lasting habits",
+      "content": "Create habit system for [GOAL]. Include: triggers, routine, reward, tracking, maintenance.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "habits",
+        "behavior",
+        "change"
+      ],
+      "isPremium": false,
+      "categoryId": "psychology",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 442,
+      "title": "Mindset Shift Framework",
+      "description": "Change limiting beliefs",
+      "content": "Shift mindset for [GOAL]. Include: beliefs, reframes, affirmations, actions, tracking.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "mindset",
+        "beliefs",
+        "growth"
+      ],
+      "isPremium": false,
+      "categoryId": "psychology",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 443,
+      "title": "Emotional Intelligence Guide",
+      "description": "Develop EQ skills",
+      "content": "Improve emotional intelligence for [CONTEXT]. Include: self-awareness, regulation, empathy, social skills.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "eq",
+        "emotions",
+        "intelligence"
+      ],
+      "isPremium": false,
+      "categoryId": "psychology",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 444,
+      "title": "Psychology for Marketers",
+      "description": "Apply psychology to marketing",
+      "content": "Use psychology in marketing for [BUSINESS]. Include: triggers, biases, emotions, persuasion, conversion optimization.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "marketing",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 445,
+      "title": "Sales Page Structure",
+      "description": "Structure converting sales pages",
+      "content": "Create sales page for [PRODUCT]. Include: headline, subheadline, benefits, features, testimonials, guarantee, CTA.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "sales page",
+        "conversion",
+        "copywriting"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 446,
+      "title": "Video Script Template",
+      "description": "Write video scripts fast",
+      "content": "Create video script for [TOPIC]. Include: hook, problem, solution, proof, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "video",
+        "script",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 447,
+      "title": "Article Outline Generator",
+      "description": "Structure articles quickly",
+      "content": "Create article outline for [TOPIC]. Include: intro, sections, key points, conclusion.",
+      "difficulty": "Beginner",
+      "tags": [
+        "article",
+        "outline",
+        "writing"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 448,
+      "title": "Engagement Post Ideas",
+      "description": "Boost social engagement",
+      "content": "Generate engagement posts for [NICHE]. Include: questions, polls, challenges, stories.",
+      "difficulty": "Beginner",
+      "tags": [
+        "engagement",
+        "social",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 449,
+      "title": "Client Onboarding Checklist",
+      "description": "Streamline client onboarding",
+      "content": "Create onboarding checklist for [SERVICE]. Include: contract, payment, access, kickoff, timeline.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "onboarding",
+        "clients",
+        "process"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 450,
+      "title": "Market Research Template",
+      "description": "Research markets effectively",
+      "content": "Research [MARKET]. Include: size, trends, competition, opportunities, threats.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "research",
+        "market",
+        "analysis"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 451,
+      "title": "Task Management System",
+      "description": "Organize tasks efficiently",
+      "content": "Setup task system for [ROLE]. Include: categories, priorities, deadlines, tracking.",
+      "difficulty": "Beginner",
+      "tags": [
+        "tasks",
+        "organization",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 452,
+      "title": "API Documentation Template",
+      "description": "Document APIs clearly",
+      "content": "Document [API]. Include: endpoints, parameters, responses, examples, errors.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "api",
+        "documentation",
+        "technical"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 453,
+      "title": "Study Schedule Creator",
+      "description": "Plan effective study time",
+      "content": "Create study schedule for [EXAM]. Include: topics, time, breaks, review.",
+      "difficulty": "Beginner",
+      "tags": [
+        "study",
+        "schedule",
+        "planning"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 454,
+      "title": "Income Stream Ideas",
+      "description": "Find new income sources",
+      "content": "Generate income ideas for [SKILLS]. Include: passive, active, online, offline.",
+      "difficulty": "Beginner",
+      "tags": [
+        "income",
+        "ideas",
+        "money"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 455,
+      "title": "Digital Product Empire System",
+      "description": "Build multiple product streams",
+      "content": "Build digital product business in [NICHE]. Include: product ideation, creation, pricing, funnels, email marketing, affiliate program, scaling to $50K+/month. Full digital product system.",
+      "difficulty": "Expert",
+      "tags": [
+        "digital products",
+        "business",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 456,
+      "title": "Customer Acquisition System",
+      "description": "Systematic customer acquisition",
+      "content": "Build customer acquisition system for [BUSINESS]. Include: channels, funnels, conversion optimization, tracking, scaling, CAC optimization, LTV maximization, retention, referrals. Create predictable customer acquisition machine.",
+      "difficulty": "Expert",
+      "tags": [
+        "acquisition",
+        "customers",
+        "growth"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 457,
+      "title": "Content Empire Builder",
+      "description": "Build content business",
+      "content": "Build content business in [NICHE]. Include: strategy, production, distribution, monetization, team, tools, analytics, scaling to $50K+/month. Create content empire.",
+      "difficulty": "Expert",
+      "tags": [
+        "content",
+        "business",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 458,
+      "title": "Service Business Blueprint",
+      "description": "Build service business",
+      "content": "Build service business in [NICHE] from $0 to $100K+. Include: positioning, packaging, pricing, acquisition, delivery, team, operations, scaling. Create profitable service business.",
+      "difficulty": "Expert",
+      "tags": [
+        "service business",
+        "startup",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 459,
+      "title": "Strategic Planning Framework",
+      "description": "Create winning strategy",
+      "content": "Develop strategic plan for [BUSINESS]. Include: vision, mission, analysis, objectives, initiatives, resources, KPIs, execution, tracking. Create comprehensive strategic plan.",
+      "difficulty": "Expert",
+      "tags": [
+        "strategy",
+        "planning",
+        "execution"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 460,
+      "title": "Copywriting Mastery System",
+      "description": "Master persuasive copywriting",
+      "content": "Master copywriting for [PURPOSE]. Include: research, psychology, headlines, storytelling, benefits, objections, social proof, urgency, CTAs, testing, optimization. Create converting copy.",
+      "difficulty": "Expert",
+      "tags": [
+        "copywriting",
+        "persuasion",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 461,
+      "title": "Social Media Empire Builder",
+      "description": "Build social media business",
+      "content": "Build social media business in [NICHE]. Include: growth, content, monetization, brand deals, products, services, community, scaling to $50K+/month. Create social media empire.",
+      "difficulty": "Expert",
+      "tags": [
+        "social media",
+        "business",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 462,
+      "title": "Tech Startup Blueprint",
+      "description": "Build successful tech startup",
+      "content": "Build tech startup from idea to scale. Include: validation, MVP, tech stack, team, funding, launch, growth, scaling. Create successful tech startup.",
+      "difficulty": "Expert",
+      "tags": [
+        "startup",
+        "tech",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 463,
+      "title": "Behavioral Psychology System",
+      "description": "Apply psychology to business",
+      "content": "Apply behavioral psychology to [BUSINESS]. Include: cognitive biases, decision-making, motivation, habits, persuasion, behavior change. Use psychology to grow business.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "behavior",
+        "persuasion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 464,
+      "title": "Market Research System",
+      "description": "Conduct professional research",
+      "content": "Conduct market research for [BUSINESS]. Include: market size, customer segments, pain points, competition, trends, opportunities, threats, strategic recommendations. Create comprehensive research report.",
+      "difficulty": "Advanced",
+      "tags": [
+        "research",
+        "market",
+        "analysis"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 465,
+      "title": "Email Sequence Template",
+      "description": "Create email sequences",
+      "content": "Create email sequence for [GOAL]. Include: subject lines, body, CTAs, timing.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "email",
+        "sequence",
+        "marketing"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 466,
+      "title": "Content Calendar Template",
+      "description": "Plan content systematically",
+      "content": "Create content calendar for [PLATFORM]. Include: themes, topics, formats, schedule.",
+      "difficulty": "Beginner",
+      "tags": [
+        "calendar",
+        "planning",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 467,
+      "title": "Blog Post Template",
+      "description": "Write blog posts fast",
+      "content": "Create blog post for [TOPIC]. Include: headline, intro, body, conclusion, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "blog",
+        "writing",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 468,
+      "title": "Social Media Audit",
+      "description": "Analyze social performance",
+      "content": "Audit [ACCOUNT]. Include: metrics, content, engagement, growth, recommendations.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "audit",
+        "analysis",
+        "social"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 469,
+      "title": "Project Scope Document",
+      "description": "Define project scope",
+      "content": "Create scope for [PROJECT]. Include: objectives, deliverables, timeline, exclusions.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "scope",
+        "project",
+        "planning"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 470,
+      "title": "Competitive Analysis Framework",
+      "description": "Analyze competitors",
+      "content": "Analyze [COMPETITOR]. Include: products, pricing, marketing, strengths, weaknesses.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "competition",
+        "analysis",
+        "research"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 471,
+      "title": "Weekly Planning Template",
+      "description": "Plan productive weeks",
+      "content": "Plan week for [GOALS]. Include: priorities, tasks, schedule, review.",
+      "difficulty": "Beginner",
+      "tags": [
+        "planning",
+        "weekly",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 472,
+      "title": "Code Review Checklist",
+      "description": "Review code systematically",
+      "content": "Review [CODE]. Include: functionality, readability, performance, security, testing.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "code review",
+        "quality",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 473,
+      "title": "Learning Path Creator",
+      "description": "Plan skill development",
+      "content": "Create learning path for [SKILL]. Include: resources, milestones, practice, projects.",
+      "difficulty": "Beginner",
+      "tags": [
+        "learning",
+        "skills",
+        "development"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 474,
+      "title": "Monetization Strategy",
+      "description": "Find revenue opportunities",
+      "content": "Create monetization strategy for [ASSET]. Include: revenue streams, pricing, implementation.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "monetization",
+        "revenue",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "15 min"
+    },
+    {
+      "id": 475,
+      "title": "Multiple Income Streams System",
+      "description": "Build diversified income",
+      "content": "Build multiple income streams in [NICHE]. Include: passive income, active income, products, services, affiliate, sponsorships, scaling to $100K+/month. Create diversified income system.",
+      "difficulty": "Expert",
+      "tags": [
+        "income streams",
+        "diversification",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 476,
+      "title": "Marketing Automation System",
+      "description": "Automate marketing processes",
+      "content": "Build marketing automation for [BUSINESS]. Include: email sequences, lead scoring, segmentation, workflows, CRM integration, analytics, optimization. Automate 80% of marketing tasks.",
+      "difficulty": "Expert",
+      "tags": [
+        "automation",
+        "marketing",
+        "efficiency"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 477,
+      "title": "Content Strategy Framework",
+      "description": "Build content strategy",
+      "content": "Create content strategy for [BUSINESS]. Include: goals, audience, pillars, formats, channels, calendar, SEO, distribution, analytics, scaling. Build content engine.",
+      "difficulty": "Expert",
+      "tags": [
+        "content strategy",
+        "planning",
+        "marketing"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 478,
+      "title": "Service Scaling System",
+      "description": "Scale service business",
+      "content": "Scale service business to $100K+. Include: positioning, packaging, pricing, team, operations, systems, client success, scaling. Create scalable service business.",
+      "difficulty": "Expert",
+      "tags": [
+        "scaling",
+        "services",
+        "systems"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 479,
+      "title": "Growth Strategy Framework",
+      "description": "Create growth strategy",
+      "content": "Develop growth strategy for [BUSINESS]. Include: market analysis, growth channels, tactics, metrics, execution, scaling. Create comprehensive growth strategy.",
+      "difficulty": "Expert",
+      "tags": [
+        "growth",
+        "strategy",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 480,
+      "title": "Content Writing Mastery",
+      "description": "Master content writing",
+      "content": "Master content writing for [PURPOSE]. Include: research, structure, SEO, engagement, conversion, editing, optimization. Create content that ranks and converts.",
+      "difficulty": "Expert",
+      "tags": [
+        "content writing",
+        "seo",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 481,
+      "title": "Social Media Management System",
+      "description": "Manage social efficiently",
+      "content": "Manage social media for [BUSINESS]. Include: strategy, content, scheduling, engagement, analytics, reporting, team management. Manage multiple accounts efficiently.",
+      "difficulty": "Expert",
+      "tags": [
+        "social media",
+        "management",
+        "efficiency"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 482,
+      "title": "Software Development Framework",
+      "description": "Build software efficiently",
+      "content": "Develop [SOFTWARE]. Include: requirements, architecture, development, testing, deployment, maintenance, scaling. Build quality software efficiently.",
+      "difficulty": "Expert",
+      "tags": [
+        "software",
+        "development",
+        "framework"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 483,
+      "title": "Consumer Psychology Framework",
+      "description": "Understand customer psychology",
+      "content": "Apply consumer psychology to [BUSINESS]. Include: buying triggers, decision-making, pain points, desires, objections, emotions, behavior. Use psychology to increase conversions.",
+      "difficulty": "Advanced",
+      "tags": [
+        "psychology",
+        "consumer",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "35 min"
+    },
+    {
+      "id": 484,
+      "title": "Data Analytics Framework",
+      "description": "Make data-driven decisions",
+      "content": "Implement data analytics for [BUSINESS]. Include: KPIs, data collection, analysis, visualization, insights, reporting, optimization. Use data to make better decisions.",
+      "difficulty": "Advanced",
+      "tags": [
+        "analytics",
+        "data",
+        "insights"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "40 min"
+    },
+    {
+      "id": 485,
+      "title": "Ad Copy Generator",
+      "description": "Write converting ads",
+      "content": "Create ad copy for [PRODUCT]. Include: headline, body, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "ads",
+        "copy",
+        "marketing"
+      ],
+      "isPremium": false,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 486,
+      "title": "Video Hook Ideas",
+      "description": "Create attention-grabbing hooks",
+      "content": "Generate 20 video hooks for [TOPIC]. Include: questions, statements, curiosity.",
+      "difficulty": "Beginner",
+      "tags": [
+        "video",
+        "hooks",
+        "attention"
+      ],
+      "isPremium": false,
+      "categoryId": "content_creation",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 487,
+      "title": "Email Newsletter Template",
+      "description": "Write engaging newsletters",
+      "content": "Create newsletter for [TOPIC]. Include: subject, intro, content, CTA.",
+      "difficulty": "Beginner",
+      "tags": [
+        "newsletter",
+        "email",
+        "content"
+      ],
+      "isPremium": false,
+      "categoryId": "writing",
+      "estimatedTime": "8 min"
+    },
+    {
+      "id": 488,
+      "title": "Story Ideas Generator",
+      "description": "Create engaging stories",
+      "content": "Generate 20 story ideas for [NICHE]. Include: polls, questions, behind-scenes.",
+      "difficulty": "Beginner",
+      "tags": [
+        "stories",
+        "engagement",
+        "social"
+      ],
+      "isPremium": false,
+      "categoryId": "social_media",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 489,
+      "title": "Invoice Template",
+      "description": "Professional invoicing",
+      "content": "Create invoice for [SERVICE]. Include: header, items, terms, payment.",
+      "difficulty": "Beginner",
+      "tags": [
+        "invoice",
+        "billing",
+        "business"
+      ],
+      "isPremium": false,
+      "categoryId": "freelancing",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 490,
+      "title": "SWOT Analysis",
+      "description": "Analyze business position",
+      "content": "Conduct SWOT for [BUSINESS]. Include: strengths, weaknesses, opportunities, threats.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "swot",
+        "analysis",
+        "strategy"
+      ],
+      "isPremium": false,
+      "categoryId": "business_strategy",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 491,
+      "title": "Daily Planner",
+      "description": "Plan productive days",
+      "content": "Plan day for [GOALS]. Include: priorities, schedule, breaks, review.",
+      "difficulty": "Beginner",
+      "tags": [
+        "planning",
+        "daily",
+        "productivity"
+      ],
+      "isPremium": false,
+      "categoryId": "productivity",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 492,
+      "title": "Code Comments Generator",
+      "description": "Document code properly",
+      "content": "Generate comments for [CODE]. Include: purpose, parameters, examples.",
+      "difficulty": "Beginner",
+      "tags": [
+        "code",
+        "documentation",
+        "comments"
+      ],
+      "isPremium": false,
+      "categoryId": "development_tech",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 493,
+      "title": "Study Notes Template",
+      "description": "Take effective notes",
+      "content": "Create notes for [TOPIC]. Include: key points, examples, questions, summary.",
+      "difficulty": "Beginner",
+      "tags": [
+        "notes",
+        "study",
+        "learning"
+      ],
+      "isPremium": false,
+      "categoryId": "learning_education",
+      "estimatedTime": "5 min"
+    },
+    {
+      "id": 494,
+      "title": "Side Hustle Validator",
+      "description": "Validate business ideas",
+      "content": "Validate [IDEA]. Include: market, competition, costs, revenue, feasibility.",
+      "difficulty": "Intermediate",
+      "tags": [
+        "validation",
+        "side hustle",
+        "business"
+      ],
+      "isPremium": false,
+      "categoryId": "money_making",
+      "estimatedTime": "10 min"
+    },
+    {
+      "id": 495,
+      "title": "Multiple Revenue Streams System",
+      "description": "Build diversified income",
+      "content": "Build revenue streams in [NICHE]. Include: passive income, active income, products, services, affiliate, sponsorships, scaling to $100K+/month. Create diversified income system.",
+      "difficulty": "Expert",
+      "tags": [
+        "revenue",
+        "diversification",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "money_making",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 496,
+      "title": "Marketing Automation Framework",
+      "description": "Automate marketing processes",
+      "content": "Build marketing automation for [BUSINESS]. Include: email sequences, lead scoring, segmentation, CRM integration, analytics, optimization. Automate 80% of marketing tasks.",
+      "difficulty": "Expert",
+      "tags": [
+        "automation",
+        "marketing",
+        "efficiency"
+      ],
+      "isPremium": true,
+      "categoryId": "marketing_sales",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 497,
+      "title": "Content Empire System",
+      "description": "Build content business",
+      "content": "Build content business in [NICHE]. Include: strategy, production, distribution, monetization, team, tools, analytics, scaling to $50K+/month. Create content empire.",
+      "difficulty": "Expert",
+      "tags": [
+        "content",
+        "business",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "content_creation",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 498,
+      "title": "Service Scaling Framework",
+      "description": "Scale service business",
+      "content": "Scale service business to $100K+. Include: positioning, packaging, pricing, team, operations, systems, client success, scaling. Create scalable service business.",
+      "difficulty": "Expert",
+      "tags": [
+        "scaling",
+        "services",
+        "systems"
+      ],
+      "isPremium": true,
+      "categoryId": "freelancing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 499,
+      "title": "Strategic Planning System",
+      "description": "Create winning strategy",
+      "content": "Develop strategic plan for [BUSINESS]. Include: vision, mission, goals, strategy, execution, tracking. Create comprehensive strategic plan.",
+      "difficulty": "Expert",
+      "tags": [
+        "strategy",
+        "planning",
+        "execution"
+      ],
+      "isPremium": true,
+      "categoryId": "business_strategy",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 500,
+      "title": "Copywriting Mastery Framework",
+      "description": "Master persuasive copywriting",
+      "content": "Master copywriting for [PURPOSE]. Include: research, psychology, headlines, storytelling, benefits, objections, CTAs, testing, optimization. Create converting copy.",
+      "difficulty": "Expert",
+      "tags": [
+        "copywriting",
+        "persuasion",
+        "conversion"
+      ],
+      "isPremium": true,
+      "categoryId": "writing",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 501,
+      "title": "Social Media Empire System",
+      "description": "Build social media business",
+      "content": "Build social media business in [NICHE]. Include: growth, content, monetization, brand deals, products, services, community, scaling to $50K+/month. Create social media empire.",
+      "difficulty": "Expert",
+      "tags": [
+        "social media",
+        "business",
+        "monetization"
+      ],
+      "isPremium": true,
+      "categoryId": "social_media",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 502,
+      "title": "Tech Startup Framework",
+      "description": "Build successful startup",
+      "content": "Build tech startup from idea to scale. Include: validation, MVP, tech stack, team, funding, launch, growth, scaling. Create successful tech startup.",
+      "difficulty": "Expert",
+      "tags": [
+        "startup",
+        "tech",
+        "scaling"
+      ],
+      "isPremium": true,
+      "categoryId": "development_tech",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 503,
+      "title": "Behavioral Psychology Framework",
+      "description": "Apply psychology to business",
+      "content": "Apply behavioral psychology to [BUSINESS]. Include: cognitive biases, decision-making, motivation, habits, persuasion, behavior change. Use psychology to grow business.",
+      "difficulty": "Expert",
+      "tags": [
+        "psychology",
+        "behavior",
+        "persuasion"
+      ],
+      "isPremium": true,
+      "categoryId": "psychology",
+      "estimatedTime": "45 min"
+    },
+    {
+      "id": 504,
+      "title": "Market Research Framework",
+      "description": "Conduct professional research",
+      "content": "Conduct market research for [BUSINESS]. Include: market size, customer segments, competition, opportunities, threats, strategic recommendations. Create comprehensive research report.",
+      "difficulty": "Expert",
+      "tags": [
+        "research",
+        "market",
+        "analysis"
+      ],
+      "isPremium": true,
+      "categoryId": "research_analysis",
+      "estimatedTime": "45 min"
     }
   ],
   "pricing": {},

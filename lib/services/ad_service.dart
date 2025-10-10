@@ -7,6 +7,14 @@ class AdService {
 
   static Future<void> initialize() async {
     await MobileAds.instance.initialize();
+    
+    // Configure request settings for better ad performance
+    final requestConfiguration = RequestConfiguration(
+      tagForChildDirectedTreatment: TagForChildDirectedTreatment.no,
+      tagForUnderAgeOfConsent: TagForUnderAgeOfConsent.no,
+      maxAdContentRating: MaxAdContentRating.g,
+    );
+    MobileAds.instance.updateRequestConfiguration(requestConfiguration);
   }
 
   static BannerAd createBannerAd() {
@@ -32,6 +40,7 @@ class AdService {
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd loadedAd) {
           ad = loadedAd;
+          ad?.setImmersiveMode(true);
           print('Interstitial ad loaded');
         },
         onAdFailedToLoad: (LoadAdError error) {
@@ -50,6 +59,7 @@ class AdService {
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd loadedAd) {
           ad = loadedAd;
+          ad?.setImmersiveMode(true);
           print('Rewarded ad loaded');
         },
         onAdFailedToLoad: (LoadAdError error) {

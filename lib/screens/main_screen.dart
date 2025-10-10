@@ -15,7 +15,15 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
       builder: (context, provider, child) {
-        return Scaffold(
+        return WillPopScope(
+          onWillPop: () async {
+            if (provider.currentIndex != 0) {
+              provider.setCurrentIndex(0);
+              return false;
+            }
+            return true;
+          },
+          child: Scaffold(
           body: IndexedStack(
             index: provider.currentIndex,
             children: const [
@@ -96,6 +104,7 @@ class MainScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
           ),
         );
       },
