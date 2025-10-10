@@ -27,8 +27,8 @@ class Prompt {
 
   factory Prompt.fromJson(Map<String, dynamic> json) {
     return Prompt(
-      id: json['id'],
-      categoryId: json['categoryId'],
+      id: json['id'].toString(),
+      categoryId: json['categoryId'].toString(),
       title: json['title'],
       description: json['description'],
       content: json['content'],
