@@ -6,6 +6,8 @@ class DatabaseService {
   static const String _favoritePromptsKey = 'favorite_prompts';
   static const String _userStatsKey = 'user_stats';
   static const String _lifetimeAccessKey = 'lifetime_access';
+  static const String _adWatchCountKey = 'ad_watch_count';
+  static const String _lastAdWatchKey = 'last_ad_watch';
   static const String _activeSubscriptionKey = 'active_subscription';
   static const String _subscriptionStartDateKey = 'subscription_start_date';
   static const String _subscriptionEndDateKey = 'subscription_end_date';
@@ -161,6 +163,8 @@ class DatabaseService {
       'prompts_unlocked': 0,
       'favorites_count': 0,
       'total_sessions': 0,
+      'ads_watched': 0,
+      'ads_watched_today': 0,
       'first_launch': DateTime.now().millisecondsSinceEpoch,
       'last_active': DateTime.now().millisecondsSinceEpoch,
     };
@@ -178,6 +182,37 @@ class DatabaseService {
     final stats = await getUserStats();
     final currentSessions = stats['total_sessions'] ?? 0;
     await _updateStats('total_sessions', currentSessions + 1);
+  }
+
+  // Ad tracking
+  static Future<int> getAdWatchCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_adWatchCountKey) ?? 0;
+  }
+
+  static Future<void> incrementAdWatchCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentCount = await getAdWatchCount();
+    await prefs.setInt(_adWatchCountKey, currentCount + 1);
+    await prefs.setInt(_lastAdWatchKey, DateTime.now().millisecondsSinceEpoch);
+    await _updateStats('ads_watched', currentCount + 1);
+    
+    final stats = await getUserStats();
+    final dailyCount = stats['ads_watched_today'] ?? 0;
+    await _updateStats('ads_watched_today', dailyCount + 1);
+  }
+
+  static Future<void> resetDailyAdCount() async {
+    await _updateStats('ads_watched_today', 0);
+  }
+
+  static Future<DateTime?> getLastAdWatchTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    final timestamp = prefs.getInt(_lastAdWatchKey);
+    if (timestamp != null) {
+      return DateTime.fromMillisecondsSinceEpoch(timestamp);
+    }
+    return null;
   }
 
   // Clear all data (for testing or reset)
